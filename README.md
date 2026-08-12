@@ -24,11 +24,11 @@ Shared assets: `assets/css/site.css`, `assets/js/site.js`, `assets/img/`.
 
 ## Design system
 
-- **Display type:** Bodoni Moda, 400 and italic only. It matches the client's own logo, which is set in a high-contrast Didone, and its variable optical sizing keeps hairlines correct from the 16px wordmark up to the 129px hero.
-- **Text type:** Manrope, 400 and 500 only. Four faces load in total.
+- **Display type:** Cormorant Garamond, 400/500/600 plus italic. Weight 500-600 carries anything set in the serif below ~28px, where Cormorant otherwise runs thin.
+- **Text type:** Manrope, 400 and 500.
 - **Palette:** seven tones, each with one job. ivory `#F7F3EC` page, shell `#EFE6DB` secondary surface, sand `#E4D8C9` body text on espresso, taupe `#B4A395` rules and muted text on espresso, greige `#6F6459` muted text on ivory, mocha `#6B5749` accent and body text, espresso `#2B2320` ink.
 - **Spacing:** four steps, `--sp-1` through `--sp-4`, plus `--sec` and `--sec-tight` for section rhythm. Nothing uses a one-off value.
-- **Type scale:** 129 / 57 / 48 / 34 / 24 / 17 / 12 px at desktop. Hero, editorial statement, pillar, service, section title, body, label. Nothing competes with the hero.
+- **Type scale:** 139 / 63 / 48 / 34 / 26 / 17 / 12 px at desktop. Hero, editorial statement, pillar, service, section title, body, label.
 - Every colour and size is a custom property at the top of `site.css`. Change it there and the whole site follows.
 - `taupe` is for rules and for text on espresso only. On ivory it fails contrast; use `greige`.
 - `Drip addict` is the inverted (espresso) treatment rather than a second palette.
@@ -48,6 +48,10 @@ Nothing is invented: no names, credentials, hours, reviews or medical claims. Ra
 | Cancellation and deposit policy | `pricing.html`, "Before you book" |
 
 Each comment describes the markup to reuse, so adding the real content is a paste rather than a rebuild.
+
+## Contact page
+
+The map is a keyless Google Maps embed () pointed at 200 Middle Neck Road, Great Neck, NY 11021, with a CSS filter that warms Google's greens and blues into the site neutrals. The address row links to Google Maps directions. Contact links carry a resting underline in taupe that darkens to the text colour on hover.
 
 ## The enquiry form
 
