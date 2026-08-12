@@ -31,7 +31,7 @@ Shared assets: `assets/css/site.css`, `assets/js/site.js`, `assets/img/`.
 - **Type scale:** 129 / 57 / 48 / 34 / 24 / 17 / 12 px at desktop. Hero, editorial statement, pillar, service, section title, body, label. Nothing competes with the hero.
 - Every colour and size is a custom property at the top of `site.css`. Change it there and the whole site follows.
 - `taupe` is for rules and for text on espresso only. On ivory it fails contrast; use `greige`.
-- `drip addict` is the inverted (espresso) treatment rather than a second palette.
+- `Drip addict` is the inverted (espresso) treatment rather than a second palette.
 
 Motion is `[data-reveal]` plus one IntersectionObserver: a fade and rise for text, a clip-path wipe for images. `prefers-reduced-motion` disables all of it.
 
@@ -71,7 +71,7 @@ On failure the form logs FormSubmit's own message to the console, which separate
 
 ## Images
 
-The founders' photograph is the anchor: it opens the homepage and carries the philosophy section below it, cropped differently in each. The rest of `assets/img/` was generated to a single art direction for launch and is deliberately atmospheric rather than populated, so no anonymous model competes with the founders. Replace with the practice's own photography as it becomes available — keep the same filenames and the layouts will not move.
+The founders' photograph is the anchor and appears once per page: the homepage hero and the About banner, cropped differently in each. The rest of `assets/img/` was generated to a single art direction for launch and is deliberately atmospheric rather than populated, so no anonymous model competes with the founders. Replace with the practice's own photography as it becomes available — keep the same filenames and the layouts will not move.
 
 `logo.png` is the client's supplied master logo. `mark.png` (BW monogram) and `logo-lockup.jpg` are crops of it. `founders.jpg` is the client's photograph, re-cropped in CSS so both founders sit centred on desktop and mobile.
 
