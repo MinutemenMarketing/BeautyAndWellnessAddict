@@ -618,6 +618,30 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
 .footer__list li > a { display: inline-flex; align-items: center; min-height: 44px; }
 .footer__bottom .ul-link { display: inline-flex; align-items: center; min-height: 44px; }
 .footer__by { display: inline-flex; align-items: center; gap: .4em; }
+
+/* Links given a 44px tap box sit taller than their text, so the .ul-link bar
+   would land at the bottom of the box instead of under the words. Use a real
+   underline on these instead. */
+.footer__list li > a,
+.footer__bottom .ul-link,
+.contact-row__v .ul-link,
+.menu__foot .ul-link {
+  text-underline-offset: .3em;
+  text-decoration-thickness: 1px;
+}
+.footer__list li > a::after,
+.footer__bottom .ul-link::after,
+.contact-row__v .ul-link::after,
+.menu__foot .ul-link::after { content: none; }
+.footer__list li > a:hover,
+.footer__list li > a:focus-visible,
+.contact-row__v .ul-link:hover,
+.contact-row__v .ul-link:focus-visible,
+.menu__foot .ul-link:hover,
+.menu__foot .ul-link:focus-visible { text-decoration: underline; }
+
+/* The studio credit stays underlined so it reads as a link without a hover. */
+.footer__by .ul-link { text-decoration-line: underline; }
 .footer__bottom {
   border-top: 1px solid var(--line-inv);
   padding-top: var(--sp-2);
