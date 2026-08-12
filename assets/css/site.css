@@ -6,30 +6,28 @@
 
 /* ---------- Tokens ---------- */
 :root {
-  --ivory:    #F7F3EC;
-  --shell:    #EFE6DB;
-  --sand:     #E4D8C9;
-  --nude:     #D6C3B2;
-  --taupe:    #B4A395;   /* rules; text only on espresso */
-  --sand-deep:#9A8877;   /* large numerals on light */
-  --greige:   #6F6459;   /* secondary text on light */
-  --mocha:    #6B5749;
-  --espresso: #2B2320;
+  --ivory:    #F7F3EC;   /* page */
+  --shell:    #EFE6DB;   /* secondary surface */
+  --sand:     #E4D8C9;   /* body text on espresso */
+  --taupe:    #B4A395;   /* rules; muted text on espresso only */
+  --greige:   #6F6459;   /* muted text on ivory */
+  --mocha:    #6B5749;   /* accent + body text */
+  --espresso: #2B2320;   /* ink */
   --line:     rgba(43, 35, 32, .15);
   --line-soft:rgba(43, 35, 32, .08);
   --line-inv: rgba(247, 243, 236, .20);
 
   --display: "Bodoni Moda", "Didot", "Times New Roman", serif;
-  --text: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+  --text: "Manrope", "Helvetica Neue", Arial, sans-serif;
 
   --fs-micro: .75rem;
   --fs-small: .9375rem;
   --fs-body: 1.0625rem;
   --fs-lead: clamp(1.25rem, 1.05rem + .7vw, 1.625rem);
-  --fs-h3: clamp(1.3125rem, 1.1rem + .85vw, 1.875rem);
-  --fs-h2: clamp(2.25rem, 1.4rem + 3.2vw, 4.5rem);
-  --fs-h1: clamp(3rem, 1.3rem + 6.8vw, 8rem);
-  --fs-mega: clamp(3rem, 1.2rem + 7.4vw, 8.5rem);
+  --fs-h3: clamp(1.1875rem, 1.05rem + .6vw, 1.5rem);
+  --fs-h2: clamp(2rem, 1.25rem + 2.6vw, 3.75rem);
+  --fs-h1: clamp(3.25rem, 1.2rem + 7.6vw, 8.5rem);
+  --fs-mega: clamp(3.25rem, 1.2rem + 7.6vw, 8.5rem);
 
   /* spacing scale — 4 steps, used everywhere */
   --sp-1: clamp(10px, 1.2vw, 16px);
@@ -68,7 +66,7 @@ h1, h2, h3, h4, p, figure, blockquote { margin: 0; }
 ul, ol { margin: 0; padding: 0; list-style: none; }
 a { color: inherit; text-decoration: none; }
 :focus-visible { outline: 2px solid var(--mocha); outline-offset: 3px; }
-::selection { background: var(--nude); color: var(--espresso); }
+::selection { background: var(--sand); color: var(--espresso); }
 
 /* ---------- Layout ---------- */
 .shell {
@@ -475,7 +473,7 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
 .inv { background: var(--espresso); color: var(--sand); }
 .inv h1, .inv h2, .inv h3, .inv .display { color: var(--ivory); }
 .inv .eyebrow, .inv .small, .inv .micro, .inv .svc__meta, .inv .figure__cap, .inv .step__n { color: var(--taupe); }
-.inv .lead, .inv .body, .inv .step__d, .inv .svc__desc, .inv .pillar__body { color: var(--nude); }
+.inv .lead, .inv .body, .inv .step__d, .inv .svc__desc, .inv .pillar__body { color: var(--sand); }
 .inv .rule-top, .inv .svc, .inv .step, .inv .pillar, .inv .svc-list > .svc:first-child { border-color: var(--line-inv); }
 .inv .figure { background: #241D1A; }
 
