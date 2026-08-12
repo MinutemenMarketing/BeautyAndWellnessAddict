@@ -617,6 +617,7 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
 .footer__list { display: grid; font-size: var(--fs-small); }
 .footer__list li > a { display: inline-flex; align-items: center; min-height: 44px; }
 .footer__bottom .ul-link { display: inline-flex; align-items: center; min-height: 44px; }
+.footer__by { display: inline-flex; align-items: center; gap: .4em; }
 .footer__bottom {
   border-top: 1px solid var(--line-inv);
   padding-top: var(--sp-2);
