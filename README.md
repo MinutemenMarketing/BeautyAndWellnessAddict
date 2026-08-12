@@ -51,7 +51,7 @@ Each comment describes the markup to reuse, so adding the real content is a past
 
 ## Contact page
 
-The map is a keyless Google Maps embed () pointed at 200 Middle Neck Road, Great Neck, NY 11021, with a CSS filter that warms Google's greens and blues into the site neutrals. The address row links to Google Maps directions. Contact links carry a resting underline in taupe that darkens to the text colour on hover.
+The map is a keyless Google Maps embed (`https://www.google.com/maps?q=...&output=embed`, no API key or billing account needed) pointed at 200 Middle Neck Road, Great Neck, NY 11021, with a CSS filter that warms Google's greens and blues into the site neutrals. The address row links to Google Maps directions. Contact links carry a resting underline in taupe that darkens to the text colour on hover.
 
 ## The enquiry form
 
