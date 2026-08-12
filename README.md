@@ -53,6 +53,21 @@ Each comment describes the markup to reuse, so adding the real content is a past
 
 The map is a keyless Google Maps embed (`https://www.google.com/maps?q=...&output=embed`, no API key or billing account needed) pointed at 200 Middle Neck Road, Great Neck, NY 11021, with a CSS filter that warms Google's greens and blues into the site neutrals. The address row links to Google Maps directions. Contact links carry a resting underline in taupe that darkens to the text colour on hover.
 
+## Booking
+
+Every `Book a consultation` CTA opens the practice Square booking page in a
+new tab. There are 33 across the site: header, mobile menu, closing section
+and footer on each page, plus the hero and the Contact page primary button.
+
+```
+https://book.squareup.com/appointments/sxo39ov27u4avm/location/LW02SPDAKGV63/services
+```
+
+To change it, replace that string everywhere; it is a plain href, no script.
+Square is not embedded, so nothing here breaks if Square changes its UI.
+
+The enquiry form is a separate path for questions, not bookings.
+
 ## The enquiry form
 
 `contact.html` posts to FormSubmit, currently to `nmmedina08@icloud.com` (same setup as the Ray Nail Spa and Muses Nails sites).
