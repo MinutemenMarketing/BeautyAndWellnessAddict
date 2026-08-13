@@ -155,12 +155,12 @@ a { color: inherit; text-decoration: none; }
 }
 .wordmark__sub {
   display: block;
-  margin-top: -.2em;               /* tucks the script up under the caps */
+  margin-top: .06em;               /* sits clear of the caps line */
   font-family: "Sacramento", var(--display);
   font-style: normal;
   letter-spacing: .01em;
   text-indent: 0;
-  font-size: calc(var(--wm, 1rem) * 1.12);
+  font-size: calc(var(--wm, 1rem) * 1.25);
   line-height: 1;
   color: var(--mocha);
 }
@@ -270,7 +270,7 @@ a { color: inherit; text-decoration: none; }
 
 .brand { --wm: 1rem; display: flex; align-items: center; gap: 13px; flex: none; padding-block: 6px; }
 .brand__mark { width: 32px; height: 32px; object-fit: contain; mix-blend-mode: multiply; flex: none; }
-.brand .wordmark__sub { font-size: calc(var(--wm) * 1.12); margin-top: -.2em; }
+.brand .wordmark__sub { font-size: calc(var(--wm) * 1.25); margin-top: .06em; }
 /* The compact header lockup drops the NY suffix: at this size it renders
    below 8px and stops being legible. The footer mark keeps it. */
 .brand .wordmark__sub sup { display: none; }
