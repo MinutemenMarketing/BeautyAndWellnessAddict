@@ -18,6 +18,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@400;500&display=swap" rel="stylesheet">
+<script>document.documentElement.className+=" js";</script>
 <link rel="stylesheet" href="assets/css/site.css">
 </head>
 <body>
@@ -33,6 +34,7 @@
       </span>
     </a>
     <nav class="nav nav--desktop" aria-label="Primary">
+      <a class="nav__link" href="index.html">Home</a>
       <a class="nav__link" href="about.html" aria-current="page">About</a>
       <a class="nav__link" href="services.html">Services</a>
       <a class="nav__link" href="longevity.html">Longevity</a>
@@ -50,6 +52,7 @@
 <div class="menu" id="site-menu" aria-hidden="true">
   <nav aria-label="Mobile">
     <ul class="menu__list">
+      <li class="menu__item"><a class="menu__link" href="index.html">Home</a></li>
       <li class="menu__item"><a class="menu__link" href="about.html">About</a></li>
       <li class="menu__item"><a class="menu__link" href="services.html">Services</a></li>
       <li class="menu__item"><a class="menu__link" href="aesthetics.html">Aesthetics</a></li>
@@ -99,34 +102,29 @@
     <div class="shell">
       <div class="grid duo">
         <div class="duo__title">
-          <h2 class="h2" data-reveal>How we work</h2>
+          <h2 class="h2" data-reveal>Why the practice exists</h2>
         </div>
         <div class="duo__body stack--sm">
           <p class="body" data-reveal data-delay="120">Aesthetics and wellness are usually sold separately. One place for your face, another for your bloods, a third for your energy. Nobody joins them up, and nobody follows what happens next.</p>
           <p class="body" data-reveal data-delay="160">We built this the other way round. Skin, energy, recovery and long-term health are assessed together, treated in a deliberate order, and reviewed as you go, by the same two practitioners each time.</p>
+          <p class="body" data-reveal data-delay="200">That continuity is the point. A plan only works if someone is still watching it in six months.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section rule-top">
+  <section class="section bg-cream">
     <div class="shell">
-      <div class="pillars">
-        <div class="pillar" data-reveal>
-          <h2 class="pillar__name">Support</h2>
-          <p class="pillar__body">Helping the body repair, rather than covering the evidence.</p>
+      <div class="grid split">
+        <div class="split__media" data-reveal="img">
+          <figure class="figure figure--tall">
+            <img src="assets/img/hands-tray.jpg" alt="A clinician's gloved hands arranging sterile instruments on a linen-covered tray." loading="lazy" decoding="async" width="1264" height="848">
+          </figure>
         </div>
-        <div class="pillar" data-reveal>
-          <h2 class="pillar__name">Sequence</h2>
-          <p class="pillar__body">The right things in the wrong order waste time and money.</p>
-        </div>
-        <div class="pillar" data-reveal>
-          <h2 class="pillar__name">Restraint</h2>
-          <p class="pillar__body">Conservative dosing and the smallest thing that works.</p>
-        </div>
-        <div class="pillar" data-reveal>
-          <h2 class="pillar__name">Continuity</h2>
-          <p class="pillar__body">The same two faces every visit.</p>
+        <div class="split__copy stack">
+          <h2 class="h2" data-reveal>A doctor and a nurse, in the same room</h2>
+          <p class="body" data-reveal data-delay="80">The two roles answer different questions. The doctor decides whether a treatment is appropriate for you at all, reviewing your history, your medications and what you are actually asking for. The nurse decides how it is delivered: the pacing, the technique, the aftercare, and whether today is the right day.</p>
+          <p class="body" data-reveal data-delay="120">Most practices split those decisions between people who never meet. Here they are made together, in front of you, and you see both of us every visit.</p>
         </div>
       </div>
     </div>
@@ -134,19 +132,16 @@
 
   <section class="section">
     <div class="shell">
-      <div class="grid split">
-        <div class="split__media" data-reveal="img">
-          <figure class="figure" style="aspect-ratio:4/3">
-            <img src="assets/img/logo-lockup.jpg" alt="The Beauty &amp; Wellness addict NY wordmark." loading="lazy" decoding="async" width="900" height="653" style="object-fit:contain;padding:8%">
-          </figure>
+      <div class="grid duo">
+        <div class="duo__title">
+          <h2 class="h2" data-reveal>How we approach care</h2>
         </div>
-        <div class="split__copy stack">
-          <p class="eyebrow" data-reveal>On the name</p>
-          <h2 class="h2" data-reveal data-delay="60">Beauty &amp; Wellness. <span class="it">addict</span> NY.</h2>
-          <p class="body" data-reveal data-delay="120">We keep the emphasis where it belongs and let the rest sit underneath as a signature rather than a headline.</p>
-          <p class="body" data-reveal data-delay="150">The same logic carries into our IV practice, <span class="it">Drip addict</span>, which has its own room and its own page.</p>
-          <div data-reveal data-delay="180">
-            <a class="arrow-link" href="drip-addict.html">Visit Drip addict
+        <div class="duo__body stack--sm">
+          <p class="body" data-reveal data-delay="80">Beauty and wellness are treated as the same problem. Skin responds to sleep, nutrient status and recovery, so there is little point perfecting a treatment plan for your face while the rest goes unexamined.</p>
+          <p class="body" data-reveal data-delay="120">Prevention comes before correction wherever it can. Holding onto skin quality, energy and muscle is quieter, cheaper work than trying to recover them later, which is why we would rather start early and do less.</p>
+          <p class="body" data-reveal data-delay="160">Longevity is the long form of the same idea: care planned in decades, reviewed as your body changes, and adjusted when something stops earning its place. Doses stay conservative, treatments are chosen on suitability rather than trend, and we say no more often than most.</p>
+          <div data-reveal data-delay="200">
+            <a class="arrow-link" href="longevity.html">Longevity &amp; wellness
               <svg viewBox="0 0 24 8" fill="none" aria-hidden="true"><path d="M0 4h22M18 1l4 3-4 3" stroke="currentColor"/></svg>
             </a>
           </div>

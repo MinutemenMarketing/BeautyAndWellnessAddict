@@ -26,14 +26,15 @@ Shared assets: `assets/css/site.css`, `assets/js/site.js`, `assets/img/`.
 
 - **Display type:** Cormorant Garamond, 400/500/600 plus italic. Weight 500-600 carries anything set in the serif below ~28px, where Cormorant otherwise runs thin.
 - **Text type:** Manrope, 400 and 500.
-- **Palette:** seven tones, each with one job. ivory `#F7F3EC` page, shell `#EFE6DB` secondary surface, sand `#E4D8C9` body text on espresso, taupe `#B4A395` rules and muted text on espresso, greige `#6F6459` muted text on ivory, mocha `#6B5749` accent and body text, espresso `#2B2320` ink.
+- **Grounds:** ivory (page), cream (a step down), shell (a step further), espresso (dark moments). Sections change ground where a new idea starts, never on a fixed alternation. Two sections sharing a ground get 55% of the usual top padding, because they read as one continuous idea.
+- **Palette:** eight tones, each with one job. ivory `#F7F3EC` page, shell `#EFE6DB` secondary surface, sand `#E4D8C9` body text on espresso, taupe `#B4A395` rules and muted text on espresso, greige `#6F6459` muted text on ivory, mocha `#6B5749` accent and body text, espresso `#2B2320` ink.
 - **Spacing:** four steps, `--sp-1` through `--sp-4`, plus `--sec` and `--sec-tight` for section rhythm. Nothing uses a one-off value.
 - **Type scale:** 139 / 63 / 48 / 34 / 26 / 17 / 12 px at desktop. Hero, editorial statement, pillar, service, section title, body, label.
 - Every colour and size is a custom property at the top of `site.css`. Change it there and the whole site follows.
 - `taupe` is for rules and for text on espresso only. On ivory it fails contrast; use `greige`.
 - `Drip addict` is the inverted (espresso) treatment rather than a second palette.
 
-Motion is `[data-reveal]` plus one IntersectionObserver: a fade and rise for text, a clip-path wipe for images. `prefers-reduced-motion` disables all of it.
+Motion is `[data-reveal]` plus one IntersectionObserver: a fade and rise for text, a clip-path wipe for images. Every reveal rule is scoped to `html.js`, a class set by an inline script in the head, so if JavaScript is blocked or fails the images and headings render normally instead of staying clipped and invisible. `prefers-reduced-motion` disables the motion.
 
 ## What is deliberately missing
 

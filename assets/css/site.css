@@ -6,6 +6,7 @@
 /* ---------- Tokens ---------- */
 :root {
   --ivory:    #F7F3EC;   /* page */
+  --cream:    #F2EBE1;   /* first step down from ivory */
   --shell:    #EFE6DB;   /* secondary surface */
   --sand:     #E4D8C9;   /* body text on espresso */
   --taupe:    #B4A395;   /* rules; muted text on espresso only */
@@ -35,8 +36,8 @@
   --sp-4: clamp(64px, 8vw, 128px);
 
   --gutter: clamp(22px, 5vw, 88px);
-  --sec: clamp(96px, 12vw, 210px);
-  --sec-tight: clamp(64px, 8vw, 132px);
+  --sec: clamp(80px, 9vw, 156px);
+  --sec-tight: clamp(56px, 6vw, 104px);
   --maxw: 1560px;
 
   --ease: cubic-bezier(.22, .68, .18, 1);
@@ -76,6 +77,13 @@ a { color: inherit; text-decoration: none; }
 }
 .section { padding-block: var(--sec); }
 .section--tight { padding-block: var(--sec-tight); }
+/* Two sections on the same ground read as one continuous idea, so the boundary
+   between them does not need two full pads. A change of ground keeps the full
+   separation, because that is where a new idea starts. */
+.section:not([class*="bg-"]):not(.inv):not(.close):not(.manifesto)
+  + .section:not([class*="bg-"]):not(.inv):not(.close):not(.manifesto) {
+  padding-top: calc(var(--sec) * .55);
+}
 .rule-top { border-top: 1px solid var(--line); }
 .grid {
   display: grid;
@@ -129,7 +137,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* Wordmark — "Beauty & Wellness" leads, "addict" signs ------------- */
-.wordmark { display: inline-block; line-height: 1; }
+.wordmark { display: inline-block; line-height: 1; text-align: center; }
 .wordmark__main {
   display: block;
   font-family: var(--display);
@@ -141,20 +149,23 @@ a { color: inherit; text-decoration: none; }
 }
 .wordmark__sub {
   display: block;
-  margin-top: .55em;
+  margin-top: .34em;
   font-family: var(--display);
   font-style: italic;
-  letter-spacing: .34em;
-  text-indent: .34em;
-  font-size: calc(var(--wm, 1rem) * .66);
-  color: var(--greige);
+  letter-spacing: .2em;
+  text-indent: .2em;
+  font-size: calc(var(--wm, 1rem) * .8);
+  color: var(--mocha);
 }
 .wordmark__sub sup {
   font-style: normal;
   font-family: var(--text);
-  font-size: .6em;
-  letter-spacing: .16em;
-  vertical-align: .5em;
+  font-size: .58em;
+  font-weight: 500;
+  letter-spacing: .14em;
+  vertical-align: .34em;
+  margin-left: .1em;
+  opacity: .82;
 }
 .wordmark--inv .wordmark__sub { color: var(--taupe); }
 
@@ -252,7 +263,7 @@ a { color: inherit; text-decoration: none; }
 
 .brand { --wm: 1rem; display: flex; align-items: center; gap: 13px; flex: none; padding-block: 6px; }
 .brand__mark { width: 32px; height: 32px; object-fit: contain; mix-blend-mode: multiply; flex: none; }
-.brand .wordmark__sub { font-size: calc(var(--wm) * .62); margin-top: .42em; }
+.brand .wordmark__sub { font-size: calc(var(--wm) * .8); margin-top: .3em; }
 
 .nav { display: flex; align-items: center; gap: clamp(20px, 2.2vw, 40px); }
 .nav__link {
@@ -325,6 +336,13 @@ a { color: inherit; text-decoration: none; }
 .menu.is-open .menu__link { opacity: 1; transition: opacity .5s var(--ease) .15s; }
 .menu__link em { font-style: italic; font-size: .46em; color: var(--greige); }
 .menu__foot { margin-top: auto; padding-top: var(--sp-3); display: grid; gap: 4px; }
+/* Short screens: tighten so the booking button stays above the fold with
+   eight items in the list. */
+@media (max-height: 730px) {
+  .menu { padding-top: 84px; padding-bottom: 24px; }
+  .menu__link { padding: 10px 0; font-size: clamp(1.375rem, 1rem + 2.2vw, 1.75rem); }
+  .menu__foot { padding-top: var(--sp-2); }
+}
 .menu__foot .ul-link { display: inline-flex; align-items: center; min-height: 44px; }
 .menu__foot .btn { margin-bottom: var(--sp-1); justify-self: start; }
 
@@ -683,22 +701,22 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
 }
 
 /* ---------- Reveal ---------- */
-[data-reveal] {
+.js [data-reveal] {
   opacity: 0;
   transform: translateY(16px);
   transition: opacity var(--dur) var(--ease) var(--delay, 0s),
               transform var(--dur) var(--ease) var(--delay, 0s);
 }
-[data-reveal].is-in { opacity: 1; transform: none; }
+.js [data-reveal].is-in { opacity: 1; transform: none; }
 
-[data-reveal="img"] {
+.js [data-reveal="img"] {
   opacity: 1; transform: none;
   clip-path: inset(0 0 100% 0);
   transition: clip-path 1.1s var(--ease) var(--delay, 0s);
 }
-[data-reveal="img"].is-in { clip-path: inset(0 0 0 0); }
-[data-reveal="img"] img { transform: scale(1.06); transition: transform 1.6s var(--ease) var(--delay, 0s); }
-[data-reveal="img"].is-in img { transform: none; }
+.js [data-reveal="img"].is-in { clip-path: inset(0 0 0 0); }
+.js [data-reveal="img"] img { transform: scale(1.06); transition: transform 1.6s var(--ease) var(--delay, 0s); }
+.js [data-reveal="img"].is-in img { transform: none; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -707,10 +725,14 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
     animation-iteration-count: 1 !important;
     transition-duration: .001ms !important;
   }
-  [data-reveal], [data-reveal="img"] { opacity: 1 !important; transform: none !important; clip-path: none !important; }
-  [data-reveal="img"] img { transform: none !important; }
+  .js [data-reveal], .js [data-reveal="img"] { opacity: 1 !important; transform: none !important; clip-path: none !important; }
+  .js [data-reveal="img"] img { transform: none !important; }
   .menu__link { opacity: 1 !important; }
 }
+
+/* ---------- Section grounds ---------- */
+.bg-cream { background: var(--cream); }
+.bg-shell { background: var(--shell); }
 
 /* ---------- Utilities ---------- */
 .mt-1 { margin-top: var(--sp-1); }
