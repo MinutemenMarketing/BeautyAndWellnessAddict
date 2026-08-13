@@ -136,38 +136,45 @@ a { color: inherit; text-decoration: none; }
   color: var(--greige);
 }
 
-/* Wordmark — "Beauty & Wellness" leads, "addict" signs ------------- */
+/* Wordmark ---------------------------------------------------------
+   Set caps carry the name; "addict" is signed underneath in a monoline
+   script and tucked up so the two read as one mark. Monoline matters:
+   a high-contrast calligraphic face would lose its thin strokes at the
+   16px header size. */
 .wordmark { display: inline-block; line-height: 1; text-align: center; }
 .wordmark__main {
   display: block;
   font-family: var(--display);
   font-weight: 600;
-  letter-spacing: .15em;
-  text-indent: .15em;
-  font-size: var(--wm, 1rem);
+  text-transform: uppercase;
+  letter-spacing: .17em;
+  text-indent: .17em;
+  font-size: calc(var(--wm, 1rem) * .88);
+  line-height: 1;
   white-space: nowrap;
 }
 .wordmark__sub {
   display: block;
-  margin-top: .34em;
-  font-family: var(--display);
-  font-style: italic;
-  letter-spacing: .2em;
-  text-indent: .2em;
-  font-size: calc(var(--wm, 1rem) * .8);
+  margin-top: -.2em;               /* tucks the script up under the caps */
+  font-family: "Sacramento", var(--display);
+  font-style: normal;
+  letter-spacing: .01em;
+  text-indent: 0;
+  font-size: calc(var(--wm, 1rem) * 1.12);
+  line-height: 1;
   color: var(--mocha);
 }
 .wordmark__sub sup {
-  font-style: normal;
   font-family: var(--text);
-  font-size: .58em;
+  font-size: .38em;
   font-weight: 500;
-  letter-spacing: .14em;
-  vertical-align: .34em;
-  margin-left: .1em;
-  opacity: .82;
+  letter-spacing: .16em;
+  vertical-align: .8em;
+  margin-left: .12em;
+  color: var(--greige);
 }
-.wordmark--inv .wordmark__sub { color: var(--taupe); }
+.wordmark--inv .wordmark__sub { color: var(--sand); }
+.wordmark--inv .wordmark__sub sup { color: var(--taupe); }
 
 /* ---------- Links & buttons ---------- */
 .ul-link { position: relative; display: inline-block; padding-bottom: 2px; }
@@ -263,7 +270,10 @@ a { color: inherit; text-decoration: none; }
 
 .brand { --wm: 1rem; display: flex; align-items: center; gap: 13px; flex: none; padding-block: 6px; }
 .brand__mark { width: 32px; height: 32px; object-fit: contain; mix-blend-mode: multiply; flex: none; }
-.brand .wordmark__sub { font-size: calc(var(--wm) * .8); margin-top: .3em; }
+.brand .wordmark__sub { font-size: calc(var(--wm) * 1.12); margin-top: -.2em; }
+/* The compact header lockup drops the NY suffix: at this size it renders
+   below 8px and stops being legible. The footer mark keeps it. */
+.brand .wordmark__sub sup { display: none; }
 
 .nav { display: flex; align-items: center; gap: clamp(20px, 2.2vw, 40px); }
 .nav__link {
