@@ -710,23 +710,39 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
   max-width: 104ch;
 }
 
-/* ---------- Reveal ---------- */
-.js [data-reveal] {
+/* ---------- Reveal -------------------------------------------------
+   The entrance animation is an enhancement and is never load-bearing.
+
+   Content is visible by default. It is only hidden while `html.reveal-on`
+   is present, and that class is removed by a failsafe timer unless
+   site.js confirms it has an observer running. So if the script is
+   blocked, fails to load, throws, or the observer never fires, the
+   content ends up visible rather than stuck.
+
+   Animated with opacity and transform only. The previous version used a
+   clip-path transition, which is the most repaint-fragile property here
+   and can silently fail on some Windows GPU drivers, leaving the image
+   clipped to nothing. */
+.reveal-on [data-reveal] {
   opacity: 0;
-  transform: translateY(16px);
+  transform: translateY(14px);
   transition: opacity var(--dur) var(--ease) var(--delay, 0s),
               transform var(--dur) var(--ease) var(--delay, 0s);
+  will-change: opacity, transform;
 }
-.js [data-reveal].is-in { opacity: 1; transform: none; }
+.reveal-on [data-reveal="img"] { transform: translateY(16px) scale(.97); }
 
-.js [data-reveal="img"] {
-  opacity: 1; transform: none;
-  clip-path: inset(0 0 100% 0);
-  transition: clip-path 1.1s var(--ease) var(--delay, 0s);
+/* Revealed, failed to load, or the failsafe fired: all end up here. */
+.reveal-on [data-reveal].is-in,
+[data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+  visibility: visible;
+  will-change: auto;
 }
-.js [data-reveal="img"].is-in { clip-path: inset(0 0 0 0); }
-.js [data-reveal="img"] img { transform: scale(1.06); transition: transform 1.6s var(--ease) var(--delay, 0s); }
-.js [data-reveal="img"].is-in img { transform: none; }
+
+/* Images are never allowed to disappear, whatever state their wrapper is in. */
+[data-reveal] img { opacity: 1; visibility: visible; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -735,8 +751,15 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
     animation-iteration-count: 1 !important;
     transition-duration: .001ms !important;
   }
-  .js [data-reveal], .js [data-reveal="img"] { opacity: 1 !important; transform: none !important; clip-path: none !important; }
-  .js [data-reveal="img"] img { transform: none !important; }
+  /* Reduced motion means no animation, never no image. */
+  .reveal-on [data-reveal],
+  .reveal-on [data-reveal="img"],
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+    visibility: visible !important;
+  }
   .menu__link { opacity: 1 !important; }
 }
 

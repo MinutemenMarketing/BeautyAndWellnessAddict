@@ -62,25 +62,98 @@
     });
   }
 
-  /* ---------- scroll reveals ---------- */
-  var revealables = document.querySelectorAll("[data-reveal]");
-  if (reduced || !("IntersectionObserver" in window)) {
-    Array.prototype.forEach.call(revealables, function (el) { el.classList.add("is-in"); });
-  } else {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add("is-in");
-        io.unobserve(entry.target);
-      });
-    }, { rootMargin: "0px 0px -6% 0px", threshold: 0.1 });
+  /* ---------- scroll reveals ----------------------------------------
+     Rules, in priority order:
+       1. content is visible
+       2. content is visible
+       3. the entrance animation is nice to have
 
-    Array.prototype.forEach.call(revealables, function (el) {
-      var d = el.getAttribute("data-delay");
-      if (d) el.style.setProperty("--delay", d + "ms");
-      io.observe(el);
-    });
+     `html.reveal-on` is what allows CSS to hide anything. The inline head
+     script sets it and arms a failsafe timer; we only disarm that timer
+     once an observer is actually running. Every path below ends with
+     everything visible. */
+  var revealables = document.querySelectorAll("[data-reveal]");
+
+  var showAll = function () {
+    Array.prototype.forEach.call(revealables, function (el) { el.classList.add("is-in"); });
+  };
+  var standDown = function () {
+    /* Drop the gate entirely: nothing can be hidden by CSS after this. */
+    document.documentElement.classList.remove("reveal-on");
+    if (window.__revealFailsafe) { clearTimeout(window.__revealFailsafe); window.__revealFailsafe = null; }
+  };
+
+  try {
+    if (!revealables.length) {
+      standDown();
+    } else if (reduced || !("IntersectionObserver" in window)) {
+      /* Reduced motion, or a browser without the observer: show immediately. */
+      showAll();
+      standDown();
+    } else {
+      Array.prototype.forEach.call(revealables, function (el) {
+        var d = el.getAttribute("data-delay");
+        if (d) el.style.setProperty("--delay", d + "ms");
+      });
+
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-in");
+          io.unobserve(entry.target);
+        });
+      }, {
+        /* threshold 0 and a generous top margin: anything that touches the
+           viewport at all reveals, including elements taller than the
+           screen and elements already on screen at load. */
+        rootMargin: "240px 0px 240px 0px",
+        threshold: 0
+      });
+
+      Array.prototype.forEach.call(revealables, function (el) { io.observe(el); });
+
+      /* The observer is live, so the inline failsafe can stand down. */
+      if (window.__revealFailsafe) { clearTimeout(window.__revealFailsafe); window.__revealFailsafe = null; }
+
+      /* Sweep anything at or above the current scroll position. Covers a
+         reload partway down the page, a deep link to an anchor, and
+         back/forward restores. */
+      var sweep = function () {
+        var h = window.innerHeight || document.documentElement.clientHeight;
+        Array.prototype.forEach.call(revealables, function (el) {
+          if (el.classList.contains("is-in")) return;
+          var r = el.getBoundingClientRect();
+          if (r.top < h + 240 && r.bottom > -240) el.classList.add("is-in");
+        });
+      };
+      sweep();
+      window.addEventListener("load", sweep);
+      window.addEventListener("pageshow", sweep);
+
+      /* Last resort: if anything above the fold is somehow still hidden a
+         few seconds in, the observer is not doing its job. Give up on the
+         animation for those and show them. */
+      setTimeout(function () {
+        var h = window.innerHeight || document.documentElement.clientHeight;
+        var stuck = false;
+        Array.prototype.forEach.call(revealables, function (el) {
+          if (!el.classList.contains("is-in") && el.getBoundingClientRect().top < h) stuck = true;
+        });
+        if (stuck) { showAll(); standDown(); }
+      }, 2500);
+    }
+  } catch (err) {
+    /* Any failure at all: drop the gate and show everything. */
+    showAll();
+    standDown();
   }
+
+  /* A broken image must not leave a clipped, empty frame behind. */
+  Array.prototype.forEach.call(document.images, function (img) {
+    var reveal = img.closest ? img.closest("[data-reveal]") : null;
+    if (!reveal) return;
+    img.addEventListener("error", function () { reveal.classList.add("is-in"); });
+  });
 
   /* ---------- disclosure panels ---------- */
   Array.prototype.forEach.call(document.querySelectorAll(".acc__head"), function (btn) {

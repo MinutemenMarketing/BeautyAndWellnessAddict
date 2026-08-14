@@ -34,7 +34,21 @@ Shared assets: `assets/css/site.css`, `assets/js/site.js`, `assets/img/`.
 - `taupe` is for rules and for text on espresso only. On ivory it fails contrast; use `greige`.
 - `Drip addict` is the inverted (espresso) treatment rather than a second palette.
 
-Motion is `[data-reveal]` plus one IntersectionObserver: a fade and rise for text, a clip-path wipe for images. Every reveal rule is scoped to `html.js`, a class set by an inline script in the head, so if JavaScript is blocked or fails the images and headings render normally instead of staying clipped and invisible. `prefers-reduced-motion` disables the motion.
+Motion is `[data-reveal]` plus one IntersectionObserver: fade, rise and a
+0.97 scale on images. It is an enhancement and is never load-bearing.
+
+The gate is `html.reveal-on`. An inline head script adds it and arms a 3s
+failsafe that removes it; site.js disarms that timer only once an observer
+is confirmed running. So if site.js is blocked, 404s, or throws, the timer
+fires and everything becomes visible. Further nets: a sweep on load and on
+pageshow, a 2.5s check for anything still hidden above the fold, a
+try/catch that drops the gate on any error, an error listener for a failed
+script tag, and an onerror per image so a broken file never leaves a blank
+frame. Reduced motion and a missing IntersectionObserver both reveal
+immediately.
+
+Animated with opacity and transform only. An earlier version transitioned
+clip-path, which is the most repaint-fragile property available here.
 
 ## What is deliberately missing
 
