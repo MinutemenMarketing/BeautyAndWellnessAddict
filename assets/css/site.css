@@ -13,6 +13,12 @@
   --greige:   #6F6459;   /* muted text on ivory */
   --mocha:    #6B5749;   /* accent + body text */
   --espresso: #2B2320;   /* ink */
+  /* Gold, in two tones so it can be both accent and readable text.
+     --gold is brass: rules, icons, borders, and text on espresso (5.0:1).
+     --gold-ink is the darker cousin for text on ivory (4.9:1). */
+  --gold:     #B08D57;
+  --gold-ink: #7D5F2C;   /* passes 4.5:1 on ivory, cream and shell alike */
+  --gold-soft:rgba(176, 141, 87, .32);
   --line:     rgba(43, 35, 32, .15);
   --line-soft:rgba(43, 35, 32, .08);
   --line-inv: rgba(247, 243, 236, .20);
@@ -118,7 +124,7 @@ a { color: inherit; text-decoration: none; }
 .h2 { font-size: var(--fs-h2); line-height: 1.0; }
 .h3 { font-size: var(--fs-h3); line-height: 1.2; letter-spacing: -.005em; }
 .mega { font-size: var(--fs-mega); line-height: .94; letter-spacing: -.014em; }
-.it { font-style: italic; }
+.it { font-style: italic; color: var(--gold-ink); }
 .lead {
   font-size: var(--fs-lead);
   line-height: 1.45;
@@ -162,7 +168,7 @@ a { color: inherit; text-decoration: none; }
   text-indent: 0;
   font-size: calc(var(--wm, 1rem) * 1.25);
   line-height: 1;
-  color: var(--mocha);
+  color: var(--gold-ink);
 }
 .wordmark__sub sup {
   font-family: var(--text);
@@ -173,7 +179,7 @@ a { color: inherit; text-decoration: none; }
   margin-left: .12em;
   color: var(--greige);
 }
-.wordmark--inv .wordmark__sub { color: var(--sand); }
+.wordmark--inv .wordmark__sub { color: var(--gold); }
 .wordmark--inv .wordmark__sub sup { color: var(--taupe); }
 
 /* ---------- Links & buttons ---------- */
@@ -199,7 +205,7 @@ a { color: inherit; text-decoration: none; }
   font-weight: 500;
   color: var(--espresso);
 }
-.arrow-link svg { width: 20px; transition: transform .45s var(--ease); }
+.arrow-link svg { width: 20px; color: var(--gold-ink); transition: transform .45s var(--ease); }
 .arrow-link:hover svg, .arrow-link:focus-visible svg { transform: translateX(6px); }
 .arrow-link--inv { color: var(--sand); }
 
@@ -451,7 +457,7 @@ a { color: inherit; text-decoration: none; }
 }
 a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8px); }
 .svc__desc { color: var(--mocha); font-size: var(--fs-small); max-width: 52ch; }
-.svc__meta { font-size: var(--fs-micro); letter-spacing: .1em; text-transform: uppercase; color: var(--greige); white-space: nowrap; }
+.svc__meta { font-size: var(--fs-micro); letter-spacing: .1em; text-transform: uppercase; color: var(--gold-ink); white-space: nowrap; }
 
 /* ---------- Disclosure (services detail) ---------- */
 .acc { border-bottom: 1px solid var(--line-soft); }
@@ -467,7 +473,7 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
   color: inherit;
 }
 .acc__name { font-weight: 500; font-family: var(--display); font-size: clamp(1.25rem, 1.05rem + .8vw, 1.75rem); line-height: 1.15; }
-.acc__price { font-weight: 500; font-family: var(--display); font-size: var(--fs-body); color: var(--greige); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.acc__price { font-weight: 500; font-family: var(--display); font-size: var(--fs-body); color: var(--gold-ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .acc__sign {
   position: relative;
   width: 12px; height: 12px;
@@ -477,7 +483,7 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
 }
 .acc__sign::before, .acc__sign::after {
   content: ""; position: absolute; inset: 0; margin: auto;
-  background: var(--espresso);
+  background: var(--gold-ink);
   transition: transform .4s var(--ease);
 }
 .acc__sign::before { width: 11px; height: 1px; }
@@ -494,14 +500,17 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
 @media (min-width: 640px) { .journey { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 1040px) { .journey { grid-template-columns: repeat(4, 1fr); } }
 .step { display: flex; flex-direction: column; gap: var(--sp-1); border-top: 1px solid var(--line); padding-top: var(--sp-2); }
-.step__n { font-family: var(--display); font-style: italic; font-size: 1.125rem; color: var(--greige); }
+.step__n { font-family: var(--display); font-style: italic; font-size: 1.125rem; color: var(--gold-ink); }
 .step__t { font-family: var(--display); font-weight: 500; font-size: var(--fs-h3); }
 .step__d { color: var(--mocha); font-size: var(--fs-small); }
 
 /* ---------- Inverted band ---------- */
 .inv { background: var(--espresso); color: var(--sand); }
 .inv h1, .inv h2, .inv h3, .inv .display { color: var(--ivory); }
-.inv .eyebrow, .inv .small, .inv .micro, .inv .svc__meta, .inv .figure__cap, .inv .step__n { color: var(--taupe); }
+.inv .eyebrow, .inv .small, .inv .micro, .inv .figure__cap { color: var(--taupe); }
+.inv .svc__meta, .inv .step__n, .inv .it { color: var(--gold); }
+.inv .arrow-link svg { color: var(--gold); }
+.close .it, .cta-band .it { color: var(--gold); }
 .inv .lead, .inv .body, .inv .step__d, .inv .svc__desc, .inv .pillar__body { color: var(--sand); }
 .inv .rule-top, .inv .svc, .inv .step, .inv .pillar, .inv .svc-list > .svc:first-child { border-color: var(--line-inv); }
 .inv .figure { background: #241D1A; }
@@ -540,6 +549,7 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
 .pr__price {
   font-family: var(--display);
   font-weight: 500;
+  color: var(--gold-ink);
   font-size: clamp(1.1875rem, 1rem + .7vw, 1.5rem);
   font-variant-numeric: tabular-nums;
   text-align: right;
@@ -551,7 +561,7 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
 .chiplist li {
   font-size: var(--fs-micro);
   letter-spacing: .06em;
-  border: 1px solid var(--line);
+  border: 1px solid var(--gold-soft);
   padding: 7px 13px;
   color: var(--espresso);
 }
@@ -636,7 +646,7 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
 .contact-row__v .ul-link {
   display: inline-flex; align-items: center; min-height: 44px;
   text-decoration-line: underline;
-  text-decoration-color: var(--taupe);
+  text-decoration-color: var(--gold);
   text-underline-offset: .16em;
   text-decoration-thickness: 1px;
   transition: text-decoration-color .35s var(--ease), color .35s var(--ease);
@@ -661,6 +671,7 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
 /* ---------- Footer ---------- */
 .footer { background: var(--espresso); color: var(--sand); padding-top: var(--sp-4); padding-bottom: var(--sp-2); }
 .footer .micro, .footer .small { color: var(--taupe); }
+.footer .it { color: var(--gold); }
 .footer a:hover { color: var(--ivory); }
 .footer__top { row-gap: var(--sp-3); padding-bottom: var(--sp-3); }
 .footer__brand { grid-column: 1 / -1; }

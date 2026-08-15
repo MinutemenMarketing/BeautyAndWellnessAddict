@@ -27,7 +27,8 @@ Shared assets: `assets/css/site.css`, `assets/js/site.js`, `assets/img/`.
 - **Display type:** Cormorant Garamond, 400/500/600 plus italic. Weight 500-600 carries anything set in the serif below ~28px, where Cormorant otherwise runs thin.
 - **Text type:** Manrope, 400 and 500.
 - **Grounds:** ivory (page), cream (a step down), shell (a step further), espresso (dark moments). Sections change ground where a new idea starts, never on a fixed alternation. Two sections sharing a ground get 55% of the usual top padding, because they read as one continuous idea.
-- **Palette:** eight tones, each with one job. ivory `#F7F3EC` page, shell `#EFE6DB` secondary surface, sand `#E4D8C9` body text on espresso, taupe `#B4A395` rules and muted text on espresso, greige `#6F6459` muted text on ivory, mocha `#6B5749` accent and body text, espresso `#2B2320` ink.
+- **Gold:** `--gold #B08D57` for rules, icons, borders and text on espresso; `--gold-ink #7D5F2C` for text on ivory, cream and shell, where it clears 4.5:1 on all three. It carries the addict signature, the italic accent word in every headline, the step numerals, prices, arrow glyphs, chip borders and contact underlines.
+- **Palette:** ten tones, each with one job. ivory `#F7F3EC` page, shell `#EFE6DB` secondary surface, sand `#E4D8C9` body text on espresso, taupe `#B4A395` rules and muted text on espresso, greige `#6F6459` muted text on ivory, mocha `#6B5749` accent and body text, espresso `#2B2320` ink.
 - **Spacing:** four steps, `--sp-1` through `--sp-4`, plus `--sec` and `--sec-tight` for section rhythm. Nothing uses a one-off value.
 - **Type scale:** 139 / 63 / 48 / 34 / 26 / 17 / 12 px at desktop. Hero, editorial statement, pillar, service, section title, body, label.
 - Every colour and size is a custom property at the top of `site.css`. Change it there and the whole site follows.
@@ -105,7 +106,7 @@ On failure the form logs FormSubmit's own message to the console, which separate
 
 ## Images
 
-The founders' photograph is the anchor and appears once per page: the homepage hero and the About banner, cropped differently in each. The rest of `assets/img/` was generated to a single art direction for launch and is deliberately atmospheric rather than populated, so no anonymous model competes with the founders. Replace with the practice's own photography as it becomes available — keep the same filenames and the layouts will not move.
+Every photograph appears exactly once across the whole site: 15 placements, 15 distinct images. The founders' photograph anchors the homepage hero. Replace any of them with the practice's own photography as it becomes available; keep the filename and the layout will not move.
 
 `logo.png` is the client's supplied master logo. `mark.png` (BW monogram) and `logo-lockup.jpg` are crops of it. `founders.jpg` is the client's photograph, re-cropped in CSS so both founders sit centred on desktop and mobile.
 
