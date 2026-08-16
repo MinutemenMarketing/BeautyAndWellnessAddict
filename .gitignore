@@ -6,3 +6,4 @@ Thumbs.db
 
 # Client-supplied originals; the web-ready versions live in assets/img
 _source/
+*.jfif
