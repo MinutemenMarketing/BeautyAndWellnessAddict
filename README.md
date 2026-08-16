@@ -61,8 +61,14 @@ the type sits. The photograph's bright window is framed to the right (`object-po
 so the brightest part of the image is never behind text. Ivory on the darkest sampled region
 clears AA comfortably.
 
-A `ch`-based `max-width` must never be used on the hero copy block: `ch` resolves against the
-body font, not the display face the `h1` actually uses, and the headline wraps on itself.
+A `ch`-based `max-width` must never be used on a block that holds display type. `ch` resolves
+against the **body** font, not the display face the `h1` actually uses, so the box comes out a
+fraction of the intended width and the headline wraps on itself.
+
+This has now bitten twice — once on `.hero-full__copy` (`22ch`, hero rendered 1337px tall
+against a 720px viewport) and once on `.abouthero__inner` (`24ch` resolved to 249px, so the
+About headline sat in 20% of the page with 1016px empty beside it). Both are capped in pixels
+now. If you find yourself typing `ch` next to a `.h1`, don't.
 
 ## Motion
 
@@ -259,11 +265,16 @@ Four photographs are the client's own, converted from supplied PNGs whose origin
 | `founders-office.jpg` | Gallery | 352×236 |
 | `founders-artwork.jpg` | Gallery | 511×510 |
 
-**All but the first are small — 348px to 511px wide.** The Gallery's column count is chosen so
-a column never exceeds the smallest of them by more than a few percent: two columns from 700px,
-three from 900px, four from 1200px. That is the reason for those breakpoints; widen them and
-the client photographs go soft. Multi-column also means each keeps its own aspect ratio and
-nothing is cropped to fit a cell.
+**All but the first are small — 348px to 511px wide.** The Gallery is multi-column so each
+keeps its own aspect ratio and nothing is cropped to fit a cell, and it is capped at 1240px
+with a maximum of three columns (two from 700px, three from 900px). Both numbers are chosen
+against the photographs: a column stays near 400px, so the smallest of them is never
+meaningfully upscaled.
+
+Three columns is also the balance limit. Measured at 1280px with these eight images, four
+columns left the shortest column ending 307px above the tallest — a visible hole under the
+gallery. Three brings that to 125px. If you add images, re-check the column bottoms rather
+than assuming more columns is better.
 
 `founders-office.jpg` arrived letterboxed with pure-black bars down both sides. It was cropped
 to columns 80–431 of the original 512px frame; the stored file is the photograph only. If it is

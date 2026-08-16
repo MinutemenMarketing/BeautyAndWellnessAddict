@@ -1171,10 +1171,15 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
 /* Column counts are chosen so a column never gets wider than the smallest
    client photograph (348px). Every image is displayed at or below its native
    width, which is what keeps them sharp. */
-.gal { column-count: 1; column-gap: clamp(14px, 1.8vw, 26px); }
-@media (min-width: 700px)  { .gal { column-count: 2; } }
-@media (min-width: 900px)  { .gal { column-count: 3; } }
-@media (min-width: 1200px) { .gal { column-count: 4; } }
+/* Three columns is the maximum. A fourth splits eight photographs of very
+   different heights badly: measured at 1280px, four columns left the shortest
+   column ending 307px above the tallest, which reads as a hole under the
+   gallery. Three brings that to 125px. The width cap keeps a column near
+   400px so the smallest client photograph (348px) is never meaningfully
+   upscaled at large viewports. */
+.gal { column-count: 1; column-gap: clamp(14px, 1.8vw, 26px); max-width: 1240px; }
+@media (min-width: 700px) { .gal { column-count: 2; } }
+@media (min-width: 900px) { .gal { column-count: 3; } }
 .gal__item { break-inside: avoid; margin-bottom: clamp(14px, 1.8vw, 26px); }
 .gal__btn {
   display: block; width: 100%; padding: 0; border: 0;
@@ -1243,22 +1248,29 @@ body.lb-open { overflow: hidden; }
    a deliberate divider rather than another beige band. */
 .abouthero {
   background: #FFFFFF;
-  padding-top: clamp(148px, 16vw, 230px);
-  padding-bottom: clamp(72px, 9vw, 140px);
+  padding-top: clamp(126px, 12vw, 176px);
+  padding-bottom: clamp(56px, 6vw, 96px);
 }
-.abouthero__inner { max-width: 24ch; }
-.abouthero .h1 { font-size: clamp(3.75rem, 1.4rem + 9vw, 10rem); }
+/* Never size this in ch. The block holds a ~138px display face, but ch
+   resolves against the body font, so 24ch came out at 249px and the headline
+   wrapped into a narrow column with 80% of the row left empty. Same trap as
+   .hero-full__copy. */
+/* Same 1240px measure as the gallery below it, so the two blocks share a
+   left and right edge down the page. */
+.abouthero__inner { max-width: min(1240px, 100%); }
+.abouthero .h1 { font-size: clamp(3.5rem, 1.2rem + 8.6vw, 9rem); }
 /* The rule, the names and the eyebrow all hang off one left edge; the
    credentials sit on a gold hairline so the block has structure without
    needing an image to prop it up. */
+/* The hairline runs the full measure, so the names read as a caption under
+   the whole headline rather than a stub beside it. */
 .abouthero__names {
   margin-top: var(--sp-3);
   padding-top: var(--sp-2);
   border-top: 1px solid var(--gold-hair);
-  display: flex; flex-wrap: wrap; gap: .5em 2.5em;
+  display: flex; flex-wrap: wrap; gap: .5em clamp(28px, 5vw, 88px);
   font-family: var(--display);
   font-size: clamp(1.125rem, .95rem + .7vw, 1.5rem);
-  max-width: 32ch;
 }
 .abouthero__names span { display: inline-flex; align-items: baseline; gap: .55em; }
 .abouthero__names em {
