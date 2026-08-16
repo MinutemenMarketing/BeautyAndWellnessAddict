@@ -117,57 +117,25 @@ w.addEventListener("error",function(e){if(e.target&&e.target.tagName==="SCRIPT")
 
 <main id="main">
 
-  <!-- ABOUT HERO — its own ground and its own photograph, so the page opens
-       as itself rather than as the homepage with the hero removed. -->
+  <!-- ABOUT HERO — white and typography-led. No photograph here on purpose:
+       the Gallery below carries the imagery, and the white ground makes the
+       cream Gallery read as a deliberate divider. -->
   <section class="abouthero">
     <div class="shell">
-      <div class="grid abouthero__grid">
-        <div class="abouthero__copy" data-reveal data-stagger>
-          <span class="rule-g" aria-hidden="true"></span>
-          <p class="eyebrow">About</p>
-          <h1 class="h1">Sheila <span class="it">&amp;</span> Lisa.</h1>
-          <div class="founders__names">
-            <span>Sheila Omrani <em>MD</em></span>
-            <span>Lisa Farazmand <em>RN</em></span>
-          </div>
-        </div>
-        <div class="abouthero__media" data-reveal="mask" data-delay="120">
-          <div class="figure abouthero__frame">
-            <img src="assets/img/founders-office.jpg"
-                 alt="Dr. Sheila Omrani and Lisa Farazmand RN together at Beauty and Wellness addict NY in Great Neck."
-                 width="512" height="236" fetchpriority="high" decoding="async">
-          </div>
+      <div class="abouthero__inner" data-reveal data-stagger>
+        <span class="rule-g" aria-hidden="true"></span>
+        <p class="eyebrow">About</p>
+        <h1 class="h1">Sheila <span class="it">&amp;</span> Lisa.</h1>
+        <div class="abouthero__names">
+          <span>Sheila Omrani <em>MD</em></span>
+          <span>Lisa Farazmand <em>RN</em></span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- THEIR STORY -->
-  <section class="section">
-    <div class="shell">
-      <div class="grid split">
-        <div class="split__media" data-reveal="mask">
-          <figure class="figure figure--tall fig-hover">
-            <img src="assets/img/curtain-light.jpg" alt="Afternoon light falling across a linen curtain inside the Great Neck practice." loading="lazy" decoding="async" width="1100" height="1466">
-          </figure>
-        </div>
-        <div class="split__copy stack" data-reveal data-stagger>
-          <span class="rule-g" aria-hidden="true"></span>
-          <h2 class="h2">Natural, from the <span class="script">inside out</span></h2>
-          <p class="body">Sheila Omrani and Lisa Farazmand are a doctor-and-nurse duo who share a passion for natural, inside-out approaches to anti-aging, longevity and overall wellness.</p>
-          <p class="body">Their mission is to help people look and feel their best every day, through proactive, preventative care and healthy-aging practices designed to support long-term vitality and well-being.</p>
-          <p>
-            <a class="arrow-link" href="services.html">See every treatment
-              <svg viewBox="0 0 24 8" fill="none" aria-hidden="true"><path d="M0 4h22M18 1l4 3-4 3" stroke="currentColor"/></svg>
-            </a>
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- GALLERY — real photography, click to enlarge. Masonry, so nothing is
-       cropped to fit a cell. -->
+  <!-- GALLERY — the real practice. Masonry, so every photograph keeps its own
+       aspect ratio and nothing is cropped to fit a cell. Click to enlarge. -->
   <section class="section bg-cream" id="gallery">
     <div class="shell">
       <div class="mb-3">
@@ -177,43 +145,43 @@ w.addEventListener("error",function(e){if(e.target&&e.target.tagName==="SCRIPT")
 
       <div class="gal" data-lightbox>
         <div class="gal__item" data-reveal="mask">
-          <button class="gal__btn" type="button" aria-label="Enlarge: Sheila Omrani and Lisa Farazmand in the treatment room">
+          <button class="gal__btn" type="button" aria-label="Enlarge: Sheila and Lisa at the Beauty Addict flower wall">
+            <img src="assets/img/founders-flowerwall.jpg" alt="Dr. Sheila Omrani and Lisa Farazmand RN in front of the pink flower wall and Beauty Addict neon sign at their Great Neck practice." loading="lazy" decoding="async" width="348" height="348">
+          </button>
+        </div>
+        <div class="gal__item" data-reveal="mask" data-delay="70">
+          <button class="gal__btn" type="button" aria-label="Enlarge: the Beauty Addict flower wall and neon sign">
+            <img src="assets/img/flowerwall-signage.jpg" alt="The pink and white flower wall with the Beauty Addict neon sign in the Great Neck practice." loading="lazy" decoding="async" width="382" height="510">
+          </button>
+        </div>
+        <div class="gal__item" data-reveal="mask" data-delay="140">
+          <button class="gal__btn" type="button" aria-label="Enlarge: Sheila and Lisa together at the practice">
+            <img src="assets/img/founders-office.jpg" alt="Dr. Sheila Omrani and Lisa Farazmand RN together at Beauty and Wellness addict NY in Great Neck." loading="lazy" decoding="async" width="352" height="236">
+          </button>
+        </div>
+        <div class="gal__item" data-reveal="mask">
+          <button class="gal__btn" type="button" aria-label="Enlarge: Sheila and Lisa in the treatment room">
             <img src="assets/img/founders-artwork.jpg" alt="Dr. Sheila Omrani and Lisa Farazmand RN in the treatment room at their Great Neck practice." loading="lazy" decoding="async" width="511" height="510">
           </button>
         </div>
         <div class="gal__item" data-reveal="mask" data-delay="70">
           <button class="gal__btn" type="button" aria-label="Enlarge: a cream throw over a brass-framed chair">
-            <img src="assets/img/chair-throw.jpg" alt="A cream throw folded over a brass-framed chair beside a small brass side table." loading="lazy" decoding="async" width="1400" height="900">
+            <img src="assets/img/chair-throw.jpg" alt="A cream throw folded over a brass-framed chair beside a small brass side table." loading="lazy" decoding="async" width="1400" height="914">
           </button>
         </div>
         <div class="gal__item" data-reveal="mask" data-delay="140">
           <button class="gal__btn" type="button" aria-label="Enlarge: instruments set out before a treatment">
-            <img src="assets/img/hands-tray.jpg" alt="Instruments set out on a covered tray before a treatment." loading="lazy" decoding="async" width="1400" height="1050">
+            <img src="assets/img/hands-tray.jpg" alt="Instruments set out on a covered tray before a treatment." loading="lazy" decoding="async" width="1264" height="848">
           </button>
         </div>
-        <div class="gal__item" data-reveal="mask" data-delay="70">
+        <div class="gal__item" data-reveal="mask">
           <button class="gal__btn" type="button" aria-label="Enlarge: an infusion line and vial on folded linen">
             <img src="assets/img/iv-line.jpg" alt="A coiled infusion line and a small glass vial resting on folded cream linen." loading="lazy" decoding="async" width="1400" height="914">
           </button>
         </div>
-        <div class="gal__item" data-reveal="mask" data-delay="140">
-          <button class="gal__btn" type="button" aria-label="Enlarge: olive branch shadow on a plaster wall">
-            <img src="assets/img/olive-shadow.jpg" alt="The shadow of an olive branch falling across a warm plaster wall." loading="lazy" decoding="async" width="1400" height="933">
-          </button>
-        </div>
-        <div class="gal__item" data-reveal="mask">
-          <button class="gal__btn" type="button" aria-label="Enlarge: the console table at reception">
-            <img src="assets/img/console-vase.jpg" alt="A console table with a stoneware vase against a warm plaster wall at reception." loading="lazy" decoding="async" width="1400" height="1050">
-          </button>
-        </div>
         <div class="gal__item" data-reveal="mask" data-delay="70">
-          <button class="gal__btn" type="button" aria-label="Enlarge: a patient's hands during a consultation">
-            <img src="assets/img/hands-lap.jpg" alt="A patient's hands resting in their lap during a consultation." loading="lazy" decoding="async" width="1400" height="933">
-          </button>
-        </div>
-        <div class="gal__item" data-reveal="mask" data-delay="140">
-          <button class="gal__btn" type="button" aria-label="Enlarge: skin detail in raking daylight">
-            <img src="assets/img/skin-macro.jpg" alt="A close detail of skin in soft, raking daylight." loading="lazy" decoding="async" width="1400" height="1050">
+          <button class="gal__btn" type="button" aria-label="Enlarge: the console table at reception">
+            <img src="assets/img/console-vase.jpg" alt="A console table with a stoneware vase against a warm plaster wall at reception." loading="lazy" decoding="async" width="1400" height="914">
           </button>
         </div>
       </div>
@@ -297,7 +265,7 @@ w.addEventListener("error",function(e){if(e.target&&e.target.tagName==="SCRIPT")
           <h2 class="footer__h">Contact</h2>
           <ul class="footer__list">
             <li><a class="ul-link" href="tel:+19177533570">917-753-3570</a></li>
-            <li><a class="ul-link" href="https://www.instagram.com/BeautyAddict_NY/" target="_blank" rel="noopener">@BeautyAddict_NY</a></li>
+            <li><a class="ul-link" href="https://www.instagram.com/BeautyAddict_NY/" target="_blank" rel="noopener">Instagram</a></li>
             <li><a class="ul-link" href="https://www.facebook.com/beautyaddictnewyork/" target="_blank" rel="noopener">Facebook</a></li>
             <li><a class="ul-link" href="https://www.google.com/maps/dir/?api=1&amp;destination=200+Middle+Neck+Road,+Great+Neck,+NY+11021" target="_blank" rel="noopener">200 Middle Neck Road, Great Neck, NY 11021</a></li>
           </ul>

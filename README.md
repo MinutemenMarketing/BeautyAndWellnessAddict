@@ -89,6 +89,38 @@ The mask panel takes its colour from the ground it sits on (`--cream` inside `.b
 `--shell` inside `.bg-shell` and `.abouthero`, `--espresso` inside `.inv`). Get this wrong and
 the wipe shows an ivory rectangle sliding off a cream section.
 
+## Page structure
+
+**About** runs white hero → Gallery (`#F2EBE1`) → Reviews (espresso) → closing band. The hero
+is typography-led with no photograph on purpose: the white ground is what makes the cream
+Gallery read as a deliberate divider rather than one more beige band.
+
+The founders' mission copy now lives only on the homepage, in Meet the Founders. It was removed
+from About along with the section that carried it. Put it back on About if the page ever needs
+prose again.
+
+**Contact** is two matched columns on desktop. Both start on the same grid line, so the top of
+the form meets the top of the booking button. The map is the flexible element in the left
+column — it takes whatever height is left over, which brings the bottom of the ladder level
+with the bottom of the form. The textarea absorbs slack on the form side. Measured at 1280px:
+both alignments land at 0px, and the map is exactly the column width.
+
+`.map` carries its own aspect-ratio, which fights that fill, so `.map.contact__map` drops it
+above 940px and restores 4:3 below, where the columns stack in ladder order.
+
+## Vitamin accordion
+
+Fourteen compounds under Drip addict, each a real `<button>` inside an `<h4>`, with
+`aria-expanded`, `aria-controls` and a panel marked `role="region"` and labelled back to its
+button. One opens at a time.
+
+The panels are **open in CSS by default**. `site.js` adds `.js-ready` to the container once it
+has wired the buttons up, and only then are panels allowed to close — so if the script never
+runs, all fourteen descriptions are simply readable rather than sealed shut.
+
+Copy is deliberately hedged: "is involved in", "plays a role in", "commonly associated with".
+Nothing there says a compound treats, cures or prevents anything, and it should stay that way.
+
 ## Gallery lightbox
 
 `about.html` carries a click-to-enlarge gallery. `site.js` builds one dialog on first open and
@@ -204,29 +236,45 @@ activation from a real outage. Visitors see a fallback pointing them to the phon
 
 ## Images
 
-Every photograph appears exactly once across the whole site: 17 placements, 17 distinct
+Every photograph appears exactly once across the whole site: 14 placements, 14 distinct
 images. `founders.jpg` is the client's own photograph of Sheila Omrani and Lisa Farazmand and
 anchors the Meet the Founders section on the homepage; it loads eagerly rather than lazily
 because it is the brand's key image and sits in the second section.
 
+Five files are deliberately unreferenced: `serums.jpg`, `curtain-light.jpg`, `olive-shadow.jpg`,
+`hands-lap.jpg` and `skin-macro.jpg`. They are the most generic images in the set, and the
+Gallery was rebuilt around real photographs of the practice instead. They are kept rather than
+deleted in case a future section needs them.
+
 ### The client photographs
 
-`founders-office.jpg` (About hero) and `founders-artwork.jpg` (Gallery) are the client's own
-photographs of Sheila and Lisa, converted from the supplied PNGs. The originals live in
-`_source/`, which is gitignored so they are never served.
+Four photographs are the client's own, converted from supplied PNGs whose originals live in
+`_source/` (gitignored, never served):
 
-**Both are small: 512×236 and 511×510.** Every frame that holds them is capped at or below
-native size so neither is ever upscaled — the About hero frame is `max-width: 512px` for
-exactly this reason, and the gallery is multi-column so they keep their own aspect ratios
-instead of being cropped to fit a cell. If higher-resolution originals arrive, drop them in at
-the same filenames and the caps can come off.
+| File | Where | Native size |
+| --- | --- | --- |
+| `founders.jpg` | Homepage, Meet the Founders | 1083×1453 |
+| `founders-flowerwall.jpg` | Gallery — at the Beauty Addict flower wall | 348×348 |
+| `flowerwall-signage.jpg` | Gallery — the flower wall and neon sign | 382×510 |
+| `founders-office.jpg` | Gallery | 352×236 |
+| `founders-artwork.jpg` | Gallery | 511×510 |
+
+**All but the first are small — 348px to 511px wide.** The Gallery's column count is chosen so
+a column never exceeds the smallest of them by more than a few percent: two columns from 700px,
+three from 900px, four from 1200px. That is the reason for those breakpoints; widen them and
+the client photographs go soft. Multi-column also means each keeps its own aspect ratio and
+nothing is cropped to fit a cell.
+
+`founders-office.jpg` arrived letterboxed with pure-black bars down both sides. It was cropped
+to columns 80–431 of the original 512px frame; the stored file is the photograph only. If it is
+ever re-exported from the original, check the edges again before dropping it in.
 
 ### One image still to source
 
-The photograph library holds nothing that actually shows scalp or hair. The Hair & Scalp
-category currently uses `ampoules.jpg`, the regenerative vials the PRP and DerIVE scalp
-courses are drawn from, which is accurate for the treatments listed but is not a hair
-photograph. There is an HTML comment on that block. Replace it when the practice supplies one.
+The photograph library holds nothing that shows scalp or hair. **The Hair & Scalp category
+therefore has no banner image** — the section runs on typography, the way Consultations does.
+Substituting an unrelated still life there would be worse than the gap. There is an HTML
+comment marking exactly where a real photograph should go.
 
 `logo.png` is the client's supplied master logo. `mark.png` (BW monogram) and `logo-lockup.jpg`
 are crops of it. `logo.png` and `logo-lockup.jpg` are currently unreferenced.

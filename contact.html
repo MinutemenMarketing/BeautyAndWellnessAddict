@@ -116,63 +116,62 @@ w.addEventListener("error",function(e){if(e.target&&e.target.tagName==="SCRIPT")
   <!-- Eyebrow, heading and subtitle share one column and one left edge. -->
   <section class="pagehead">
     <div class="shell">
-      <div data-reveal data-stagger style="max-width:40ch">
+      <!-- Eyebrow, title and subtitle share one left edge and one column, so the
+           subtitle reads as part of the heading block rather than a side note. -->
+      <div class="pagehead__block" data-reveal data-stagger>
         <span class="rule-g" aria-hidden="true"></span>
         <p class="eyebrow mb-2">Contact</p>
         <h1 class="h1">Book a <span class="it">consultation</span>.</h1>
-        <p class="lead mt-2" style="max-width:34ch">Book online, or call and text if you would rather talk it through first.</p>
+        <p class="pagehead__sub">Book online, or call and text if you would rather talk it through first.</p>
       </div>
     </div>
   </section>
 
-  <!-- THE LADDER — primary action on top, then the alternates, then the map
-       directly under them at full measure. -->
+  <!-- Two matched columns: the information ladder left, the form right. Both
+       start on the same line so the top of the form meets the top of the
+       booking button; the map takes the leftover height so the two columns
+       finish together. Stacks in ladder order on narrow screens. -->
   <section class="section bg-cream">
     <div class="shell">
-      <div class="ladder">
-        <div data-reveal>
+      <div class="grid contact__grid">
+
+        <div class="contact__col contact__col--info" data-reveal>
           <a class="btn contact__cta" href="https://book.squareup.com/appointments/sxo39ov27u4avm/location/LW02SPDAKGV63/services" target="_blank" rel="noopener" aria-label="Book on Square (opens in a new tab)">Book on Square</a>
+
+          <div class="methods">
+            <div class="method">
+              <span class="method__k">Phone</span>
+              <span class="method__v"><a href="tel:+19177533570">917-753-3570</a></span>
+            </div>
+            <div class="method">
+              <span class="method__k">Instagram</span>
+              <span class="method__v"><a href="https://www.instagram.com/BeautyAddict_NY/" target="_blank" rel="noopener">@BeautyAddict_NY</a></span>
+            </div>
+            <div class="method">
+              <span class="method__k">Facebook</span>
+              <span class="method__v"><a href="https://www.facebook.com/beautyaddictnewyork/" target="_blank" rel="noopener">Beauty Addict NY</a></span>
+            </div>
+            <div class="method">
+              <span class="method__k">Address</span>
+              <span class="method__v"><a href="https://www.google.com/maps/dir/?api=1&amp;destination=200+Middle+Neck+Road,+Great+Neck,+NY+11021" target="_blank" rel="noopener">200 Middle Neck Road<br>Great Neck, NY 11021</a></span>
+            </div>
+          </div>
+          <!-- Opening hours are held back on purpose: the Square profile and the Google
+               listing currently disagree. Add a .method row here once confirmed.
+               Email likewise, once the client confirms which address to publish. -->
+
+          <div class="map contact__map">
+            <iframe src="https://www.google.com/maps?q=200+Middle+Neck+Road,+Great+Neck,+NY+11021&amp;output=embed"
+                    title="Map showing Beauty and Wellness addict NY at 200 Middle Neck Road, Great Neck, New York" loading="lazy"></iframe>
+          </div>
         </div>
 
-        <div class="methods" data-reveal data-delay="80">
-          <div class="method">
-            <span class="method__k">Phone</span>
-            <span class="method__v"><a href="tel:+19177533570">917-753-3570</a></span>
-          </div>
-          <div class="method">
-            <span class="method__k">Instagram</span>
-            <span class="method__v"><a href="https://www.instagram.com/BeautyAddict_NY/" target="_blank" rel="noopener">@BeautyAddict_NY</a></span>
-          </div>
-          <div class="method">
-            <span class="method__k">Facebook</span>
-            <span class="method__v"><a href="https://www.facebook.com/beautyaddictnewyork/" target="_blank" rel="noopener">Beauty Addict NY</a></span>
-          </div>
-          <div class="method">
-            <span class="method__k">Address</span>
-            <span class="method__v"><a href="https://www.google.com/maps/dir/?api=1&amp;destination=200+Middle+Neck+Road,+Great+Neck,+NY+11021" target="_blank" rel="noopener">200 Middle Neck Road<br>Great Neck, NY 11021</a></span>
-          </div>
-        </div>
-        <!-- Opening hours are held back on purpose: the Square profile and the Google
-             listing currently disagree. Add a .method row here once confirmed.
-             Email likewise, once the client confirms which address to publish. -->
-      </div>
-
-      <div class="map map--wide mt-4" data-reveal>
-        <iframe src="https://www.google.com/maps?q=200+Middle+Neck+Road,+Great+Neck,+NY+11021&amp;output=embed"
-                title="Map showing Beauty and Wellness addict NY at 200 Middle Neck Road, Great Neck, New York" loading="lazy"></iframe>
-      </div>
-    </div>
-  </section>
-
-  <!-- SEND A MESSAGE — its own ground so the form reads as a separate task
-       from booking. -->
-  <section class="section bg-shell">
-    <div class="shell">
-      <div class="form-wrap">
-        <div class="mb-3" data-reveal>
-          <span class="rule-g" aria-hidden="true"></span>
-          <h2 class="h2">Send a message</h2>
-        </div>
+        <div class="contact__col contact__col--form" data-reveal data-delay="100">
+          <div class="contact__form-inner">
+            <div class="mb-3">
+              <span class="rule-g" aria-hidden="true"></span>
+              <h2 class="h2">Send a message</h2>
+            </div>
 
         <form class="form" data-form action="https://formsubmit.co/nmmedina08@icloud.com" method="POST" novalidate>
           <input type="hidden" name="_subject" value="Website inquiry — Beauty &amp; Wellness addict NY">
@@ -261,7 +260,7 @@ w.addEventListener("error",function(e){if(e.target&&e.target.tagName==="SCRIPT")
             </div>
           </fieldset>
 
-          <div class="field">
+          <div class="field field--grow">
             <label for="message">Message</label>
             <textarea id="message" name="message" rows="5" required></textarea>
             <span class="field-error" aria-live="polite"></span>
@@ -272,6 +271,9 @@ w.addEventListener("error",function(e){if(e.target&&e.target.tagName==="SCRIPT")
           </div>
           <p class="form__status" role="status" aria-live="polite"></p>
         </form>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -301,7 +303,7 @@ w.addEventListener("error",function(e){if(e.target&&e.target.tagName==="SCRIPT")
           <h2 class="footer__h">Contact</h2>
           <ul class="footer__list">
             <li><a class="ul-link" href="tel:+19177533570">917-753-3570</a></li>
-            <li><a class="ul-link" href="https://www.instagram.com/BeautyAddict_NY/" target="_blank" rel="noopener">@BeautyAddict_NY</a></li>
+            <li><a class="ul-link" href="https://www.instagram.com/BeautyAddict_NY/" target="_blank" rel="noopener">Instagram</a></li>
             <li><a class="ul-link" href="https://www.facebook.com/beautyaddictnewyork/" target="_blank" rel="noopener">Facebook</a></li>
             <li><a class="ul-link" href="https://www.google.com/maps/dir/?api=1&amp;destination=200+Middle+Neck+Road,+Great+Neck,+NY+11021" target="_blank" rel="noopener">200 Middle Neck Road, Great Neck, NY 11021</a></li>
           </ul>

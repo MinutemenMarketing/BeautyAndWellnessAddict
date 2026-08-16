@@ -266,6 +266,34 @@
     });
   }
 
+  /* ---------- vitamin accordion -------------------------------------
+     One open at a time. The panels are open in CSS by default and only
+     become closable once .js-ready lands, so if this script never runs all
+     fourteen descriptions stay readable rather than sealed shut. */
+  var vits = document.querySelector("[data-vits]");
+  if (vits) {
+    var heads = Array.prototype.slice.call(vits.querySelectorAll(".vit__head"));
+    if (heads.length) {
+      vits.classList.add("js-ready");
+      heads.forEach(function (btn) {
+        var item = btn.closest(".vit");
+        item.classList.remove("is-open");
+        btn.setAttribute("aria-expanded", "false");
+        btn.addEventListener("click", function () {
+          var wasOpen = btn.getAttribute("aria-expanded") === "true";
+          heads.forEach(function (other) {
+            other.setAttribute("aria-expanded", "false");
+            other.closest(".vit").classList.remove("is-open");
+          });
+          if (!wasOpen) {
+            btn.setAttribute("aria-expanded", "true");
+            item.classList.add("is-open");
+          }
+        });
+      });
+    }
+  }
+
   /* ---------- gallery lightbox --------------------------------------
      Progressive enhancement. With no JS the gallery is still a grid of
      visible photographs and the buttons simply do nothing, so nothing is

@@ -662,6 +662,17 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
 
 /* ---------- Page head ---------- */
 .pagehead { padding-top: clamp(140px, 16vw, 220px); }
+/* Title block: the subtitle sits directly under the h1 on the same left edge,
+   close enough to belong to it, with its measure held short enough to read. */
+.pagehead__block { max-width: 42ch; }
+.pagehead__sub {
+  margin-top: var(--sp-2);
+  max-width: 46ch;
+  font-family: var(--display);
+  font-size: clamp(1.1875rem, 1.02rem + .6vw, 1.5rem);
+  line-height: 1.45;
+  color: var(--mocha);
+}
 .pagehead__grid { row-gap: var(--sp-2); align-items: end; }
 .pagehead__title { grid-column: 1 / -1; }
 .pagehead__aside { grid-column: 1 / -1; }
@@ -1041,9 +1052,12 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
 .tx__desc { padding-top: .45em; }
 .tx__price { padding-top: .1em; }
 .tx-list > .tx:first-child { border-top: 1px solid var(--gold-hair); }
-@media (min-width: 860px) { .tx { grid-template-columns: minmax(0,1.05fr) minmax(0,1.5fr) auto; } }
+/* The name column is narrower and the supporting column wider than before:
+   the supporting line was breaking into three and four short lines while the
+   name column sat half empty. */
+@media (min-width: 860px) { .tx { grid-template-columns: minmax(0,.85fr) minmax(0,2.1fr) auto; } }
 .tx__name { font-family: var(--display); font-weight: 500; font-size: clamp(1.1875rem, 1rem + .8vw, 1.625rem); line-height: 1.2; }
-.tx__desc { color: var(--mocha); font-size: var(--fs-small); max-width: 54ch; }
+.tx__desc { color: var(--mocha); font-size: var(--fs-small); max-width: 76ch; }
 .tx__price {
   font-family: var(--display); font-weight: 500;
   font-size: clamp(1.1875rem, 1rem + .7vw, 1.5rem);
@@ -1053,7 +1067,15 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
   white-space: nowrap;
 }
 @media (min-width: 860px) { .tx__price { text-align: right; } }
-.tx__pkg { display: block; font-family: var(--text); font-size: var(--fs-micro); color: var(--greige); margin-top: 3px; letter-spacing: .02em; }
+/* The package line ("5 for $200 · 10 for $350") is the other piece of small
+   supporting text. It gets to stay on one line rather than stacking into
+   three under the price. */
+.tx__pkg {
+  display: block; font-family: var(--text);
+  font-size: .8125rem; color: var(--greige);
+  margin-top: 3px; letter-spacing: .01em; line-height: 1.4;
+}
+@media (min-width: 860px) { .tx__pkg { white-space: nowrap; } }
 /* Drip addict runs its rules in champagne rather than the default inverted
    hairline, which is what sets the sub-brand apart on the dark ground. */
 .inv .tx, .inv .tx-list > .tx:first-child { border-color: var(--gold-hair); }
@@ -1078,27 +1100,54 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
 }
 .inv .cat__intro { color: var(--sand); }
 
-/* ---- Vitamin index -------------------------------------------------------
-   Fourteen options is a list, not prose. Set as a multi-column index with a
-   gold hairline per row so it scans in one pass at any width. */
-.vits {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  column-gap: clamp(24px, 4vw, 72px);
-  border-top: 1px solid var(--gold-hair);
-}
-@media (min-width: 760px)  { .vits { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-@media (min-width: 1180px) { .vits { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
-.vits li {
-  padding-block: clamp(11px, 1.2vw, 15px);
-  border-bottom: 1px solid var(--gold-hair);
+/* ---- Vitamin accordion ---------------------------------------------------
+   Fourteen compounds, each a real button with aria-expanded and a panel.
+   Two columns on wide screens so the list does not run to a metre of rows;
+   the gold hairlines are the only rule system on the dark ground. */
+.vits { display: grid; column-gap: clamp(28px, 4vw, 72px); align-content: start; }
+@media (min-width: 900px) { .vits { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.vit { border-bottom: 1px solid var(--gold-hair); }
+.vit:first-child { border-top: 1px solid var(--gold-hair); }
+@media (min-width: 900px) { .vit:nth-child(2) { border-top: 1px solid var(--gold-hair); } }
+.vit__head {
+  width: 100%;
+  display: flex; align-items: center; justify-content: space-between; gap: var(--sp-2);
+  min-height: 56px;
+  padding: 14px 0;
+  background: none; border: 0; text-align: left; cursor: pointer;
+  color: var(--ivory);
   font-family: var(--display);
   font-weight: 500;
-  font-size: clamp(1rem, .94rem + .3vw, 1.1875rem);
+  font-size: clamp(1.0625rem, .97rem + .35vw, 1.25rem);
   line-height: 1.25;
-  color: var(--ivory);
+  transition: color .3s var(--ease);
 }
-.vits--light li { color: var(--espresso); }
+.vit__head:hover, .vit__head:focus-visible { color: var(--gold); }
+.vit__head:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+/* Plus that becomes a minus. Two bars, one scaled away. */
+.vit__sign { position: relative; width: 12px; height: 12px; flex: none; }
+.vit__sign::before, .vit__sign::after {
+  content: ""; position: absolute; inset: 0; margin: auto;
+  background: var(--gold);
+  transition: transform .4s var(--ease);
+}
+.vit__sign::before { width: 12px; height: 1px; }
+.vit__sign::after  { width: 1px; height: 12px; }
+.vit__head[aria-expanded="true"] .vit__sign::after { transform: scaleY(0); }
+/* Open by default. site.js adds .js-ready to the list once it has wired the
+   buttons up, and only then are panels allowed to close — so if the script
+   never runs, all fourteen descriptions are simply readable. */
+.vit__panel { display: grid; grid-template-rows: 1fr; transition: grid-template-rows .42s var(--ease); }
+.vit__panel > div { overflow: hidden; }
+.vits.js-ready .vit__panel { grid-template-rows: 0fr; }
+.vits.js-ready .vit.is-open .vit__panel { grid-template-rows: 1fr; }
+.vit__body {
+  padding-bottom: var(--sp-2);
+  max-width: 52ch;
+  color: var(--sand);
+  font-size: var(--fs-small);
+  line-height: 1.65;
+}
 
 /* ---- Five stars ----------------------------------------------------------
    Drawn once as a symbol and used per review. Decorative: the rating is not
@@ -1112,9 +1161,13 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
    aspect ratio, so nothing is cropped to fit a cell and no row leaves a gap
    under the shorter image. The two client photographs are the reason —
    one is 2.17:1 and one is square, and neither should be trimmed. */
+/* Column counts are chosen so a column never gets wider than the smallest
+   client photograph (348px). Every image is displayed at or below its native
+   width, which is what keeps them sharp. */
 .gal { column-count: 1; column-gap: clamp(14px, 1.8vw, 26px); }
 @media (min-width: 700px)  { .gal { column-count: 2; } }
-@media (min-width: 1040px) { .gal { column-count: 3; } }
+@media (min-width: 900px)  { .gal { column-count: 3; } }
+@media (min-width: 1200px) { .gal { column-count: 4; } }
 .gal__item { break-inside: avoid; margin-bottom: clamp(14px, 1.8vw, 26px); }
 .gal__btn {
   display: block; width: 100%; padding: 0; border: 0;
@@ -1178,29 +1231,74 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
 body.lb-open { overflow: hidden; }
 
 /* ---------- About hero ----------------------------------------------------
-   Its own ground, so the page announces itself instead of reading as the
-   homepage with the photograph removed. */
-.abouthero { background: var(--shell); padding-top: clamp(136px, 15vw, 210px); }
-.abouthero__grid { row-gap: var(--sp-3); align-items: center; }
-.abouthero__copy { grid-column: 1 / -1; }
-.abouthero__media { grid-column: 1 / -1; }
-@media (min-width: 900px) {
-  .abouthero__copy  { grid-column: 1 / 7; }
-  .abouthero__media { grid-column: 8 / -1; }
+   Typography-led on white. No photograph: the Gallery immediately below
+   carries the imagery, and the white ground makes the cream Gallery read as
+   a deliberate divider rather than another beige band. */
+.abouthero {
+  background: #FFFFFF;
+  padding-top: clamp(148px, 16vw, 230px);
+  padding-bottom: clamp(72px, 9vw, 140px);
 }
-/* The client photograph is 512px wide. The frame is capped just under that so
-   it is never upscaled and never goes soft. */
-.abouthero__frame { max-width: 512px; overflow: hidden; background: var(--cream); }
-.abouthero__frame img { width: 100%; height: auto; }
+.abouthero__inner { max-width: 24ch; }
+.abouthero .h1 { font-size: clamp(3.75rem, 1.4rem + 9vw, 10rem); }
+/* The rule, the names and the eyebrow all hang off one left edge; the
+   credentials sit on a gold hairline so the block has structure without
+   needing an image to prop it up. */
+.abouthero__names {
+  margin-top: var(--sp-3);
+  padding-top: var(--sp-2);
+  border-top: 1px solid var(--gold-hair);
+  display: flex; flex-wrap: wrap; gap: .5em 2.5em;
+  font-family: var(--display);
+  font-size: clamp(1.125rem, .95rem + .7vw, 1.5rem);
+  max-width: 32ch;
+}
+.abouthero__names span { display: inline-flex; align-items: baseline; gap: .55em; }
+.abouthero__names em {
+  font-style: normal; font-family: var(--text);
+  font-size: var(--fs-micro); letter-spacing: .16em; text-transform: uppercase;
+  color: var(--gold-ink);
+}
 
 /* ---------- Contact -------------------------------------------------------
    Primary action first, alternates under it, form alongside. */
-/* The ladder: primary action on top, alternates stacked under it, the whole
-   block held in one narrow centred column so it reads as a single stack
-   rather than four rows floating across the page. */
-.ladder { max-width: 560px; margin-inline: auto; }
+/* Two matched columns: the ladder on the left, the form on the right.
+   Both start on the same line, so the top of the form meets the top of the
+   booking button. The map is the flexible element in the left column, so it
+   stretches to bring the bottom of the ladder level with the bottom of the
+   form instead of either side dangling. */
+.contact__grid { row-gap: var(--sp-4); align-items: stretch; }
+.contact__col { grid-column: 1 / -1; display: flex; flex-direction: column; }
+@media (min-width: 940px) {
+  .contact__col--info { grid-column: 1 / 6; }
+  .contact__col--form { grid-column: 7 / -1; }
+}
 .contact__cta { width: 100%; }
-.methods { margin-top: var(--sp-3); display: grid; }
+.methods { margin-top: var(--sp-2); display: grid; }
+/* The map sits directly under the address at the width of the column, and
+   takes whatever height is left over. The min-height keeps it usable when
+   the form is short; the aspect-ratio only applies once stacked. */
+.contact__map { margin-top: var(--sp-2); }
+.contact__map iframe { display: block; width: 100%; height: 100%; border: 0; }
+/* .map carries its own aspect-ratio, which would fight the fill. Drop it once
+   the two columns are side by side and let flex decide the height instead. */
+@media (min-width: 940px) {
+  .map.contact__map { aspect-ratio: auto; flex: 1 1 auto; min-height: 220px; }
+}
+@media (max-width: 939px) {
+  .map.contact__map { aspect-ratio: 4 / 3; flex: 0 0 auto; }
+}
+.contact__form-inner { display: flex; flex-direction: column; height: 100%; }
+/* The form is a grid elsewhere; here it becomes a flex column so one field
+   can absorb the leftover height. */
+.contact__form-inner .form {
+  display: flex; flex-direction: column; gap: var(--sp-2);
+  flex: 1 1 auto;
+}
+/* The textarea absorbs the slack so the two columns finish together without
+   the field growing to an unusable height. */
+.contact__form-inner .field--grow { flex: 1 1 auto; min-height: 0; }
+.contact__form-inner .field--grow textarea { height: 100%; min-height: 120px; }
 .method {
   display: grid; grid-template-columns: 96px 1fr; gap: 4px var(--sp-2);
   align-items: baseline;
@@ -1208,11 +1306,6 @@ body.lb-open { overflow: hidden; }
   border-top: 1px solid var(--gold-hair);
 }
 .method:last-child { border-bottom: 1px solid var(--gold-hair); }
-.form-wrap { max-width: 760px; margin-inline: auto; }
-/* The map runs the full measure under the ladder, not beside it. */
-.map--wide { aspect-ratio: 21 / 9; }
-@media (max-width: 899px) { .map--wide { aspect-ratio: 4 / 3; } }
-@media (min-width: 900px) { .map--wide { aspect-ratio: 21 / 9; } }
 .method__k { font-size: var(--fs-micro); letter-spacing: .16em; text-transform: uppercase; color: var(--greige); }
 .method__v { font-family: var(--display); font-weight: 500; font-size: var(--fs-h3); }
 .method__v a {

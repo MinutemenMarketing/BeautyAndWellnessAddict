@@ -284,16 +284,10 @@ w.addEventListener("error",function(e){if(e.target&&e.target.tagName==="SCRIPT")
         </div>
       </div>
 
-      <!-- The photograph library holds no true scalp or hair image. These are the
-           regenerative vials the PRP and DerIVE scalp courses are drawn from, which
-           is accurate for the treatments listed. Replace with a real scalp or hair
-           treatment photograph from the practice when one is available. -->
-      <div class="cat__banner fig-hover" data-reveal="mask">
-        <div class="figure">
-          <img src="assets/img/ampoules.jpg" alt="Regenerative treatment vials prepared for a PRP scalp course at Beauty and Wellness addict NY." loading="lazy" decoding="async" width="1400" height="600">
-        </div>
-      </div>
-
+      <!-- AWAITING PHOTOGRAPHY: this category has no banner because the library holds
+           no hair or scalp image, and substituting an unrelated still life here would
+           be worse than leaving the space to typography. Drop a real hair or scalp
+           treatment photograph in as .cat__banner above this intro when one arrives. -->
       <p class="cat__intro" data-reveal>Scalp and hair treatments are planned in a course rather than sold as a single session, because that is how they are studied.</p>
 
       <div class="tx-list">
@@ -328,7 +322,7 @@ w.addEventListener("error",function(e){if(e.target&&e.target.tagName==="SCRIPT")
 
       <div class="cat__banner fig-hover" data-reveal="mask">
         <div class="figure">
-          <img src="assets/img/serums.jpg" alt="Peptide and vitamin preparations on a pale stone counter at Beauty and Wellness addict NY in Great Neck." loading="lazy" decoding="async" width="1400" height="600">
+          <img src="assets/img/ampoules.jpg" alt="Vitamin and peptide ampoules prepared on linen at Beauty and Wellness addict NY in Great Neck." loading="lazy" decoding="async" width="1400" height="600">
         </div>
       </div>
 
@@ -414,22 +408,65 @@ w.addEventListener("error",function(e){if(e.target&&e.target.tagName==="SCRIPT")
       <div class="mt-4">
         <span class="rule-g" data-reveal aria-hidden="true"></span>
         <h3 class="h3 mb-2" data-reveal>Available vitamins &amp; compounds</h3>
-        <ul class="vits" data-reveal data-delay="80">
-          <li>B12</li>
-          <li>B Complex</li>
-          <li>L Glutamine</li>
-          <li>Taurine</li>
-          <li>Carnitine</li>
-          <li>Magnesium</li>
-          <li>Mineral Blend</li>
-          <li>Glutathione</li>
-          <li>Tri-Immune</li>
-          <li>Zinc</li>
-          <li>Vitamin C</li>
-          <li>Vitamin D</li>
-          <li>MICC</li>
-          <li>Amino Blend</li>
-        </ul>
+        <p class="small mb-2" data-reveal>What goes into your drip is decided at consultation. General information only, not medical advice.</p>
+        <div class="vits" data-vits data-reveal data-delay="80">
+          <div class="vit">
+            <h4><button class="vit__head" type="button" aria-expanded="false" aria-controls="vit-b12" id="vit-b12-h">B12<span class="vit__sign" aria-hidden="true"></span></button></h4>
+            <div class="vit__panel" id="vit-b12" role="region" aria-labelledby="vit-b12-h"><div><p class="vit__body">A water-soluble vitamin, also called cobalamin. It is involved in red blood cell formation, normal nerve function and DNA synthesis, and is commonly associated with energy metabolism.</p></div></div>
+          </div>
+          <div class="vit">
+            <h4><button class="vit__head" type="button" aria-expanded="false" aria-controls="vit-bcomplex" id="vit-bcomplex-h">B Complex<span class="vit__sign" aria-hidden="true"></span></button></h4>
+            <div class="vit__panel" id="vit-bcomplex" role="region" aria-labelledby="vit-bcomplex-h"><div><p class="vit__body">A combined preparation of the B vitamins, typically B1, B2, B3, B5 and B6. They act as cofactors in converting food into energy and play a role in normal nervous system function.</p></div></div>
+          </div>
+          <div class="vit">
+            <h4><button class="vit__head" type="button" aria-expanded="false" aria-controls="vit-glutamine" id="vit-glutamine-h">L Glutamine<span class="vit__sign" aria-hidden="true"></span></button></h4>
+            <div class="vit__panel" id="vit-glutamine" role="region" aria-labelledby="vit-glutamine-h"><div><p class="vit__body">The most abundant amino acid in the bloodstream. It is used in protein synthesis and is involved in maintaining the gut lining and in fuelling immune cells.</p></div></div>
+          </div>
+          <div class="vit">
+            <h4><button class="vit__head" type="button" aria-expanded="false" aria-controls="vit-taurine" id="vit-taurine-h">Taurine<span class="vit__sign" aria-hidden="true"></span></button></h4>
+            <div class="vit__panel" id="vit-taurine" role="region" aria-labelledby="vit-taurine-h"><div><p class="vit__body">An amino acid found in high concentration in the heart, muscle and brain. It plays a role in fluid and electrolyte balance and in normal muscle function.</p></div></div>
+          </div>
+          <div class="vit">
+            <h4><button class="vit__head" type="button" aria-expanded="false" aria-controls="vit-carnitine" id="vit-carnitine-h">Carnitine<span class="vit__sign" aria-hidden="true"></span></button></h4>
+            <div class="vit__panel" id="vit-carnitine" role="region" aria-labelledby="vit-carnitine-h"><div><p class="vit__body">A compound involved in transporting fatty acids into the mitochondria, where they are used for energy. Commonly associated with exercise performance and fat metabolism.</p></div></div>
+          </div>
+          <div class="vit">
+            <h4><button class="vit__head" type="button" aria-expanded="false" aria-controls="vit-magnesium" id="vit-magnesium-h">Magnesium<span class="vit__sign" aria-hidden="true"></span></button></h4>
+            <div class="vit__panel" id="vit-magnesium" role="region" aria-labelledby="vit-magnesium-h"><div><p class="vit__body">A mineral acting as a cofactor in hundreds of enzyme reactions. It is involved in muscle and nerve function, energy production and normal sleep and stress regulation.</p></div></div>
+          </div>
+          <div class="vit">
+            <h4><button class="vit__head" type="button" aria-expanded="false" aria-controls="vit-mineral" id="vit-mineral-h">Mineral Blend<span class="vit__sign" aria-hidden="true"></span></button></h4>
+            <div class="vit__panel" id="vit-mineral" role="region" aria-labelledby="vit-mineral-h"><div><p class="vit__body">A combined preparation of trace minerals, typically including zinc, selenium, copper and manganese. They act as cofactors across a wide range of enzyme and antioxidant systems.</p></div></div>
+          </div>
+          <div class="vit">
+            <h4><button class="vit__head" type="button" aria-expanded="false" aria-controls="vit-glutathione" id="vit-glutathione-h">Glutathione<span class="vit__sign" aria-hidden="true"></span></button></h4>
+            <div class="vit__panel" id="vit-glutathione" role="region" aria-labelledby="vit-glutathione-h"><div><p class="vit__body">An antioxidant the body produces naturally, sometimes called the master antioxidant. It is involved in protecting cells from oxidative stress and in liver detoxification pathways.</p></div></div>
+          </div>
+          <div class="vit">
+            <h4><button class="vit__head" type="button" aria-expanded="false" aria-controls="vit-triimmune" id="vit-triimmune-h">Tri-Immune<span class="vit__sign" aria-hidden="true"></span></button></h4>
+            <div class="vit__panel" id="vit-triimmune" role="region" aria-labelledby="vit-triimmune-h"><div><p class="vit__body">A combination of glutathione, vitamin C and zinc. Each of the three is involved in normal immune function, and the blend is commonly used to support it.</p></div></div>
+          </div>
+          <div class="vit">
+            <h4><button class="vit__head" type="button" aria-expanded="false" aria-controls="vit-zinc" id="vit-zinc-h">Zinc<span class="vit__sign" aria-hidden="true"></span></button></h4>
+            <div class="vit__panel" id="vit-zinc" role="region" aria-labelledby="vit-zinc-h"><div><p class="vit__body">A trace mineral involved in immune function, wound healing, protein and DNA synthesis, and the sense of taste and smell.</p></div></div>
+          </div>
+          <div class="vit">
+            <h4><button class="vit__head" type="button" aria-expanded="false" aria-controls="vit-vitc" id="vit-vitc-h">Vitamin C<span class="vit__sign" aria-hidden="true"></span></button></h4>
+            <div class="vit__panel" id="vit-vitc" role="region" aria-labelledby="vit-vitc-h"><div><p class="vit__body">A water-soluble antioxidant vitamin, also called ascorbic acid. It is involved in collagen production, iron absorption and normal immune function.</p></div></div>
+          </div>
+          <div class="vit">
+            <h4><button class="vit__head" type="button" aria-expanded="false" aria-controls="vit-vitd" id="vit-vitd-h">Vitamin D<span class="vit__sign" aria-hidden="true"></span></button></h4>
+            <div class="vit__panel" id="vit-vitd" role="region" aria-labelledby="vit-vitd-h"><div><p class="vit__body">A fat-soluble vitamin the body also makes from sunlight. It is involved in calcium absorption, bone health and normal immune function. Levels are commonly checked with blood work.</p></div></div>
+          </div>
+          <div class="vit">
+            <h4><button class="vit__head" type="button" aria-expanded="false" aria-controls="vit-micc" id="vit-micc-h">MICC<span class="vit__sign" aria-hidden="true"></span></button></h4>
+            <div class="vit__panel" id="vit-micc" role="region" aria-labelledby="vit-micc-h"><div><p class="vit__body">A combination of methionine, inositol, choline and B12, sometimes called a lipotropic injection. These compounds are involved in fat metabolism and liver function, and it may be used as part of a metabolic protocol.</p></div></div>
+          </div>
+          <div class="vit">
+            <h4><button class="vit__head" type="button" aria-expanded="false" aria-controls="vit-amino" id="vit-amino-h">Amino Blend<span class="vit__sign" aria-hidden="true"></span></button></h4>
+            <div class="vit__panel" id="vit-amino" role="region" aria-labelledby="vit-amino-h"><div><p class="vit__body">A combination of amino acids, typically arginine, ornithine, lysine and citrulline. Amino acids are the building blocks the body uses for protein synthesis and tissue repair.</p></div></div>
+          </div>
+        </div>
       </div>
 
       <div class="mt-4" data-reveal>
@@ -523,7 +560,7 @@ w.addEventListener("error",function(e){if(e.target&&e.target.tagName==="SCRIPT")
           <h2 class="footer__h">Contact</h2>
           <ul class="footer__list">
             <li><a class="ul-link" href="tel:+19177533570">917-753-3570</a></li>
-            <li><a class="ul-link" href="https://www.instagram.com/BeautyAddict_NY/" target="_blank" rel="noopener">@BeautyAddict_NY</a></li>
+            <li><a class="ul-link" href="https://www.instagram.com/BeautyAddict_NY/" target="_blank" rel="noopener">Instagram</a></li>
             <li><a class="ul-link" href="https://www.facebook.com/beautyaddictnewyork/" target="_blank" rel="noopener">Facebook</a></li>
             <li><a class="ul-link" href="https://www.google.com/maps/dir/?api=1&amp;destination=200+Middle+Neck+Road,+Great+Neck,+NY+11021" target="_blank" rel="noopener">200 Middle Neck Road, Great Neck, NY 11021</a></li>
           </ul>
