@@ -19,6 +19,7 @@
   --gold:     #B08D57;
   --gold-ink: #7D5F2C;   /* passes 4.5:1 on ivory, cream and shell alike */
   --gold-soft:rgba(176, 141, 87, .32);
+  --gold-hair:rgba(176, 141, 87, .55);  /* the champagne rule, motif 01 */
   --line:     rgba(43, 35, 32, .15);
   --line-soft:rgba(43, 35, 32, .08);
   --line-inv: rgba(247, 243, 236, .20);
@@ -777,6 +778,337 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
 /* ---------- Section grounds ---------- */
 .bg-cream { background: var(--cream); }
 .bg-shell { background: var(--shell); }
+
+/* ==========================================================================
+   ART DIRECTION LAYER
+   Three motifs carry the identity across every page:
+     01  the champagne rule      .rule-g      — draws itself left to right
+     02  the signed script       .script      — the wordmark's hand, used sparingly
+     03  the editorial mask      [data-reveal="mask"] — image settles out of a wipe
+   Everything else is composition and ground. No fourth motif.
+   ========================================================================== */
+
+/* ---- Motif 01: the champagne rule ---------------------------------------
+   A single hairline that opens a section. It expands on reveal, so the eye
+   is led into the heading rather than arriving with it. */
+.rule-g {
+  display: block;
+  width: min(120px, 26vw);
+  height: 1px;
+  background: var(--gold);
+  transform-origin: left;
+  margin-bottom: var(--sp-2);
+}
+.reveal-on [data-reveal] .rule-g,
+.reveal-on .rule-g[data-reveal] { transform: scaleX(0); }
+[data-reveal].is-in .rule-g,
+.rule-g[data-reveal].is-in {
+  transform: scaleX(1);
+  transition: transform 1.1s var(--ease) calc(var(--delay, 0s) + .1s);
+}
+.rule-g--wide { width: 100%; }
+.inv .rule-g, .hero-full .rule-g { background: var(--gold); }
+
+/* ---- Motif 02: the signed script -----------------------------------------
+   The same hand as "addict" in the wordmark. It marks the two or three
+   moments a page actually wants a human voice, never as body copy. */
+.script {
+  font-family: "Sacramento", var(--display);
+  font-style: normal;
+  letter-spacing: .01em;
+  color: var(--gold-ink);
+  text-transform: none;
+}
+.inv .script, .hero-full .script, .close .script { color: var(--gold); }
+.script--lg { font-size: clamp(2.25rem, 1.4rem + 3.4vw, 4.5rem); line-height: .9; display: block; }
+
+/* ---- Motif 03: the editorial mask ---------------------------------------
+   The frame wipes open from the bottom while the photograph inside settles
+   back from a slight overscale. Two transforms, no clip-path: the previous
+   build proved clip-path is the one property that can silently fail here. */
+.reveal-on [data-reveal="mask"] {
+  opacity: 1;
+  transform: none;
+  clip-path: none;
+}
+.reveal-on [data-reveal="mask"] .figure,
+.reveal-on [data-reveal="mask"] .hero__frame { position: relative; overflow: hidden; }
+.reveal-on [data-reveal="mask"] .figure::after,
+.reveal-on [data-reveal="mask"] .hero__frame::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: var(--ivory);
+  transform-origin: bottom;
+  transition: transform 1.15s var(--ease) var(--delay, 0s);
+  z-index: 2;
+}
+.reveal-on .inv [data-reveal="mask"] .figure::after { background: var(--espresso); }
+.reveal-on [data-reveal="mask"] img { transform: scale(1.07); transition: transform 1.5s var(--ease) var(--delay, 0s); }
+[data-reveal="mask"].is-in .figure::after,
+[data-reveal="mask"].is-in .hero__frame::after { transform: scaleY(0); }
+[data-reveal="mask"].is-in img { transform: none; }
+
+/* Staggered typography: children of a revealed block arrive in sequence
+   rather than together. Used on lists and on the founders block. */
+.reveal-on [data-stagger] > * { opacity: 0; transform: translateY(12px); }
+[data-stagger].is-in > * {
+  opacity: 1; transform: none;
+  transition: opacity .8s var(--ease), transform .8s var(--ease);
+}
+[data-stagger].is-in > *:nth-child(1) { transition-delay: .05s; }
+[data-stagger].is-in > *:nth-child(2) { transition-delay: .13s; }
+[data-stagger].is-in > *:nth-child(3) { transition-delay: .21s; }
+[data-stagger].is-in > *:nth-child(4) { transition-delay: .29s; }
+[data-stagger].is-in > *:nth-child(5) { transition-delay: .37s; }
+[data-stagger].is-in > *:nth-child(6) { transition-delay: .45s; }
+
+/* ---------- Full-bleed hero ----------------------------------------------
+   The photograph is the argument. Type sits in the lower third over a scrim
+   heavy enough that ivory clears 4.5:1 against the brightest part of the
+   image, checked at the window rather than the wall. */
+.hero-full {
+  position: relative;
+  min-height: 100svh;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  background: var(--espresso);
+  padding-bottom: clamp(56px, 8vh, 112px);
+  padding-top: 128px;
+}
+/* Short viewports: pull the type up so the booking button stays above the fold. */
+@media (max-height: 780px) { .hero-full { padding-top: 104px; padding-bottom: 48px; } }
+@supports (min-height: 100svh) { .hero-full { min-height: 100svh; } }
+.hero-full__media { position: absolute; inset: 0; z-index: 0; }
+.hero-full__media img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: 62% 50%;
+}
+@media (max-width: 899px) { .hero-full__media img { object-position: 68% 50%; } }
+.hero-full__scrim {
+  position: absolute; inset: 0; z-index: 1;
+  background:
+    linear-gradient(to top, rgba(29,23,21,.90) 0%, rgba(29,23,21,.66) 34%, rgba(29,23,21,.34) 64%, rgba(29,23,21,.30) 100%),
+    linear-gradient(to right, rgba(29,23,21,.52) 0%, rgba(29,23,21,.12) 62%, rgba(29,23,21,0) 100%);
+}
+.hero-full__inner { position: relative; z-index: 2; width: 100%; }
+/* A ch-based width here would be measured against the body font, not the
+   display face the h1 actually uses, and the headline would wrap on itself. */
+.hero-full__copy { max-width: min(820px, 100%); }
+.hero-full .h1, .hero-full .mega { color: var(--ivory); }
+.hero-full .it { color: var(--gold); }
+.hero-full__lead {
+  color: #EFE7DC;
+  font-family: var(--display);
+  font-size: var(--fs-lead);
+  line-height: 1.4;
+  max-width: 26ch;
+  margin-top: var(--sp-2);
+}
+.hero-full .btn-row { margin-top: var(--sp-3); }
+/* Scroll cue: a hairline that breathes. Decorative, so it is hidden from
+   assistive tech and stops entirely under reduced motion. */
+.hero-cue {
+  position: absolute; z-index: 2;
+  right: var(--gutter); bottom: clamp(56px, 8vh, 112px);
+  display: none;
+  align-items: center; gap: 14px;
+  font-size: var(--fs-micro); letter-spacing: .2em; text-transform: uppercase;
+  color: var(--taupe);
+  writing-mode: vertical-rl;
+}
+@media (min-width: 1100px) { .hero-cue { display: inline-flex; } }
+.hero-cue::after {
+  content: ""; width: 1px; height: 68px; background: var(--gold);
+  transform-origin: top;
+  animation: cue 2.6s var(--ease) infinite;
+}
+@keyframes cue { 0%,100% { transform: scaleY(.35); opacity: .5; } 50% { transform: scaleY(1); opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .hero-cue::after { animation: none; transform: scaleY(1); } }
+
+/* ---------- Founders ------------------------------------------------------
+   An overlap rather than a split: the portrait runs past the top of the copy
+   column so the two read as one composition instead of two boxes. */
+.founders { position: relative; }
+.founders__grid { row-gap: var(--sp-3); align-items: center; }
+.founders__media { grid-column: 1 / -1; }
+.founders__copy { grid-column: 1 / -1; }
+@media (min-width: 960px) {
+  .founders__media { grid-column: 1 / 7; }
+  .founders__copy  { grid-column: 8 / -1; }
+  /* the portrait breaks the section's top padding */
+  .founders__media { margin-top: calc(var(--sec) * -.42); }
+}
+.founders__frame { aspect-ratio: 4 / 5; overflow: hidden; background: var(--shell); }
+.founders__frame img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 28%; }
+.founders__names {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: .5em 1.1em;
+  margin-top: var(--sp-2);
+  font-family: var(--display);
+  font-size: clamp(1.125rem, .95rem + .7vw, 1.5rem);
+}
+.founders__names span { display: inline-flex; align-items: baseline; gap: .5em; }
+.founders__names em { font-style: normal; font-family: var(--text); font-size: var(--fs-micro); letter-spacing: .16em; text-transform: uppercase; color: var(--gold-ink); }
+.inv .founders__names em { color: var(--gold); }
+
+/* ---------- Reviews -------------------------------------------------------
+   Set as pull quotes on a rule, not as cards. Real Google reviews only. */
+.reviews { display: grid; gap: var(--sp-3) clamp(28px, 4vw, 72px); }
+@media (min-width: 860px) { .reviews { grid-template-columns: repeat(2, 1fr); } }
+.review { border-top: 1px solid var(--gold-hair); padding-top: var(--sp-2); }
+.review__q {
+  font-family: var(--display);
+  font-size: clamp(1.25rem, 1.05rem + .9vw, 1.75rem);
+  line-height: 1.35;
+  color: var(--espresso);
+  text-wrap: pretty;
+}
+.inv .review__q { color: var(--ivory); }
+.review__by {
+  margin-top: var(--sp-2);
+  font-size: var(--fs-micro); letter-spacing: .16em; text-transform: uppercase;
+  color: var(--greige);
+  display: flex; flex-wrap: wrap; gap: .4em .9em;
+}
+.inv .review__by { color: var(--taupe); }
+.review__src { color: var(--gold-ink); }
+.inv .review__src { color: var(--gold); }
+.review--lead { grid-column: 1 / -1; }
+.review--lead .review__q { font-size: clamp(1.5rem, 1.1rem + 1.9vw, 2.5rem); }
+
+/* ---------- Gallery -------------------------------------------------------
+   An asymmetric three-up. The tall frame carries, the two short frames
+   support; it is not a grid of equal thumbnails. */
+.gallery { display: grid; gap: clamp(14px, 1.8vw, 26px); grid-template-columns: 1fr; }
+@media (min-width: 760px) {
+  .gallery { grid-template-columns: 1.35fr 1fr; grid-template-rows: auto auto; }
+  .gallery__a { grid-row: 1 / 3; }
+}
+@media (min-width: 760px) {
+  .gallery--4 { grid-template-rows: auto auto auto; }
+  .gallery--4 .gallery__a { grid-row: 1 / 4; }
+}
+.gallery .figure--a { aspect-ratio: 3 / 4; height: 100%; }
+.gallery .figure--b { aspect-ratio: 4 / 3; }
+.gallery .figure--a img { height: 100%; }
+
+/* ---------- Services categories -------------------------------------------
+   Each category opens with the rule, a script accent and a photograph that
+   runs to the edge of the grid, so the page changes shape as you scroll. */
+.cat { scroll-margin-top: 96px; }
+.cat__head { row-gap: var(--sp-2); align-items: end; margin-bottom: var(--sp-3); }
+.cat__title { grid-column: 1 / -1; }
+.cat__note  { grid-column: 1 / -1; }
+@media (min-width: 900px) {
+  .cat__title { grid-column: 1 / 7; }
+  .cat__note  { grid-column: 8 / -1; padding-bottom: .4em; }
+}
+.cat__banner { aspect-ratio: 21 / 9; overflow: hidden; background: var(--shell); margin-bottom: var(--sp-3); }
+@media (max-width: 759px) { .cat__banner { aspect-ratio: 3 / 2; } }
+.cat__banner img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Treatment row: name, what it does, price. One line of information each. */
+.tx {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px clamp(24px, 3vw, 56px);
+  padding-block: clamp(20px, 2.3vw, 30px);
+  border-bottom: 1px solid var(--line-soft);
+  align-items: baseline;
+}
+.tx-list > .tx:first-child { border-top: 1px solid var(--gold-hair); }
+@media (min-width: 860px) { .tx { grid-template-columns: minmax(0,1.05fr) minmax(0,1.5fr) auto; } }
+.tx__name { font-family: var(--display); font-weight: 500; font-size: clamp(1.1875rem, 1rem + .8vw, 1.625rem); line-height: 1.2; }
+.tx__desc { color: var(--mocha); font-size: var(--fs-small); max-width: 54ch; }
+.tx__price {
+  font-family: var(--display); font-weight: 500;
+  font-size: clamp(1.1875rem, 1rem + .7vw, 1.5rem);
+  color: var(--gold-ink);
+  font-variant-numeric: tabular-nums;
+  text-align: left;
+  white-space: nowrap;
+}
+@media (min-width: 860px) { .tx__price { text-align: right; } }
+.tx__pkg { display: block; font-family: var(--text); font-size: var(--fs-micro); color: var(--greige); margin-top: 3px; letter-spacing: .02em; }
+.inv .tx { border-color: var(--line-inv); }
+.inv .tx-list > .tx:first-child { border-color: var(--gold-hair); }
+.inv .tx__desc { color: var(--sand); }
+.inv .tx__price { color: var(--gold); }
+.inv .tx__pkg { color: var(--taupe); }
+/* A whole row is a hover target, so the price shifts with the name. */
+.tx { transition: background .4s var(--ease); }
+.tx:hover { background: rgba(176,141,87,.05); }
+.inv .tx:hover { background: rgba(176,141,87,.09); }
+
+/* ---------- Contact -------------------------------------------------------
+   Primary action first, alternates under it, form alongside. */
+.contact__grid { row-gap: var(--sp-4); align-items: start; }
+.contact__aside { grid-column: 1 / -1; }
+.contact__form  { grid-column: 1 / -1; }
+@media (min-width: 980px) {
+  .contact__aside { grid-column: 1 / 6; position: sticky; top: 120px; }
+  .contact__form  { grid-column: 7 / -1; }
+}
+.contact__cta { width: 100%; max-width: 380px; }
+.methods { margin-top: var(--sp-3); display: grid; }
+.method {
+  display: grid; grid-template-columns: 92px 1fr; gap: 4px var(--sp-2);
+  align-items: baseline;
+  padding-block: var(--sp-2);
+  border-top: 1px solid var(--line);
+}
+.method__k { font-size: var(--fs-micro); letter-spacing: .16em; text-transform: uppercase; color: var(--greige); }
+.method__v { font-family: var(--display); font-weight: 500; font-size: var(--fs-h3); }
+.method__v a {
+  display: inline-flex; align-items: center; min-height: 44px;
+  text-decoration-line: underline;
+  text-decoration-color: var(--gold);
+  text-underline-offset: .18em;
+  text-decoration-thickness: 1px;
+  transition: text-decoration-color .35s var(--ease), color .35s var(--ease);
+}
+.method__v a:hover, .method__v a:focus-visible { text-decoration-color: currentColor; color: var(--mocha); }
+
+/* ---------- Button refinement ---------------------------------------------
+   Espresso ground, ivory text, and a champagne hairline that appears on
+   hover as the fill rises. No pill, no gradient, no glow. */
+.btn { border-color: transparent; }
+.btn::before {
+  content: "";
+  position: absolute; inset: 0;
+  border: 1px solid var(--gold);
+  opacity: 0;
+  transition: opacity .45s var(--ease);
+  pointer-events: none;
+  z-index: 1;
+}
+.btn:hover::before, .btn:focus-visible::before { opacity: 1; }
+.btn--ghost { border-color: var(--line); }
+.btn--ghost:hover, .btn--ghost:focus-visible { border-color: transparent; }
+
+/* Image hover: anchored, 1.02, nothing more. */
+a .figure img, a.svc .figure img, .fig-hover img { transition: transform .7s var(--ease); }
+a:hover .figure img, .fig-hover:hover img { transform: scale(1.02); }
+
+/* ---------- Grounds, extended ---------- */
+.bg-sand { background: var(--sand); }
+.section.inv + .section.inv { padding-top: calc(var(--sec) * .55); }
+
+/* Reduced motion: the motifs stop moving but never stop being visible. */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on [data-reveal="mask"] .figure::after,
+  .reveal-on [data-reveal="mask"] .hero__frame::after,
+  [data-reveal="mask"] .figure::after,
+  [data-reveal="mask"] .hero__frame::after { display: none !important; }
+  .reveal-on [data-reveal="mask"] img,
+  [data-reveal="mask"] img { transform: none !important; }
+  .reveal-on [data-reveal] .rule-g,
+  .rule-g, .rule-g[data-reveal] { transform: scaleX(1) !important; }
+  .reveal-on [data-stagger] > *,
+  [data-stagger] > * { opacity: 1 !important; transform: none !important; }
+}
 
 /* ---------- Utilities ---------- */
 .mt-1 { margin-top: var(--sp-1); }

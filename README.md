@@ -11,104 +11,171 @@ npx serve beauty-wellness-addict -l 4321
 | File | Purpose |
 | --- | --- |
 | `index.html` | Home |
-| `about.html` | The founders, how they work, the brand note |
-| `services.html` | Full treatment directory (expandable detail) |
-| `longevity.html` | Longevity &amp; wellness |
-| `aesthetics.html` | Aesthetics &amp; skin |
-| `drip-addict.html` | IV therapy sub-brand |
-| `pricing.html` | Full pricing with packages |
-| `contact.html` | Contact details + enquiry form |
+| `about.html` | The founders, the practice, real Google reviews |
+| `services.html` | Every treatment, grouped, with pricing. The information hub. |
+| `contact.html` | Booking, contact methods, inquiry form, map |
 | `404.html` | Not-found page |
 
 Shared assets: `assets/css/site.css`, `assets/js/site.js`, `assets/img/`.
+
+Header, mobile menu and footer are duplicated in each HTML file — a change to one must be applied to all five.
+
+### Consolidated routes
+
+`longevity.html`, `pricing.html`, `drip-addict.html` and `aesthetics.html` were folded into
+`services.html`. `vercel.json` 301-redirects each old path (with and without the `.html`
+suffix) to the matching section anchor, so existing links and any indexed URLs keep working.
 
 ## Design system
 
 - **Display type:** Cormorant Garamond, 400/500/600 plus italic. Weight 500-600 carries anything set in the serif below ~28px, where Cormorant otherwise runs thin.
 - **Text type:** Manrope, 400 and 500.
 - **Grounds:** ivory (page), cream (a step down), shell (a step further), espresso (dark moments). Sections change ground where a new idea starts, never on a fixed alternation. Two sections sharing a ground get 55% of the usual top padding, because they read as one continuous idea.
-- **Gold:** `--gold #B08D57` for rules, icons, borders and text on espresso; `--gold-ink #7D5F2C` for text on ivory, cream and shell, where it clears 4.5:1 on all three. It carries the addict signature, the italic accent word in every headline, the step numerals, prices, arrow glyphs, chip borders and contact underlines.
-- **Palette:** ten tones, each with one job. ivory `#F7F3EC` page, shell `#EFE6DB` secondary surface, sand `#E4D8C9` body text on espresso, taupe `#B4A395` rules and muted text on espresso, greige `#6F6459` muted text on ivory, mocha `#6B5749` accent and body text, espresso `#2B2320` ink.
-- **Spacing:** four steps, `--sp-1` through `--sp-4`, plus `--sec` and `--sec-tight` for section rhythm. Nothing uses a one-off value.
-- **Type scale:** 139 / 63 / 48 / 34 / 26 / 17 / 12 px at desktop. Hero, editorial statement, pillar, service, section title, body, label.
-- Every colour and size is a custom property at the top of `site.css`. Change it there and the whole site follows.
+- **Gold:** `--gold #B08D57` for rules, icons, borders and text on espresso; `--gold-ink #7D5F2C` for text on ivory, cream and shell, where it clears 4.5:1 on all three. `--gold-hair` is the 55% rule tint used to open treatment lists.
+- **Palette:** ivory `#F7F3EC` page, shell `#EFE6DB` secondary surface, sand `#E4D8C9` body text on espresso, taupe `#B4A395` rules and muted text on espresso, greige `#6F6459` muted text on ivory, mocha `#6B5749` accent and body text, espresso `#2B2320` ink.
+- **Spacing:** four steps, `--sp-1` through `--sp-4`, plus `--sec` and `--sec-tight` for section rhythm.
+- Every colour and size is a custom property at the top of `site.css`.
 - `taupe` is for rules and for text on espresso only. On ivory it fails contrast; use `greige`.
-- `Drip addict` is the inverted (espresso) treatment rather than a second palette.
 
-Motion is `[data-reveal]` plus one IntersectionObserver: fade, rise and a
-0.97 scale on images. It is an enhancement and is never load-bearing.
+### The three motifs
 
-The gate is `html.reveal-on`. An inline head script adds it and arms a 3s
-failsafe that removes it; site.js disarms that timer only once an observer
-is confirmed running. So if site.js is blocked, 404s, or throws, the timer
-fires and everything becomes visible. Further nets: a sweep on load and on
-pageshow, a 2.5s check for anything still hidden above the fold, a
-try/catch that drops the gate on any error, an error listener for a failed
-script tag, and an onerror per image so a broken file never leaves a blank
-frame. Reduced motion and a missing IntersectionObserver both reveal
-immediately.
+The art direction rests on three repeating elements and deliberately no more, because
+consistency is what makes them read as identity rather than decoration.
 
-Animated with opacity and transform only. An earlier version transitioned
-clip-path, which is the most repaint-fragile property available here.
+| | Motif | Class | Behaviour |
+| --- | --- | --- | --- |
+| 01 | The champagne rule | `.rule-g` | A gold hairline that opens a section and draws itself left to right on reveal. |
+| 02 | The signed script | `.script` | The same Sacramento hand as `addict` in the wordmark, for the two or three moments a page wants a human voice. Never body copy. |
+| 03 | The editorial mask | `[data-reveal="mask"]` | The frame wipes open from the bottom while the photograph inside settles back from a 1.07 overscale. |
+
+`[data-stagger]` sequences the direct children of a revealed block at 80ms intervals so a
+heading, its copy and its link arrive in order rather than together.
+
+**Do not add a fourth motif.** More elements make the system weaker, not richer.
+
+### Hero
+
+`.hero-full` is a full-bleed photograph at `100svh` with a two-axis scrim: a vertical
+gradient carrying the bottom to 90% espresso and a horizontal one darkening the left, where
+the type sits. The photograph's bright window is framed to the right (`object-position: 62%`),
+so the brightest part of the image is never behind text. Ivory on the darkest sampled region
+clears AA comfortably.
+
+A `ch`-based `max-width` must never be used on the hero copy block: `ch` resolves against the
+body font, not the display face the `h1` actually uses, and the headline wraps on itself.
+
+## Motion
+
+Motion is `[data-reveal]` plus one IntersectionObserver: fade, rise, and the mask and stagger
+variants above. It is an enhancement and is never load-bearing.
+
+The gate is `html.reveal-on`. An inline head script adds it and arms a 3s failsafe that
+removes it; site.js disarms that timer only once an observer is confirmed running. So if
+site.js is blocked, 404s, or throws, the timer fires and everything becomes visible. Further
+nets: a sweep on load and on pageshow, a 2.5s check for anything still hidden above the fold,
+a try/catch that drops the gate on any error, an error listener for a failed script tag, and
+an onerror per image so a broken file never leaves a blank frame. Reduced motion and a missing
+IntersectionObserver both reveal immediately.
+
+Animated with opacity and transform only. An earlier version transitioned clip-path, which is
+the most repaint-fragile property available here. The mask motif is a `::after` panel scaled
+on the Y axis for the same reason — it is not a clip-path.
+
+Under `prefers-reduced-motion` the mask panels are removed outright, the rules are held at
+`scaleX(1)`, and staggered children are forced visible. Reduced motion means no animation,
+never no image.
+
+## Pricing and services
+
+`services.html` is the single source of pricing on the site. Every price was read from the
+practice's live Square booking catalogue, which is the source of truth for anything bookable.
+Where a Square record carries a customer-facing price description, that text wins over the raw
+item price.
+
+Three items could not be reconciled and are marked `UNRESOLVED` in a comment beside the row
+rather than guessed:
+
+| Item | Conflict | Shown as |
+| --- | --- | --- |
+| Microneedling with Z.O. | Square's price description says $360, the item price on the same record says $460 | $360 |
+| Botox for excess sweating | Square lists $8, against $12 per unit for every other neurotoxin service | "Price at consult" |
+| LED light therapy, OMNILUX LED mask | Carried over from the previous price list; neither appears in the current Square catalogue | Kept at $40/$100 and $325 |
+
+IV therapy exists in Square as a single bookable service, "IV Drip, starting at $249", with no
+published per-formula menu. Individual drip names are deliberately not listed rather than
+invented.
 
 ## What is deliberately missing
 
-Nothing is invented: no names, credentials, hours, reviews or medical claims. Rather than show bracketed placeholders to visitors, the elements that need client information are held out of the page and marked with an HTML comment where they belong.
+Nothing is invented: no credentials, hours, reviews or medical claims beyond what is
+published. Elements that need client information are held out of the page and marked with an
+HTML comment where they belong.
 
 | What's needed | Where the comment sits |
 | --- | --- |
-| Founder names, titles, licensure, headshots, bios | `about.html`, above the "How we work" section |
-| Email, address, opening hours, booking URL | `contact.html` contact rows, and `index.html` footer |
+| Opening hours | `contact.html` methods block. Held back because the Square profile and the Google listing currently disagree. |
+| Public email address | `contact.html` methods block |
 | Privacy policy, terms, accessibility statement | footer of every page |
-| Real approved reviews | `index.html`, before the closing section |
-| Cancellation and deposit policy | `pricing.html`, "Before you book" |
 
-Each comment describes the markup to reuse, so adding the real content is a paste rather than a rebuild.
+## Reviews
 
-## Contact page
-
-The map is a keyless Google Maps embed (`https://www.google.com/maps?q=...&output=embed`, no API key or billing account needed) pointed at 200 Middle Neck Road, Great Neck, NY 11021, with a CSS filter that warms Google's greens and blues into the site neutrals. The address row links to Google Maps directions. Contact links carry a resting underline in taupe that darkens to the text colour on hover.
+The five reviews on `about.html` are real, published Google reviews, quoted as written and
+trimmed only for length. They are attributed by the reviewer's name as it appears publicly and
+labelled "Google review". The rating shown, 5.0 from 38 reviews, is the published aggregate.
+Do not paraphrase these, and do not add a review that has not been verified as published.
 
 ## Booking
 
-Every `Book a consultation` CTA opens the practice Square booking page in a
-new tab. There are 33 across the site: header, mobile menu, closing section
-and footer on each page, plus the hero and the Contact page primary button.
+Every booking CTA opens the practice Square booking page in a new tab. There are 20 across the
+site: header, mobile menu and footer on each page, plus the hero, the Services closing band and
+the Contact page primary button.
 
 ```
 https://book.squareup.com/appointments/sxo39ov27u4avm/location/LW02SPDAKGV63/services
 ```
 
-To change it, replace that string everywhere; it is a plain href, no script.
-Square is not embedded, so nothing here breaks if Square changes its UI.
+To change it, replace that string everywhere; it is a plain href, no script. Square is not
+embedded, so nothing here breaks if Square changes its UI.
 
-The enquiry form is a separate path for questions, not bookings.
+## Social
 
-## The enquiry form
+- Instagram: `https://www.instagram.com/BeautyAddict_NY/`
+- Facebook: `https://www.facebook.com/beautyaddictnewyork/` — verified as the practice's own
+  page by the matching address (200 Middle Neck Road) and its posts referencing Beauty and
+  Wellness Addict. Note that Square's own profile record lists no Facebook URL, so this was
+  confirmed independently rather than taken from Square.
 
-`contact.html` posts to FormSubmit, currently to `nmmedina08@icloud.com` (same setup as the Ray Nail Spa and Muses Nails sites).
+## The inquiry form
 
-**FormSubmit activates per domain as well as per address.** The first submission from a new domain triggers a one-time activation email that has to be clicked before anything is delivered.
+`contact.html` posts to FormSubmit, currently to `nmmedina08@icloud.com`.
 
-- [ ] Send one test enquiry from the live site
+**FormSubmit activates per domain as well as per address.** The first submission from a new
+domain triggers a one-time activation email that has to be clicked before anything is delivered.
+
+- [ ] Send one test inquiry from the live site
 - [ ] Open the FormSubmit email and click **Activate Form**
 - [ ] Send a second test to confirm it arrives
 - [ ] Expect this again on a custom domain, and again when the address changes at handover
 
-On failure the form logs FormSubmit's own message to the console, which separates a pending activation from a real outage. Visitors see a fallback pointing them to the phone number.
+On failure the form logs FormSubmit's own message to the console, which separates a pending
+activation from a real outage. Visitors see a fallback pointing them to the phone number.
 
 ## Before launch
 
 1. Replace `beautyandwellnessaddictny.com` in the canonical/OG tags, `sitemap.xml` and `robots.txt` with the real domain.
-2. Fill in the JSON-LD address in `index.html` once the business address is confirmed.
-3. Re-check the pricing page against the client's current price list.
+2. Confirm the three UNRESOLVED prices above, and whether the two LED treatments are still offered.
+3. Confirm opening hours and a public email address, then add both to `contact.html`.
 4. Serve images with long cache headers **only** if filenames are content-hashed; otherwise keep `max-age` short so price and photo updates appear immediately.
 
 ## Images
 
-Every photograph appears exactly once across the whole site: 15 placements, 15 distinct images. The founders' photograph anchors the homepage hero. Replace any of them with the practice's own photography as it becomes available; keep the filename and the layout will not move.
+Every photograph appears exactly once across the whole site: 15 placements, 15 distinct
+images. `founders.jpg` is the client's own photograph of Sheila Omrani and Lisa Farazmand and
+anchors the Meet the Founders section on the homepage; it loads eagerly rather than lazily
+because it is the brand's key image and sits in the second section.
 
-`logo.png` is the client's supplied master logo. `mark.png` (BW monogram) and `logo-lockup.jpg` are crops of it. `founders.jpg` is the client's photograph, re-cropped in CSS so both founders sit centred on desktop and mobile.
+`logo.png` is the client's supplied master logo. `mark.png` (BW monogram) and `logo-lockup.jpg`
+are crops of it. `logo.png` and `logo-lockup.jpg` are currently unreferenced.
 
 `tools/optimize.ps1` resizes and re-encodes a source image to web-ready JPEG:
 
@@ -118,6 +185,16 @@ powershell -File tools/optimize.ps1 -Source in.png -Dest assets/img/out.jpg -Max
 
 ## Accessibility
 
-Verified: single `h1` per page, sequential headings, alt text on every image, visible focus rings, keyboard-operable menu with focus trap and Escape, all interactive targets ≥44px, and every text/background pair meeting WCAG AA (4.5:1 body, 3:1 large display).
+Verified: single `h1` per page, sequential headings, alt text on every image, visible focus
+rings, keyboard-operable menu with focus trap and Escape, all interactive targets ≥44px, and
+every text/background pair meeting WCAG AA (4.5:1 body, 3:1 large display).
 
-The services disclosure panels are marked `aria-expanded="true"` in the HTML and closed by JS on load, so the detail is readable if scripts fail.
+Gold is used decoratively — rules, borders, arrow glyphs — or as `--gold-ink` where it carries
+text on a light ground. It is never set as light gold text on cream.
+
+## QA
+
+An automated sweep loads all five pages in an iframe at 1440, 1280, 1024, 768, 430, 390 and
+375, scrolls each one to fire the reveals, then checks for horizontal overflow, elements left
+below full opacity, masks that never opened, and broken images. Last run: 35 combinations,
+zero problems.

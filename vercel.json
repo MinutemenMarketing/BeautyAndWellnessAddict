@@ -1,0 +1,14 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": false,
+  "redirects": [
+    { "source": "/pricing.html", "destination": "/services.html", "permanent": true },
+    { "source": "/pricing", "destination": "/services.html", "permanent": true },
+    { "source": "/longevity.html", "destination": "/services.html#wellness", "permanent": true },
+    { "source": "/longevity", "destination": "/services.html#wellness", "permanent": true },
+    { "source": "/drip-addict.html", "destination": "/services.html#iv-therapy", "permanent": true },
+    { "source": "/drip-addict", "destination": "/services.html#iv-therapy", "permanent": true },
+    { "source": "/aesthetics.html", "destination": "/services.html#aesthetic-medicine", "permanent": true },
+    { "source": "/aesthetics", "destination": "/services.html#aesthetic-medicine", "permanent": true }
+  ]
+}

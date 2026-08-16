@@ -1,4 +1,4 @@
-/* BEAUTY & WELLNESS addict NY — site behaviour
+/* BEAUTY & WELLNESS addict NY — site behavior
    No dependencies. Everything works without JS except the disclosure panels,
    which start open when JS is absent. */
 (function () {
@@ -187,7 +187,7 @@
     targets.forEach(function (t) { spy.observe(t.el); });
   }
 
-  /* ---------- enquiry form ---------- */
+  /* ---------- inquiry form ---------- */
   var form = document.querySelector("[data-form]");
   if (form) {
     var status = form.querySelector(".form__status");
@@ -251,7 +251,7 @@
           // not proof of delivery.
           var sent = data && (data.success === "true" || data.success === true);
           if (!sent) {
-            console.warn("Enquiry not delivered:", (data && data.message) || data);
+            console.warn("Inquiry not delivered:", (data && data.message) || data);
             throw new Error("not delivered");
           }
           form.reset();
