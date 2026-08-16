@@ -85,6 +85,41 @@ Under `prefers-reduced-motion` the mask panels are removed outright, the rules a
 `scaleX(1)`, and staggered children are forced visible. Reduced motion means no animation,
 never no image.
 
+The mask panel takes its colour from the ground it sits on (`--cream` inside `.bg-cream`,
+`--shell` inside `.bg-shell` and `.abouthero`, `--espresso` inside `.inv`). Get this wrong and
+the wipe shows an ivory rectangle sliding off a cream section.
+
+## Gallery lightbox
+
+`about.html` carries a click-to-enlarge gallery. `site.js` builds one dialog on first open and
+reuses it. Escape closes, arrow keys move, focus is trapped inside the dialog and returned to
+the button that opened it, the backdrop closes on click, and the body scroll locks while it is
+open.
+
+It is progressive enhancement: with no JS the buttons do nothing and the gallery is still a
+grid of visible photographs.
+
+The entrance opacity is applied by `requestAnimationFrame` **and** an 80ms timer, whichever
+fires first. A backgrounded or non-compositing tab never runs rAF, and without the timer the
+dialog could sit at opacity 0 with the page scroll already locked — the same class of bug as
+an image that never reveals.
+
+## SEO
+
+Each page carries its own title, description, canonical, Open Graph set and JSON-LD. Titles
+lead with the practice name or the page's subject and name Great Neck; descriptions name the
+real treatments rather than adjectives.
+
+Structured data uses one shared `@id` (`…/#practice`) across pages so the crawler resolves a
+single business entity: `MedicalBusiness` with address, phone, `areaServed`, `availableService`,
+`employee` (both founders, with their real credentials), `sameAs`, `hasMap` and a `ReserveAction`
+pointing at Square. `services.html` adds an `OfferCatalog` of twelve treatments with their real
+prices, and About, Services and Contact each carry a `BreadcrumbList`.
+
+There is no `AggregateRating` markup. The 5.0/38 figure is real but was removed from the visible
+page in this pass, and rating schema without corresponding on-page content is exactly the kind of
+claim that gets a listing penalised. Do not add it back without the visible content to match.
+
 ## Pricing and services
 
 `services.html` is the single source of pricing on the site. Every price was read from the
@@ -169,10 +204,29 @@ activation from a real outage. Visitors see a fallback pointing them to the phon
 
 ## Images
 
-Every photograph appears exactly once across the whole site: 15 placements, 15 distinct
+Every photograph appears exactly once across the whole site: 17 placements, 17 distinct
 images. `founders.jpg` is the client's own photograph of Sheila Omrani and Lisa Farazmand and
 anchors the Meet the Founders section on the homepage; it loads eagerly rather than lazily
 because it is the brand's key image and sits in the second section.
+
+### The client photographs
+
+`founders-office.jpg` (About hero) and `founders-artwork.jpg` (Gallery) are the client's own
+photographs of Sheila and Lisa, converted from the supplied PNGs. The originals live in
+`_source/`, which is gitignored so they are never served.
+
+**Both are small: 512×236 and 511×510.** Every frame that holds them is capped at or below
+native size so neither is ever upscaled — the About hero frame is `max-width: 512px` for
+exactly this reason, and the gallery is multi-column so they keep their own aspect ratios
+instead of being cropped to fit a cell. If higher-resolution originals arrive, drop them in at
+the same filenames and the caps can come off.
+
+### One image still to source
+
+The photograph library holds nothing that actually shows scalp or hair. The Hair & Scalp
+category currently uses `ampoules.jpg`, the regenerative vials the PRP and DerIVE scalp
+courses are drawn from, which is accurate for the treatments listed but is not a hair
+photograph. There is an HTML comment on that block. Replace it when the practice supplies one.
 
 `logo.png` is the client's supplied master logo. `mark.png` (BW monogram) and `logo-lockup.jpg`
 are crops of it. `logo.png` and `logo-lockup.jpg` are currently unreferenced.
@@ -195,6 +249,19 @@ text on a light ground. It is never set as light gold text on cream.
 ## QA
 
 An automated sweep loads all five pages in an iframe at 1440, 1280, 1024, 768, 430, 390 and
-375, scrolls each one to fire the reveals, then checks for horizontal overflow, elements left
-below full opacity, masks that never opened, and broken images. Last run: 35 combinations,
-zero problems.
+375, scrolls each one to fire the reveals, then checks:
+
+- horizontal overflow, and which element causes it
+- elements left below full opacity, and masks that never opened
+- broken images, and images displayed above their native width
+- exactly one `h1` per page
+- every link, button and field at 44px or taller
+- computed contrast on every text node against its real painted background, at the AA
+  threshold for its size and weight
+
+Last run: 35 combinations, zero problems. Treatment rows were checked separately — all 34 rows
+on the Services page share identical name, description and price offsets.
+
+The sweep runs in a non-compositing tab, so `requestAnimationFrame` is starved and the reveal
+failsafe correctly drops the gate. That is the safety net working, not a fault; it also means
+the sweep cannot observe the animations themselves, only that nothing is left invisible.

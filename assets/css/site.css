@@ -288,12 +288,17 @@ a { color: inherit; text-decoration: none; }
   font-size: var(--fs-micro);
   letter-spacing: .14em;
   text-transform: uppercase;
-  padding: 6px 0;
+  /* The desktop nav shows from 1000px up, which includes touch tablets, so
+     the rows carry a full 44px target rather than a mouse-sized one. The
+     padding does it, not min-height: the underline below is anchored to the
+     bottom of the box, and a flex box would strand it 14px under the text. */
+  display: inline-block;
+  padding: 14px 0;
   color: var(--espresso);
 }
 .nav__link::after {
   content: "";
-  position: absolute; left: 0; right: 0; bottom: 0;
+  position: absolute; left: 0; right: 0; bottom: 11px;
   height: 1px; background: currentColor;
   transform: scaleX(0); transform-origin: right;
   transition: transform .4s var(--ease);
@@ -832,9 +837,11 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
   clip-path: none;
 }
 .reveal-on [data-reveal="mask"] .figure,
-.reveal-on [data-reveal="mask"] .hero__frame { position: relative; overflow: hidden; }
+.reveal-on [data-reveal="mask"] .hero__frame,
+.reveal-on [data-reveal="mask"] .gal__btn { position: relative; overflow: hidden; }
 .reveal-on [data-reveal="mask"] .figure::after,
-.reveal-on [data-reveal="mask"] .hero__frame::after {
+.reveal-on [data-reveal="mask"] .hero__frame::after,
+.reveal-on [data-reveal="mask"] .gal__btn::after {
   content: "";
   position: absolute; inset: 0;
   background: var(--ivory);
@@ -842,10 +849,18 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
   transition: transform 1.15s var(--ease) var(--delay, 0s);
   z-index: 2;
 }
+/* The wipe panel has to match the ground it sits on, or the animation shows
+   an ivory rectangle against a cream section on its way out. */
 .reveal-on .inv [data-reveal="mask"] .figure::after { background: var(--espresso); }
+.reveal-on .bg-cream [data-reveal="mask"] .figure::after,
+.reveal-on .bg-cream [data-reveal="mask"] .gal__btn::after { background: var(--cream); }
+.reveal-on .bg-shell [data-reveal="mask"] .figure::after,
+.reveal-on .abouthero [data-reveal="mask"] .figure::after,
+.reveal-on .bg-shell [data-reveal="mask"] .gal__btn::after { background: var(--shell); }
 .reveal-on [data-reveal="mask"] img { transform: scale(1.07); transition: transform 1.5s var(--ease) var(--delay, 0s); }
 [data-reveal="mask"].is-in .figure::after,
-[data-reveal="mask"].is-in .hero__frame::after { transform: scaleY(0); }
+[data-reveal="mask"].is-in .hero__frame::after,
+[data-reveal="mask"].is-in .gal__btn::after { transform: scaleY(0); }
 [data-reveal="mask"].is-in img { transform: none; }
 
 /* Staggered typography: children of a revealed block arrive in sequence
@@ -1016,8 +1031,15 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
   gap: 6px clamp(24px, 3vw, 56px);
   padding-block: clamp(20px, 2.3vw, 30px);
   border-bottom: 1px solid var(--line-soft);
-  align-items: baseline;
+  /* Baseline alignment across a 26px serif, a 15px sans and a 24px serif
+     price puts three different first lines on one baseline and reads as
+     misalignment. Align to the top instead and pay in the optical offsets
+     below, which are the same on every row. */
+  align-items: start;
 }
+.tx__name { padding-top: 0; }
+.tx__desc { padding-top: .45em; }
+.tx__price { padding-top: .1em; }
 .tx-list > .tx:first-child { border-top: 1px solid var(--gold-hair); }
 @media (min-width: 860px) { .tx { grid-template-columns: minmax(0,1.05fr) minmax(0,1.5fr) auto; } }
 .tx__name { font-family: var(--display); font-weight: 500; font-size: clamp(1.1875rem, 1rem + .8vw, 1.625rem); line-height: 1.2; }
@@ -1032,8 +1054,9 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
 }
 @media (min-width: 860px) { .tx__price { text-align: right; } }
 .tx__pkg { display: block; font-family: var(--text); font-size: var(--fs-micro); color: var(--greige); margin-top: 3px; letter-spacing: .02em; }
-.inv .tx { border-color: var(--line-inv); }
-.inv .tx-list > .tx:first-child { border-color: var(--gold-hair); }
+/* Drip addict runs its rules in champagne rather than the default inverted
+   hairline, which is what sets the sub-brand apart on the dark ground. */
+.inv .tx, .inv .tx-list > .tx:first-child { border-color: var(--gold-hair); }
 .inv .tx__desc { color: var(--sand); }
 .inv .tx__price { color: var(--gold); }
 .inv .tx__pkg { color: var(--taupe); }
@@ -1042,23 +1065,154 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
 .tx:hover { background: rgba(176,141,87,.05); }
 .inv .tx:hover { background: rgba(176,141,87,.09); }
 
+/* ---- Category intro ------------------------------------------------------
+   One short line under the category photograph, introducing the list below
+   it. Not every category has one, and none of them get a paragraph. */
+.cat__intro {
+  max-width: 62ch;
+  margin-bottom: var(--sp-3);
+  color: var(--mocha);
+  font-family: var(--display);
+  font-size: var(--fs-lead);
+  line-height: 1.4;
+}
+.inv .cat__intro { color: var(--sand); }
+
+/* ---- Vitamin index -------------------------------------------------------
+   Fourteen options is a list, not prose. Set as a multi-column index with a
+   gold hairline per row so it scans in one pass at any width. */
+.vits {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: clamp(24px, 4vw, 72px);
+  border-top: 1px solid var(--gold-hair);
+}
+@media (min-width: 760px)  { .vits { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 1180px) { .vits { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.vits li {
+  padding-block: clamp(11px, 1.2vw, 15px);
+  border-bottom: 1px solid var(--gold-hair);
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(1rem, .94rem + .3vw, 1.1875rem);
+  line-height: 1.25;
+  color: var(--ivory);
+}
+.vits--light li { color: var(--espresso); }
+
+/* ---- Five stars ----------------------------------------------------------
+   Drawn once as a symbol and used per review. Decorative: the rating is not
+   information the review text does not already carry. */
+.stars { display: block; width: 92px; height: 15px; color: var(--gold); margin-bottom: var(--sp-2); }
+
+/* ---------- Gallery, editorial masonry ------------------------------------
+   Mixed spans on a six-column bed. The two client photographs are placed at
+   their own aspect ratios rather than cropped to match the room shots. */
+/* Multi-column rather than a row grid: every photograph keeps its own
+   aspect ratio, so nothing is cropped to fit a cell and no row leaves a gap
+   under the shorter image. The two client photographs are the reason —
+   one is 2.17:1 and one is square, and neither should be trimmed. */
+.gal { column-count: 1; column-gap: clamp(14px, 1.8vw, 26px); }
+@media (min-width: 700px)  { .gal { column-count: 2; } }
+@media (min-width: 1040px) { .gal { column-count: 3; } }
+.gal__item { break-inside: avoid; margin-bottom: clamp(14px, 1.8vw, 26px); }
+.gal__btn {
+  display: block; width: 100%; padding: 0; border: 0;
+  cursor: zoom-in; overflow: hidden; position: relative;
+  background: var(--shell);
+  line-height: 0;
+}
+.gal__btn img { width: 100%; height: auto; transition: transform .7s var(--ease); }
+.gal__btn:hover img { transform: scale(1.02); }
+.gal__btn:focus-visible { outline: 2px solid var(--gold-ink); outline-offset: 3px; }
+.r-1x1 { aspect-ratio: 1 / 1; }
+.r-4x5 { aspect-ratio: 4 / 5; }
+.r-4x3 { aspect-ratio: 4 / 3; }
+.r-3x2 { aspect-ratio: 3 / 2; }
+.r-21x9 { aspect-ratio: 21 / 9; }
+
+/* ---------- Lightbox ------------------------------------------------------
+   A dialog over an espresso scrim. It is built and opened by site.js; with
+   no JS the buttons stay inert and the gallery is still a grid of visible
+   photographs, which is the whole point. */
+.lb {
+  position: fixed; inset: 0; z-index: 200;
+  display: none;
+  align-items: center; justify-content: center;
+  padding: clamp(16px, 4vw, 56px);
+  background: rgba(29, 23, 21, .94);
+  opacity: 0;
+  transition: opacity .35s var(--ease);
+}
+.lb.is-open { display: flex; }
+.lb.is-shown { opacity: 1; }
+.lb__fig { margin: 0; max-width: min(1100px, 100%); max-height: 100%; display: flex; flex-direction: column; gap: var(--sp-2); }
+.lb__img {
+  max-width: 100%;
+  max-height: calc(100vh - clamp(120px, 18vw, 200px));
+  width: auto; height: auto;
+  object-fit: contain;
+  margin-inline: auto;
+  transform: scale(.985);
+  transition: transform .35s var(--ease), opacity .25s var(--ease);
+}
+.lb.is-shown .lb__img { transform: none; }
+.lb__cap { color: var(--taupe); font-size: var(--fs-micro); letter-spacing: .12em; text-transform: uppercase; text-align: center; }
+.lb__btn {
+  position: absolute;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 52px; height: 52px;
+  background: none; border: 1px solid var(--line-inv);
+  color: var(--ivory); cursor: pointer;
+  transition: border-color .3s var(--ease), background .3s var(--ease);
+}
+.lb__btn:hover, .lb__btn:focus-visible { border-color: var(--gold); background: rgba(176,141,87,.14); }
+.lb__btn svg { width: 17px; height: 17px; }
+.lb__close { top: clamp(14px, 3vw, 30px); right: clamp(14px, 3vw, 30px); }
+.lb__prev  { left: clamp(10px, 2vw, 28px);  top: 50%; transform: translateY(-50%); }
+.lb__next  { right: clamp(10px, 2vw, 28px); top: 50%; transform: translateY(-50%); }
+@media (max-width: 620px) {
+  .lb__prev { left: 12px; top: auto; bottom: 14px; transform: none; }
+  .lb__next { right: 12px; top: auto; bottom: 14px; transform: none; }
+}
+body.lb-open { overflow: hidden; }
+
+/* ---------- About hero ----------------------------------------------------
+   Its own ground, so the page announces itself instead of reading as the
+   homepage with the photograph removed. */
+.abouthero { background: var(--shell); padding-top: clamp(136px, 15vw, 210px); }
+.abouthero__grid { row-gap: var(--sp-3); align-items: center; }
+.abouthero__copy { grid-column: 1 / -1; }
+.abouthero__media { grid-column: 1 / -1; }
+@media (min-width: 900px) {
+  .abouthero__copy  { grid-column: 1 / 7; }
+  .abouthero__media { grid-column: 8 / -1; }
+}
+/* The client photograph is 512px wide. The frame is capped just under that so
+   it is never upscaled and never goes soft. */
+.abouthero__frame { max-width: 512px; overflow: hidden; background: var(--cream); }
+.abouthero__frame img { width: 100%; height: auto; }
+
 /* ---------- Contact -------------------------------------------------------
    Primary action first, alternates under it, form alongside. */
-.contact__grid { row-gap: var(--sp-4); align-items: start; }
-.contact__aside { grid-column: 1 / -1; }
-.contact__form  { grid-column: 1 / -1; }
-@media (min-width: 980px) {
-  .contact__aside { grid-column: 1 / 6; position: sticky; top: 120px; }
-  .contact__form  { grid-column: 7 / -1; }
-}
-.contact__cta { width: 100%; max-width: 380px; }
+/* The ladder: primary action on top, alternates stacked under it, the whole
+   block held in one narrow centred column so it reads as a single stack
+   rather than four rows floating across the page. */
+.ladder { max-width: 560px; margin-inline: auto; }
+.contact__cta { width: 100%; }
 .methods { margin-top: var(--sp-3); display: grid; }
 .method {
-  display: grid; grid-template-columns: 92px 1fr; gap: 4px var(--sp-2);
+  display: grid; grid-template-columns: 96px 1fr; gap: 4px var(--sp-2);
   align-items: baseline;
   padding-block: var(--sp-2);
-  border-top: 1px solid var(--line);
+  border-top: 1px solid var(--gold-hair);
 }
+.method:last-child { border-bottom: 1px solid var(--gold-hair); }
+.form-wrap { max-width: 760px; margin-inline: auto; }
+/* The map runs the full measure under the ladder, not beside it. */
+.map--wide { aspect-ratio: 21 / 9; }
+@media (max-width: 899px) { .map--wide { aspect-ratio: 4 / 3; } }
+@media (min-width: 900px) { .map--wide { aspect-ratio: 21 / 9; } }
 .method__k { font-size: var(--fs-micro); letter-spacing: .16em; text-transform: uppercase; color: var(--greige); }
 .method__v { font-family: var(--display); font-weight: 500; font-size: var(--fs-h3); }
 .method__v a {
@@ -1100,8 +1254,10 @@ a:hover .figure img, .fig-hover:hover img { transform: scale(1.02); }
 @media (prefers-reduced-motion: reduce) {
   .reveal-on [data-reveal="mask"] .figure::after,
   .reveal-on [data-reveal="mask"] .hero__frame::after,
+  .reveal-on [data-reveal="mask"] .gal__btn::after,
   [data-reveal="mask"] .figure::after,
-  [data-reveal="mask"] .hero__frame::after { display: none !important; }
+  [data-reveal="mask"] .hero__frame::after,
+  [data-reveal="mask"] .gal__btn::after { display: none !important; }
   .reveal-on [data-reveal="mask"] img,
   [data-reveal="mask"] img { transform: none !important; }
   .reveal-on [data-reveal] .rule-g,

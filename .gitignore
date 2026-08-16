@@ -3,3 +3,6 @@ node_modules
 .DS_Store
 Thumbs.db
 *.log
+
+# Client-supplied originals; the web-ready versions live in assets/img
+_source/

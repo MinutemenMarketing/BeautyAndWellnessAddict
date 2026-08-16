@@ -266,6 +266,102 @@
     });
   }
 
+  /* ---------- gallery lightbox --------------------------------------
+     Progressive enhancement. With no JS the gallery is still a grid of
+     visible photographs and the buttons simply do nothing, so nothing is
+     hidden behind this. The dialog is built once, on first open. */
+  var gal = document.querySelector("[data-lightbox]");
+  if (gal) {
+    var shots = Array.prototype.slice.call(gal.querySelectorAll(".gal__btn"));
+    if (shots.length) {
+      var lb = null, lbImg = null, lbCap = null, idx = 0, opener = null;
+
+      var arrow = function (d) {
+        return '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="' +
+          (d === "prev" ? "M15 4l-8 8 8 8" : d === "next" ? "M9 4l8 8-8 8" : "M4 4l16 16M20 4L4 20") +
+          '" stroke="currentColor" stroke-width="1.5"/></svg>';
+      };
+
+      var build = function () {
+        lb = document.createElement("div");
+        lb.className = "lb";
+        lb.setAttribute("role", "dialog");
+        lb.setAttribute("aria-modal", "true");
+        lb.setAttribute("aria-label", "Gallery image");
+        lb.innerHTML =
+          '<button class="lb__btn lb__close" type="button" aria-label="Close">' + arrow("close") + "</button>" +
+          '<button class="lb__btn lb__prev" type="button" aria-label="Previous image">' + arrow("prev") + "</button>" +
+          '<button class="lb__btn lb__next" type="button" aria-label="Next image">' + arrow("next") + "</button>" +
+          '<figure class="lb__fig"><img class="lb__img" alt=""><figcaption class="lb__cap"></figcaption></figure>';
+        document.body.appendChild(lb);
+        lbImg = lb.querySelector(".lb__img");
+        lbCap = lb.querySelector(".lb__cap");
+
+        lb.querySelector(".lb__close").addEventListener("click", close);
+        lb.querySelector(".lb__prev").addEventListener("click", function () { go(-1); });
+        lb.querySelector(".lb__next").addEventListener("click", function () { go(1); });
+        lb.addEventListener("click", function (e) { if (e.target === lb) close(); });
+      };
+
+      var show = function (i) {
+        idx = (i + shots.length) % shots.length;
+        var src = shots[idx].querySelector("img");
+        if (!src) return;
+        lbImg.src = src.currentSrc || src.src;
+        lbImg.alt = src.alt || "";
+        lbCap.textContent = src.alt || "";
+      };
+
+      var go = function (step) { show(idx + step); };
+
+      function open(i, fromEl) {
+        opener = fromEl || document.activeElement;
+        if (!lb) build();
+        show(i);
+        lb.classList.add("is-open");
+        document.body.classList.add("lb-open");
+        /* A frame later, so the opacity transition has a start value to move
+           from. rAF is paired with a timer because a backgrounded or
+           non-compositing tab never runs rAF, and the dialog must not be able
+           to sit at opacity 0 with the page scroll already locked. Whichever
+           fires first wins; the second is a no-op. */
+        var reveal = function () { if (lb) lb.classList.add("is-shown"); };
+        if (reduced) reveal();
+        else {
+          requestAnimationFrame(function () { requestAnimationFrame(reveal); });
+          setTimeout(reveal, 80);
+        }
+        lb.querySelector(".lb__close").focus();
+      }
+
+      function close() {
+        if (!lb) return;
+        lb.classList.remove("is-shown");
+        document.body.classList.remove("lb-open");
+        var done = function () { lb.classList.remove("is-open"); };
+        if (reduced) done(); else setTimeout(done, 350);
+        if (opener && opener.focus) opener.focus();
+      }
+
+      shots.forEach(function (btn, i) {
+        btn.addEventListener("click", function () { open(i, btn); });
+      });
+
+      document.addEventListener("keydown", function (e) {
+        if (!lb || !lb.classList.contains("is-open")) return;
+        if (e.key === "Escape") { close(); return; }
+        if (e.key === "ArrowLeft") { go(-1); return; }
+        if (e.key === "ArrowRight") { go(1); return; }
+        if (e.key !== "Tab") return;
+        /* keep focus inside the dialog */
+        var f = lb.querySelectorAll("button");
+        var first = f[0], last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      });
+    }
+  }
+
   /* ---------- current year ---------- */
   Array.prototype.forEach.call(document.querySelectorAll("[data-year]"), function (el) {
     el.textContent = new Date().getFullYear();
