@@ -345,7 +345,11 @@ a { color: inherit; text-decoration: none; }
   clip-path: inset(0 0 0 0); visibility: visible;
   transition: clip-path .6s var(--ease), visibility 0s 0s;
 }
-.menu__list { display: flex; flex-direction: column; }
+/* Five links used to sit at the top with ~190px of dead space between them
+   and the booking block. The nav takes the free height and centres the list
+   in it, so the space reads as deliberate on both sides. */
+.menu > nav { flex: 1 1 auto; display: flex; align-items: center; }
+.menu__list { display: flex; flex-direction: column; width: 100%; }
 .menu__item + .menu__item { border-top: 1px solid var(--line-soft); }
 .menu__link {
   display: flex; align-items: baseline; gap: 12px;
@@ -522,13 +526,47 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
 .inv .figure { background: #241D1A; }
 
 /* ---------- Pricing ---------- */
+/* The sticky offset tracks the header's measured height via --header-h,
+   which site.js updates whenever the header shrinks or the window resizes.
+   A hardcoded offset cannot work: the header is 88px at rest, shrinks to 68px
+   on desktop once stuck, but stays 88px on mobile because the two-line
+   wordmark is taller than the shrink target. The previous flat 68px let the
+   header cover the top 21px of this bar. The 88px fallback below is the
+   at-rest height, so if the script never runs the bar still clears it. */
 .price-nav {
-  position: sticky; top: 68px; z-index: 20;
+  position: sticky; top: var(--header-h, 88px); z-index: 20;
   background: var(--ivory);
   border-bottom: 1px solid var(--line);
 }
-.price-nav__list { display: flex; gap: var(--sp-2); overflow-x: auto; scrollbar-width: none; }
+.price-nav__list {
+  display: flex; gap: var(--sp-2);
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+}
 .price-nav__list::-webkit-scrollbar { display: none; }
+.price-nav__list > li { scroll-snap-align: start; flex: none; }
+/* On a phone the row runs edge to edge and the padding moves onto the list,
+   so categories scroll out under the fade instead of stopping short of it. */
+@media (max-width: 759px) {
+  .price-nav .shell { padding-inline: 0; }
+  .price-nav__list { padding-inline: var(--gutter); }
+}
+/* Edge fade: the only hint that the row continues. JS drops .has-more once
+   the list is scrolled to the end, and never adds it if nothing overflows. */
+.price-nav { position: sticky; }
+.price-nav::after {
+  content: "";
+  position: absolute; top: 0; bottom: 1px; right: 0;
+  width: clamp(32px, 10vw, 64px);
+  background: linear-gradient(to right, rgba(247, 243, 236, 0), var(--ivory) 78%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .3s var(--ease);
+}
+.price-nav.has-more::after { opacity: 1; }
 .price-nav a {
   white-space: nowrap;
   display: inline-flex; align-items: center;
@@ -1023,7 +1061,9 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
 /* ---------- Services categories -------------------------------------------
    Each category opens with the rule, a script accent and a photograph that
    runs to the edge of the grid, so the page changes shape as you scroll. */
-.cat { scroll-margin-top: 96px; }
+/* Clears the fixed header plus the sticky category bar, so a tapped category
+   lands under the bar rather than behind it. */
+.cat { scroll-margin-top: calc(var(--header-h, 88px) + 58px); }
 .cat__head { row-gap: var(--sp-2); align-items: end; margin-bottom: var(--sp-3); }
 .cat__title { grid-column: 1 / -1; }
 .cat__note  { grid-column: 1 / -1; }
@@ -1097,14 +1137,20 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
 /* ---- Category intro ------------------------------------------------------
    One short line under the category photograph, introducing the list below
    it. Not every category has one, and none of them get a paragraph. */
+/* One short line under the category photograph, introducing the list below
+   it. Full width on a phone; from laptop up it runs most of the measure so
+   the sentence wraps into two long lines instead of three short ones beside
+   half an empty section. The size never changes — the fix is width, not a
+   smaller font. */
 .cat__intro {
-  max-width: 62ch;
+  max-width: 100%;
   margin-bottom: var(--sp-3);
   color: var(--mocha);
   font-family: var(--display);
   font-size: var(--fs-lead);
   line-height: 1.4;
 }
+@media (min-width: 1024px) { .cat__intro { max-width: min(1180px, 88%); } }
 .inv .cat__intro { color: var(--sand); }
 
 /* ---- Vitamin accordion ---------------------------------------------------

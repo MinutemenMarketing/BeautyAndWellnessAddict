@@ -9,9 +9,20 @@
   /* ---------- header ---------- */
   var header = document.querySelector(".header");
   if (header) {
-    var setStuck = function () { header.classList.toggle("is-stuck", window.scrollY > 24); };
+    /* Publish the header's measured height. The sticky category bar on the
+       Services page sits at this offset, and it is measured rather than
+       assumed because the header is 88px at rest, 68px once stuck on desktop,
+       and stays 88px on mobile where the two-line wordmark is taller than the
+       shrink target. The CSS carries an 88px fallback for the no-JS case. */
+    var setStuck = function () {
+      header.classList.toggle("is-stuck", window.scrollY > 24);
+      document.documentElement.style.setProperty(
+        "--header-h", Math.round(header.getBoundingClientRect().height) + "px");
+    };
     setStuck();
     window.addEventListener("scroll", setStuck, { passive: true });
+    window.addEventListener("resize", setStuck);
+    window.addEventListener("load", setStuck);
   }
 
   /* ---------- mobile menu ---------- */
@@ -167,8 +178,26 @@
     });
   });
 
-  /* ---------- section scrollspy ---------- */
+  /* ---------- category bar: scrollspy, edge fade, active chip ----------
+     The bar is a horizontal scroller on small screens. Two things keep it
+     from feeling broken there: the fade only shows while there is more row
+     to reach, and the active category is pulled into view rather than left
+     off to one side while you read a section further down. */
+  var spy = document.querySelector("[data-spy]");
   var spyLinks = document.querySelectorAll("[data-spy] a");
+  var spyList = document.querySelector(".price-nav__list");
+
+  if (spy && spyList) {
+    var updateFade = function () {
+      var more = spyList.scrollWidth - spyList.clientWidth - spyList.scrollLeft > 8;
+      spy.classList.toggle("has-more", more);
+    };
+    updateFade();
+    spyList.addEventListener("scroll", updateFade, { passive: true });
+    window.addEventListener("resize", updateFade);
+    window.addEventListener("load", updateFade);
+  }
+
   if (spyLinks.length && "IntersectionObserver" in window) {
     var targets = [];
     Array.prototype.forEach.call(spyLinks, function (link) {
@@ -178,13 +207,37 @@
         if (t) targets.push({ el: t, link: link });
       }
     });
-    var spy = new IntersectionObserver(function (entries) {
+
+    /* Keep the active chip on screen inside the scroller. Only nudges the row
+       horizontally, never the page, so it cannot fight the reader's scroll. */
+    var revealChip = function (link) {
+      if (!spyList || spyList.scrollWidth <= spyList.clientWidth) return;
+      var l = link.getBoundingClientRect(), c = spyList.getBoundingClientRect();
+      if (l.left < c.left + 8) spyList.scrollBy({ left: l.left - c.left - 16, behavior: reduced ? "auto" : "smooth" });
+      else if (l.right > c.right - 8) spyList.scrollBy({ left: l.right - c.right + 16, behavior: reduced ? "auto" : "smooth" });
+    };
+
+    var setActive = function (el) {
+      targets.forEach(function (t) {
+        var on = t.el === el;
+        t.link.classList.toggle("is-active", on);
+        if (on) revealChip(t.link);
+      });
+    };
+
+    var spyIO = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
-        targets.forEach(function (t) { t.link.classList.toggle("is-active", t.el === entry.target); });
+        setActive(entry.target);
       });
     }, { rootMargin: "-18% 0px -70% 0px" });
-    targets.forEach(function (t) { spy.observe(t.el); });
+    targets.forEach(function (t) { spyIO.observe(t.el); });
+
+    /* Tapping a chip marks it immediately rather than waiting for the scroll
+       to settle and the observer to catch up. */
+    targets.forEach(function (t) {
+      t.link.addEventListener("click", function () { setActive(t.el); });
+    });
   }
 
   /* ---------- inquiry form ---------- */
