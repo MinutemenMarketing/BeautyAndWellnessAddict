@@ -361,7 +361,9 @@ a { color: inherit; text-decoration: none; }
 }
 .menu.is-open .menu__link { opacity: 1; transition: opacity .5s var(--ease) .15s; }
 .menu__link em { font-style: italic; font-size: .46em; color: var(--greige); }
-.menu__foot { margin-top: auto; padding-top: var(--sp-3); display: grid; gap: 4px; }
+/* Holds the booking button alone. The phone and Instagram rows that used to
+   sit under it live in the footer and on the Contact page instead. */
+.menu__foot { margin-top: auto; padding-top: var(--sp-3); display: flex; }
 /* Short screens: tighten so the booking button stays above the fold with
    eight items in the list. */
 @media (max-height: 730px) {
@@ -369,8 +371,9 @@ a { color: inherit; text-decoration: none; }
   .menu__link { padding: 10px 0; font-size: clamp(1.375rem, 1rem + 2.2vw, 1.75rem); }
   .menu__foot { padding-top: var(--sp-2); }
 }
-.menu__foot .ul-link { display: inline-flex; align-items: center; min-height: 44px; }
-.menu__foot .btn { margin-bottom: var(--sp-1); justify-self: start; }
+/* No trailing margin: nothing sits under the button now, so the only space
+   below it is the menu's own bottom padding. */
+.menu__foot .btn { align-self: flex-start; }
 
 /* ---------- Hero ---------- */
 .hero { padding-top: 140px; }
@@ -745,20 +748,16 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
    underline on these instead. */
 .footer__list li > a,
 .footer__bottom .ul-link,
-.contact-row__v .ul-link,
-.menu__foot .ul-link {
+.contact-row__v .ul-link {
   text-underline-offset: .3em;
   text-decoration-thickness: 1px;
 }
 .footer__list li > a::after,
 .footer__bottom .ul-link::after,
-.contact-row__v .ul-link::after,
-.menu__foot .ul-link::after { content: none; }
+.contact-row__v .ul-link::after { content: none; }
 .footer__list li > a:hover,
 .footer__list li > a:focus-visible,
-.contact-row__v .ul-link:focus-visible,
-.menu__foot .ul-link:hover,
-.menu__foot .ul-link:focus-visible { text-decoration: underline; }
+.contact-row__v .ul-link:focus-visible { text-decoration: underline; }
 
 /* The studio credit stays underlined so it reads as a link without a hover. */
 .footer__by .ul-link { text-decoration-line: underline; }
