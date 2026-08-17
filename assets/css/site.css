@@ -949,7 +949,35 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
   object-fit: cover;
   object-position: 62% 50%;
 }
-@media (max-width: 899px) { .hero-full__media img { object-position: 68% 50%; } }
+/* Phones: the chair is the subject, so the frame is centred on it (it sits at
+   54% across the photograph) rather than pushed right toward the window.
+
+   Height matters more than position here. A full-viewport hero on a 390px
+   phone shows only 392px of the 1264px source across, and the chair alone is
+   580px of it — a third of it is cropped away no matter where the frame sits.
+   Letting the content set the height instead of forcing 100svh brings the
+   hero to ~590px, which widens the visible band to ~560px and puts the whole
+   chair in frame. Desktop keeps the full-bleed 100svh. */
+@media (max-width: 620px) {
+  .hero-full {
+    min-height: 62svh;
+    padding-top: 104px;
+    padding-bottom: 48px;
+  }
+  .hero-full__media img { object-position: 54% 50%; }
+  /* A shorter hero puts the copy over the bright curtain rather than the dark
+     floor, so the scrim has to carry more here than on desktop. Measured by
+     compositing the real pixels under the real glyph boxes: at the desktop
+     values the h1 fell to 2.29:1 and the lead to 3.42:1. */
+  .hero-full__scrim {
+    background:
+      linear-gradient(to top, rgba(29,23,21,.93) 0%, rgba(29,23,21,.84) 30%, rgba(29,23,21,.75) 55%, rgba(29,23,21,.69) 80%, rgba(29,23,21,.66) 100%),
+      linear-gradient(to right, rgba(29,23,21,.42) 0%, rgba(29,23,21,.14) 70%, rgba(29,23,21,.08) 100%);
+  }
+}
+@media (min-width: 621px) and (max-width: 899px) {
+  .hero-full__media img { object-position: 58% 50%; }
+}
 .hero-full__scrim {
   position: absolute; inset: 0; z-index: 1;
   background:
