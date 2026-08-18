@@ -315,24 +315,42 @@ a { color: inherit; text-decoration: none; }
 @media (min-width: 1140px) { .header__cta { display: inline-flex; } }
 .header__cta.btn { min-height: 44px; padding: 12px 24px; }
 
+/* Three hairlines, matching the rules used across the site. The bars sit
+   --burger-gap apart, and the open state translates the outer two by exactly
+   that distance so the strokes meet on the centre line. The previous version
+   moved them half as far, which left the X split into two offset diagonals —
+   the reason it read as broken. Keep the translate and the gap equal. */
 .burger {
+  --burger-gap: 5px;
+  --burger-w: 24px;
   display: inline-flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: var(--burger-gap);
   width: 48px; height: 48px;
-  padding: 0 10px;
+  padding: 0;
   background: none; border: 0; cursor: pointer;
-  margin-right: -10px;
+  margin-right: -8px;
+  color: var(--espresso);
 }
 .burger span {
-  display: block; height: 1px; width: 100%;
-  background: var(--espresso);
-  transition: transform .4s var(--ease), opacity .25s var(--ease);
+  display: block;
+  width: var(--burger-w); height: 1px;
+  background: currentColor;
+  transform-origin: 50% 50%;
+  transition: transform .45s var(--ease), opacity .2s var(--ease), width .35s var(--ease);
 }
-.burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(3.5px) rotate(45deg); }
-.burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
-.burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-3.5px) rotate(-45deg); }
+/* The middle bar is shorter at rest, so the mark reads as drawn rather than
+   as three identical strokes. It is the one that disappears on open. */
+.burger span:nth-child(2) { width: calc(var(--burger-w) - 6px); }
+.burger:hover, .burger:focus-visible { color: var(--gold-ink); }
+.burger:hover span:nth-child(2) { width: var(--burger-w); }
+.burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(calc(var(--burger-gap) + 1px)) rotate(45deg); }
+.burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(calc((var(--burger-gap) + 1px) * -1)) rotate(-45deg); }
+.burger[aria-expanded="true"] span:nth-child(1),
+.burger[aria-expanded="true"] span:nth-child(3) { width: var(--burger-w); }
 @media (min-width: 1000px) { .burger { display: none; } }
 @media (max-width: 999px) { .nav--desktop { display: none; } }
 
