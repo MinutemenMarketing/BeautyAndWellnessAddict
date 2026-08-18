@@ -8,6 +8,19 @@
 <link rel="canonical" href="https://beautyandwellnessaddictny.com/">
 <meta name="theme-color" content="#F7F3EC">
 
+<style>/* Critical first-paint styles, inlined so the shell and the full-bleed hero
+   are correct on the very first frame — before the external stylesheet loads.
+   Kills the flash of the default body margin (a white edge) around the hero on
+   a slow first load, and holds the hero on its espresso ground until the photo
+   decodes. site.css loads next and overrides all of this. */
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:#F7F3EC}
+.hero-full{position:relative;min-height:100vh;min-height:100svh;overflow:hidden;background:#2B2320}
+.hero-full__media{position:absolute;inset:0}
+.hero-full__media img{width:100%;height:100%;object-fit:cover;object-position:62% 50%}
+</style>
+
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Beauty &amp; Wellness addict NY">
 <meta property="og:title" content="Beauty &amp; Wellness addict NY | Med Spa in Great Neck, New York">
@@ -115,7 +128,6 @@ w.addEventListener("error",function(e){if(e.target&&e.target.tagName==="SCRIPT")
       <li class="menu__item"><a class="menu__link" href="index.html">Home</a></li>
       <li class="menu__item"><a class="menu__link" href="about.html">About</a></li>
       <li class="menu__item"><a class="menu__link" href="services.html">Services</a></li>
-      <li class="menu__item"><a class="menu__link" href="services.html#iv-therapy">IV Therapy <em>Drip addict</em></a></li>
       <li class="menu__item"><a class="menu__link" href="contact.html">Contact</a></li>
     </ul>
   </nav>
