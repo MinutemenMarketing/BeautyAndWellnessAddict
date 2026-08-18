@@ -988,7 +988,8 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
    chair in frame. Desktop keeps the full-bleed 100svh. */
 @media (max-width: 620px) {
   .hero-full {
-    min-height: 62svh;
+    min-height: 100vh;
+  min-height: 100svh;
     padding-top: 104px;
     padding-bottom: 48px;
   }
