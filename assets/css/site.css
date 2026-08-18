@@ -1195,7 +1195,14 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
    max-width of min(1180px, 88%), which is what made the Hair & Scalp sentence
    break with room still to its right: the sentence needs 1229px on one line,
    and the cap held it to 1127px at 1440 even though 1281px was available.
-   No cap here, and no smaller type — the fix is width. */
+   No cap here, and no smaller type — the fix is width.
+
+   The Skin & Rejuvenation intro is the one sentence here that cannot be made
+   to fit on a single line. It measures 1591px at 26px, and the widest measure
+   the shell ever offers is 1400px at a 1600px viewport (1281px at 1440px).
+   One line would mean roughly 20px type, which is only three above body copy
+   and would leave it visibly smaller than the Hair & Scalp intro beside it.
+   It is left at 26px on two lines on purpose. Do not "fix" it by shrinking. */
 .cat__intro {
   max-width: 100%;
   margin-bottom: var(--sp-3);
