@@ -43,8 +43,14 @@
   --sp-4: clamp(64px, 8vw, 128px);
 
   --gutter: clamp(22px, 5vw, 88px);
-  --sec: clamp(80px, 9vw, 156px);
-  --sec-tight: clamp(56px, 6vw, 104px);
+  /* Section padding. Every boundary between two sections spends this twice,
+     so the value here is half of what the reader actually sees between one
+     section ending and the next beginning. At 9vw/156px that boundary reached
+     319px at 1600 and 259px at 1440, which read as dead space rather than
+     breathing room. 7vw/124px brings it to 224px and 202px and still leaves
+     the page airy. */
+  --sec: clamp(72px, 7vw, 124px);
+  --sec-tight: clamp(52px, 5vw, 88px);
   --maxw: 1560px;
 
   --ease: cubic-bezier(.22, .68, .18, 1);
@@ -1104,7 +1110,7 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
    auto, and each banner ends up at its own natural ratio. 2:1 rather than a
    harder crop, because the source photographs are around 3:2 and anything
    wider starts cutting into the subject. */
-.cat__banner { aspect-ratio: 2 / 1; overflow: hidden; background: var(--shell); margin-bottom: var(--sp-3); }
+.cat__banner { aspect-ratio: 2 / 1; overflow: hidden; background: var(--shell); margin-bottom: var(--sp-2); }
 @media (max-width: 759px) { .cat__banner { aspect-ratio: 3 / 2; } }
 .cat__banner .figure { height: 100%; }
 .cat__banner img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
@@ -1162,13 +1168,12 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
 .inv .tx:hover { background: rgba(176,141,87,.09); }
 
 /* ---- Category intro ------------------------------------------------------
-   One short line under the category photograph, introducing the list below
-   it. Not every category has one, and none of them get a paragraph. */
-/* One short line under the category photograph, introducing the list below
-   it. Full width on a phone; from laptop up it runs most of the measure so
-   the sentence wraps into two long lines instead of three short ones beside
-   half an empty section. The size never changes — the fix is width, not a
-   smaller font. */
+   One short line under the category photograph, introducing the list below.
+   It runs the full measure at every width. It previously carried a
+   max-width of min(1180px, 88%), which is what made the Hair & Scalp sentence
+   break with room still to its right: the sentence needs 1229px on one line,
+   and the cap held it to 1127px at 1440 even though 1281px was available.
+   No cap here, and no smaller type — the fix is width. */
 .cat__intro {
   max-width: 100%;
   margin-bottom: var(--sp-3);
@@ -1177,7 +1182,6 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
   font-size: var(--fs-lead);
   line-height: 1.4;
 }
-@media (min-width: 1024px) { .cat__intro { max-width: min(1180px, 88%); } }
 .inv .cat__intro { color: var(--sand); }
 
 /* ---- Vitamin accordion ---------------------------------------------------
