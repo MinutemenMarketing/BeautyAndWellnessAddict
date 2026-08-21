@@ -856,15 +856,20 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
    softly out of focus behind a warm veil. Light-grounded, so the type is
    espresso rather than reversed out of a dark scrim. No face is altered: the
    field is a resampled enlargement of the supplied image. */
+
 .hero-fp {
   position: relative;
   isolation: isolate;
   overflow: hidden;
   background: var(--cream);
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
   padding-top: clamp(104px, 9vw, 140px);
   padding-bottom: var(--sec-tight);
 }
 .hero-fp__bg { position: absolute; inset: 0; z-index: 0; }
+.hero-fp__bg picture { display: block; width: 100%; height: 100%; }
 .hero-fp__bg img {
   width: 100%; height: 100%;
   object-fit: cover;
@@ -887,7 +892,6 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
 .hero-fp__grid { align-items: center; row-gap: var(--sp-3); }
 .hero-fp__copy { grid-column: 1 / -1; }
 @media (min-width: 860px) {
-  .hero-fp { min-height: 100svh; display: flex; align-items: center; }
   .hero-fp__copy { grid-column: 1 / 7; }
 }
 @media (min-width: 1200px) {
@@ -908,6 +912,11 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
 .hero-fp .btn-row { margin-top: var(--sp-3); }
 @media (max-width: 859px) {
   .hero-fp { padding-top: 104px; padding-bottom: clamp(56px, 8vw, 80px); }
+  /* The phone gets its own crop of the photograph — thigh up rather than the
+     full standing figure, which at this aspect would otherwise sit tiny in the
+     middle of the frame. Anchored high so their faces stay in the upper half,
+     clear of the copy below. */
+  .hero-fp__bg img { object-position: 50% 22%; }
   .hero-fp__lead { max-width: 30ch; }
   /* Stacked, the copy runs the full width and crosses the thin right-hand end
      of the directional veil, landing over the dark hair in the field. Measured
