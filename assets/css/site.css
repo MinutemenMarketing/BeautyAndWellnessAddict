@@ -852,11 +852,10 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
 [data-stagger].is-in > *:nth-child(6) { transition-delay: .45s; }
 
 /* ---------- Founders hero ------------------------------------------------
-   The practice is the two of them, so the page opens on their photograph. A
-   blurred, enlarged crop of that same photo is the ambient field; the sharp
-   waist-up crop is the focal portrait. Warm and light-grounded, so the type
-   is espresso rather than reversed out of a dark scrim. No face is altered:
-   both layers are crops of one supplied image. */
+   The practice is the two of them, so the page opens on their own photograph,
+   softly out of focus behind a warm veil. Light-grounded, so the type is
+   espresso rather than reversed out of a dark scrim. No face is altered: the
+   field is a resampled enlargement of the supplied image. */
 .hero-fp {
   position: relative;
   isolation: isolate;
@@ -869,42 +868,37 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
 .hero-fp__bg img {
   width: 100%; height: 100%;
   object-fit: cover;
-  object-position: 50% 32%;
-  /* The asset is already a resample blur; this small extra softening hides the
-     resample seams, and the scale keeps the blurred edge off the frame. */
-  filter: blur(8px);
-  transform: scale(1.08);
+  object-position: 50% 30%;
+  /* The asset carries the blur as a resample (downsampled to 130px, back up
+     to 1600). This pass only softens the resample grid — deliberately light,
+     because they should still read as themselves. */
+  filter: blur(3px);
+  transform: scale(1.05);
 }
-
-/* Warm veil: a wash so the blurred field reads as tone rather than a second
-   photograph competing with the portrait, and so espresso type clears AA over
-   it. Heavier on the left where the copy sits, lighter over the portrait. */
+/* Warm veil. Heavy on the left, where the type sits and has to clear AA;
+   thin on the right, where the photograph is the whole point. */
 .hero-fp__veil {
   position: absolute; inset: 0; z-index: 1;
   background:
-    linear-gradient(105deg, rgba(242,235,225,.95) 0%, rgba(242,235,225,.88) 42%, rgba(242,235,225,.58) 68%, rgba(239,230,219,.36) 100%),
-    linear-gradient(to top, rgba(242,235,225,.66), rgba(242,235,225,0) 40%);
+    linear-gradient(100deg, rgba(242,235,225,.95) 0%, rgba(242,235,225,.88) 34%, rgba(242,235,225,.46) 62%, rgba(242,235,225,.14) 100%),
+    linear-gradient(to top, rgba(242,235,225,.40), rgba(242,235,225,0) 32%);
 }
 .hero-fp__inner { position: relative; z-index: 2; width: 100%; }
 .hero-fp__grid { align-items: center; row-gap: var(--sp-3); }
 .hero-fp__copy { grid-column: 1 / -1; }
-.hero-fp__media { grid-column: 1 / -1; }
 @media (min-width: 860px) {
   .hero-fp { min-height: 100svh; display: flex; align-items: center; }
-  .hero-fp__copy  { grid-column: 1 / 7; }
-  .hero-fp__media { grid-column: 7 / -1; }
+  .hero-fp__copy { grid-column: 1 / 7; }
 }
 @media (min-width: 1200px) {
-  .hero-fp__copy  { grid-column: 1 / 6; }
-  .hero-fp__media { grid-column: 7 / -1; }
+  .hero-fp__copy { grid-column: 1 / 6; }
 }
-/* Sized to its column, not to the viewport. --fs-h1 tops out at 139px, which
-   is right for a full-bleed hero but wraps "Look well." onto two lines inside
-   this 514px copy column and pushed the hero to 128% of the viewport. */
+/* Sized to its column rather than the viewport: --fs-h1 tops out at 139px,
+   which wraps "Look well." onto two lines inside this measure. */
 .hero-fp .h1 { color: var(--espresso); font-size: clamp(2.9rem, 1.6rem + 5.2vw, 6.25rem); }
 .hero-fp .it { color: var(--gold-ink); }
 .hero-fp__lead {
-  color: var(--mocha);
+  color: var(--espresso);
   font-family: var(--display);
   font-size: var(--fs-lead);
   line-height: 1.4;
@@ -912,32 +906,18 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
   margin-top: var(--sp-2);
 }
 .hero-fp .btn-row { margin-top: var(--sp-3); }
-/* The portrait: an editorial frame capped so the 810px asset is never
-   upscaled, anchored to the right of its column on desktop. */
-.hero-fp__frame {
-  aspect-ratio: 81 / 83;
-  max-width: 500px;
-  margin-inline: auto;
-  overflow: hidden;
-  background: var(--shell);
-  box-shadow: 0 30px 60px -34px rgba(43, 35, 32, .38);
-}
-@media (min-width: 860px) { .hero-fp__frame { margin-right: 0; } }
-/* Stacked: the portrait sits under the copy, so it is capped and the padding
-   pulled in to keep the whole opening close to one screen. */
 @media (max-width: 859px) {
-  .hero-fp { padding-top: 96px; padding-bottom: clamp(40px, 6vw, 64px); }
-  .hero-fp__frame { max-width: min(320px, 82%); }
+  .hero-fp { padding-top: 104px; padding-bottom: clamp(56px, 8vw, 80px); }
   .hero-fp__lead { max-width: 30ch; }
-  /* Stacked, the copy runs the full width, so it crosses the thin right-hand
-     end of the directional veil and sits over the dark hair in the blurred
-     field. Measured there, the lead fell to 2.01:1. An even veil instead:
-     the darkest pixel under it leaves the lead at 4.8:1. */
+  /* Stacked, the copy runs the full width and crosses the thin right-hand end
+     of the directional veil, landing over the dark hair in the field. Measured
+     there it fell to 2.01:1, so the veil is even at this size instead. The
+     lead is set in espresso rather than mocha, which buys the contrast that
+     would otherwise cost a heavier veil over the photograph. */
   .hero-fp__veil {
-    background: linear-gradient(to bottom, rgba(242,235,225,.93) 0%, rgba(242,235,225,.90) 55%, rgba(242,235,225,.88) 100%);
+    background: linear-gradient(to bottom, rgba(242,235,225,.84) 0%, rgba(242,235,225,.81) 55%, rgba(242,235,225,.79) 100%);
   }
 }
-.hero-fp__frame img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; }
 
 /* ---------- Founders ------------------------------------------------------
    Typographic, not a split with a photograph: the hero directly above already
