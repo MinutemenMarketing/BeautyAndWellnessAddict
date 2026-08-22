@@ -174,7 +174,8 @@ rather than guessed:
 | Botox for excess sweating | Square lists $8, against $12 per unit for every other neurotoxin service | "Price at consult" |
 | LED light therapy, OMNILUX LED mask | Carried over from the previous price list; neither appears in the current Square catalogue | Kept at $40/$100 and $325 |
 
-IV therapy exists in Square as a single bookable service, "IV Drip, starting at $249", with no
+V Therapy (the client’s own name for it) exists in Square as a single bookable service, "IV Drip,
+starting at $249", with no
 published per-formula menu. Individual drip names are deliberately not listed rather than
 invented.
 
@@ -324,3 +325,22 @@ on the Services page share identical name, description and price offsets.
 The sweep runs in a non-compositing tab, so `requestAnimationFrame` is starved and the reveal
 failsafe correctly drops the gate. That is the safety net working, not a fault; it also means
 the sweep cannot observe the animations themselves, only that nothing is left invisible.
+
+## Services scope (client-defined)
+
+The Services page lists **only** the treatments the client supplied, using the client's own
+descriptions verbatim. On their instruction the following were removed from the site — they
+may still be bookable in Square, so restore them here if the client asks:
+
+Botox / Xeomin two-week follow-up, Botox for excess sweating, Microneedling with REJURAN,
+Microneedling with Z.O., PRP facial rejuvenation, HydraFacial Signature, HydraFacial Deluxe,
+LED light therapy, OMNILUX LED mask, Keravive scalp treatment, Vitamin injections,
+Peptide therapy (generic), TB-500 standalone, NAD injections (duplicate), and all seven
+consultations (Skin, Neurotoxin, Wellness visit, Blood work review, Hair, Fertility, Virtual).
+
+The whole Consultations category was removed with them, along with its nav chip.
+
+"V Therapy" is the client's confirmed name for the infusion service (confirmed 2026-08-22);
+it is not a typo for "IV therapy". Do not rename it back.
+
+Nine peptide rows read "Price at consult" because the client supplied no price for them.
