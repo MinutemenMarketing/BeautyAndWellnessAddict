@@ -1188,7 +1188,6 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
 }
 /* The heart is the client's, kept but held below the cap height so it sits
    with the serif instead of shouting over it. */
-.meetus__mark { font-size: .52em; vertical-align: .28em; margin-left: .1em; }
 
 /* ---------- Gallery, editorial masonry ------------------------------------
    Mixed spans on a six-column bed. The two client photographs are placed at

@@ -174,7 +174,7 @@ rather than guessed:
 | Botox for excess sweating | Square lists $8, against $12 per unit for every other neurotoxin service | "Price at consult" |
 | LED light therapy, OMNILUX LED mask | Carried over from the previous price list; neither appears in the current Square catalogue | Kept at $40/$100 and $325 |
 
-V Therapy (the client’s own name for it) exists in Square as a single bookable service, "IV Drip,
+IV Therapy exists in Square as a single bookable service, "IV Drip,
 starting at $249", with no
 published per-formula menu. Individual drip names are deliberately not listed rather than
 invented.
@@ -340,7 +340,9 @@ consultations (Skin, Neurotoxin, Wellness visit, Blood work review, Hair, Fertil
 
 The whole Consultations category was removed with them, along with its nav chip.
 
-"V Therapy" is the client's confirmed name for the infusion service (confirmed 2026-08-22);
-it is not a typo for "IV therapy". Do not rename it back.
+The infusion service is labelled **IV Therapy** across the site. It was briefly changed to
+"V Therapy" on 2026-08-22 after the client appeared to confirm that spelling, then corrected
+back the same day when they clarified the I was missing. The section anchor is #iv-therapy.
+The sub-brand under it stays "Drip addict", which links to instagram.com/dripaddict_ny.
 
 Nine peptide rows read "Price at consult" because the client supplied no price for them.
