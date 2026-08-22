@@ -1165,25 +1165,32 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
    information the review text does not already carry. */
 .stars { display: block; width: 92px; height: 15px; color: var(--gold); margin-bottom: var(--sp-2); }
 
+/* ---------- Meet us -------------------------------------------------------
+   Introduces the photographs below it. Measure held short of the gallery so
+   the paragraph reads as a lead-in rather than a column of text. */
+.meetus { max-width: 68ch; margin-bottom: var(--sp-4); }
+.meetus__body {
+  margin-top: var(--sp-2);
+  color: var(--mocha);
+  font-size: var(--fs-body);
+  line-height: 1.7;
+}
+/* The heart is the client's, kept but held below the cap height so it sits
+   with the serif instead of shouting over it. */
+.meetus__mark { font-size: .52em; vertical-align: .28em; margin-left: .1em; }
+
 /* ---------- Gallery, editorial masonry ------------------------------------
    Mixed spans on a six-column bed. The two client photographs are placed at
    their own aspect ratios rather than cropped to match the room shots. */
-/* Multi-column rather than a row grid: every photograph keeps its own
-   aspect ratio, so nothing is cropped to fit a cell and no row leaves a gap
-   under the shorter image. The two client photographs are the reason —
-   one is 2.17:1 and one is square, and neither should be trimmed. */
-/* Column counts are chosen so a column never gets wider than the smallest
-   client photograph (348px). Every image is displayed at or below its native
-   width, which is what keeps them sharp. */
-/* Three columns is the maximum. A fourth splits eight photographs of very
-   different heights badly: measured at 1280px, four columns left the shortest
-   column ending 307px above the tallest, which reads as a hole under the
-   gallery. Three brings that to 125px. The width cap keeps a column near
-   400px so the smallest client photograph (348px) is never meaningfully
-   upscaled at large viewports. */
-.gal { column-count: 1; column-gap: clamp(14px, 1.8vw, 26px); max-width: 1240px; }
+/* Multi-column rather than a row grid: every photograph keeps its own aspect
+   ratio, so nothing is cropped to fit a cell and no face is trimmed. Two
+   columns, not three: with five photographs of very different shapes, three
+   columns split 2/2/1 and left the short column ending 397px above the tall
+   one. Two columns bring that to about 70px. The 880px cap sits with the
+   measure of the Meet us paragraph above, so the two read as one column, and
+   it keeps the smallest photograph (352px) from being upscaled past ~1.15. */
+.gal { column-count: 1; column-gap: clamp(14px, 1.8vw, 26px); max-width: 880px; }
 @media (min-width: 700px) { .gal { column-count: 2; } }
-@media (min-width: 900px) { .gal { column-count: 3; } }
 .gal__item { break-inside: avoid; margin-bottom: clamp(14px, 1.8vw, 26px); }
 .gal__btn {
   display: block; width: 100%; padding: 0; border: 0;

@@ -115,7 +115,7 @@ w.addEventListener("error",function(e){if(e.target&&e.target.tagName==="SCRIPT")
 <main id="main">
 
   <!-- ABOUT HERO — white and typography-led. No photograph here on purpose:
-       the Gallery below carries the imagery, and the white ground makes the
+       Meet us below carries the imagery, and the white ground makes the
        cream Gallery read as a deliberate divider. -->
   <section class="abouthero">
     <div class="shell">
@@ -131,54 +131,40 @@ w.addEventListener("error",function(e){if(e.target&&e.target.tagName==="SCRIPT")
     </div>
   </section>
 
-  <!-- GALLERY — the real practice. Masonry, so every photograph keeps its own
-       aspect ratio and nothing is cropped to fit a cell. Click to enlarge. -->
+  <!-- MEET US — the blurb sits above the photographs. Every image here is a real
+       photograph supplied by the practice; no stock, no generated imagery. -->
   <section class="section bg-cream" id="gallery">
     <div class="shell">
-      <div class="mb-3">
+      <div class="meetus">
         <span class="rule-g" data-reveal aria-hidden="true"></span>
-        <h2 class="h2" data-reveal>Gallery</h2>
+        <h2 class="h2" data-reveal>Meet us <span class="meetus__mark" aria-hidden="true">💕</span></h2>
+        <p class="meetus__body" data-reveal data-delay="80">Beauty &amp; Wellness Addict was created by two healthcare professionals who share a passion for helping people look and feel their best from the inside out. With one of us focused on wellness, longevity, and preventive care, and the other on aesthetic medicine and natural beauty, we truly are Yin and Yang. Our different strengths come together to create one shared vision: a personalized approach to wellness and aesthetics that helps you feel confident, healthy, vibrant, and beautiful—at every stage of life.</p>
       </div>
 
       <div class="gal" data-lightbox>
         <div class="gal__item" data-reveal="mask">
-          <button class="gal__btn" type="button" aria-label="Enlarge: Sheila and Lisa at the Beauty Addict flower wall">
-            <img src="assets/img/founders-flowerwall.jpg" alt="Dr. Sheila Omrani and Nurse Lisa Farazmand in front of the pink flower wall and Beauty Addict neon sign at their Great Neck practice." loading="lazy" decoding="async" width="348" height="348">
+          <button class="gal__btn" type="button" aria-label="Enlarge: Dr. Sheila Omrani and Nurse Lisa Farazmand beneath the Beauty and Wellness addict signage">
+            <img src="assets/img/founders-sofa.jpg" alt="Dr. Sheila Omrani and Nurse Lisa Farazmand seated together beneath the gold Beauty and Wellness addict signage at their Great Neck practice." loading="lazy" decoding="async" width="706" height="942">
           </button>
         </div>
         <div class="gal__item" data-reveal="mask" data-delay="70">
-          <button class="gal__btn" type="button" aria-label="Enlarge: the Beauty Addict flower wall and neon sign">
-            <img src="assets/img/flowerwall-signage.jpg" alt="The pink and white flower wall with the Beauty Addict neon sign in the Great Neck practice." loading="lazy" decoding="async" width="382" height="510">
+          <button class="gal__btn" type="button" aria-label="Enlarge: the ribbon cutting at the Great Neck practice">
+            <img src="assets/img/founders-ribbon.jpg" alt="Dr. Sheila Omrani and Nurse Lisa Farazmand cutting the ribbon at the opening of their Great Neck practice." loading="lazy" decoding="async" width="706" height="880">
           </button>
         </div>
         <div class="gal__item" data-reveal="mask" data-delay="140">
-          <button class="gal__btn" type="button" aria-label="Enlarge: Sheila and Lisa together at the practice">
+          <button class="gal__btn" type="button" aria-label="Enlarge: Dr. Sheila Omrani and Nurse Lisa Farazmand in the treatment room">
+            <img src="assets/img/founders-portrait.jpg" alt="Dr. Sheila Omrani and Nurse Lisa Farazmand at their Great Neck practice." loading="lazy" decoding="async" width="810" height="830">
+          </button>
+        </div>
+        <div class="gal__item" data-reveal="mask">
+          <button class="gal__btn" type="button" aria-label="Enlarge: Dr. Sheila Omrani and Nurse Lisa Farazmand together at the practice">
             <img src="assets/img/founders-office.jpg" alt="Dr. Sheila Omrani and Nurse Lisa Farazmand together at Beauty and Wellness addict NY in Great Neck." loading="lazy" decoding="async" width="352" height="236">
           </button>
         </div>
-        <div class="gal__item" data-reveal="mask">
-          <button class="gal__btn" type="button" aria-label="Enlarge: Sheila and Lisa in the treatment room">
+        <div class="gal__item" data-reveal="mask" data-delay="70">
+          <button class="gal__btn" type="button" aria-label="Enlarge: Dr. Sheila Omrani and Nurse Lisa Farazmand in the treatment room">
             <img src="assets/img/founders-artwork.jpg" alt="Dr. Sheila Omrani and Nurse Lisa Farazmand in the treatment room at their Great Neck practice." loading="lazy" decoding="async" width="511" height="510">
-          </button>
-        </div>
-        <div class="gal__item" data-reveal="mask" data-delay="70">
-          <button class="gal__btn" type="button" aria-label="Enlarge: a cream throw over a brass-framed chair">
-            <img src="assets/img/chair-throw.jpg" alt="A cream throw folded over a brass-framed chair beside a small brass side table." loading="lazy" decoding="async" width="1400" height="914">
-          </button>
-        </div>
-        <div class="gal__item" data-reveal="mask" data-delay="140">
-          <button class="gal__btn" type="button" aria-label="Enlarge: instruments set out before a treatment">
-            <img src="assets/img/hands-tray.jpg" alt="Instruments set out on a covered tray before a treatment." loading="lazy" decoding="async" width="1264" height="848">
-          </button>
-        </div>
-        <div class="gal__item" data-reveal="mask">
-          <button class="gal__btn" type="button" aria-label="Enlarge: an infusion line and vial on folded linen">
-            <img src="assets/img/iv-line.jpg" alt="A coiled infusion line and a small glass vial resting on folded cream linen." loading="lazy" decoding="async" width="1400" height="914">
-          </button>
-        </div>
-        <div class="gal__item" data-reveal="mask" data-delay="70">
-          <button class="gal__btn" type="button" aria-label="Enlarge: the console table at reception">
-            <img src="assets/img/console-vase.jpg" alt="A console table with a stoneware vase against a warm plaster wall." loading="lazy" decoding="async" width="1400" height="914">
           </button>
         </div>
       </div>
