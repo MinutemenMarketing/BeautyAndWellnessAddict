@@ -311,7 +311,7 @@
           status.textContent = "Thank you. We will be in touch shortly.";
         })
         .catch(function () {
-          status.textContent = "That did not send. Please call or text 917-753-3570 and we will pick it up from there.";
+          status.textContent = "That did not send. Please call or text (516) 913-3465 and we will pick it up from there.";
         })
         .then(function () {
           if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = submitLabel; }

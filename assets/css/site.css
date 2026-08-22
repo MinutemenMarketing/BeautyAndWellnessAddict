@@ -1058,6 +1058,11 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
 @media (min-width: 860px) { .tx { grid-template-columns: minmax(0,.85fr) minmax(0,2.1fr) auto; } }
 .tx__name { font-family: var(--display); font-weight: 500; font-size: clamp(1.1875rem, 1rem + .8vw, 1.625rem); line-height: 1.2; }
 .tx__desc { color: var(--mocha); font-size: var(--fs-small); max-width: 76ch; }
+/* A short client-written line that opens a description. Set on its own line
+   in the display face so it reads as a lead rather than running into the
+   sentence behind it. */
+.tx__lead { display: block; font-family: var(--display); font-style: italic; font-size: 1.15em; color: var(--gold-ink); margin-bottom: .3em; }
+.inv .tx__lead { color: var(--gold); }
 .tx__price {
   font-family: var(--display); font-weight: 500;
   font-size: clamp(1.1875rem, 1rem + .7vw, 1.5rem);
@@ -1168,7 +1173,13 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
 /* ---------- Meet us -------------------------------------------------------
    Introduces the photographs below it. Measure held short of the gallery so
    the paragraph reads as a lead-in rather than a column of text. */
-.meetus { max-width: 68ch; margin-bottom: var(--sp-4); }
+/* Meet us and the gallery share one 880px column, centred. The width is set
+   by the smallest photograph: founders-office.jpg is 352px, so a column wider
+   than about 460px starts to soften it, which caps a two-column gallery here.
+   Left-aligned at this width it left a 473px void down the right at 1440, so
+   the block is centred instead and the space falls evenly on both sides. */
+.meetus { max-width: 880px; margin-inline: auto; margin-bottom: var(--sp-4); }
+.meetus__body { max-width: 68ch; }
 .meetus__body {
   margin-top: var(--sp-2);
   color: var(--mocha);
@@ -1189,7 +1200,7 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
    one. Two columns bring that to about 70px. The 880px cap sits with the
    measure of the Meet us paragraph above, so the two read as one column, and
    it keeps the smallest photograph (352px) from being upscaled past ~1.15. */
-.gal { column-count: 1; column-gap: clamp(14px, 1.8vw, 26px); max-width: 880px; }
+.gal { column-count: 1; column-gap: clamp(14px, 1.8vw, 26px); max-width: 880px; margin-inline: auto; }
 @media (min-width: 700px) { .gal { column-count: 2; } }
 .gal__item { break-inside: avoid; margin-bottom: clamp(14px, 1.8vw, 26px); }
 .gal__btn {
