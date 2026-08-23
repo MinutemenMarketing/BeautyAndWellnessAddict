@@ -236,7 +236,7 @@ activation from a real outage. Visitors see a fallback pointing them to the phon
 
 ## Before launch
 
-1. Replace `beautyandwellnessaddictny.com` in the canonical/OG tags, `sitemap.xml` and `robots.txt` with the real domain.
+1. Replace `beauty-wellness-addict.vercel.app` in the canonical/OG tags, `sitemap.xml` and `robots.txt` with the real domain.
 2. Confirm the three UNRESOLVED prices above, and whether the two LED treatments are still offered.
 3. Confirm opening hours and a public email address, then add both to `contact.html`.
 4. Serve images with long cache headers **only** if filenames are content-hashed; otherwise keep `max-age` short so price and photo updates appear immediately.

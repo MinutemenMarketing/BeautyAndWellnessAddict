@@ -1055,7 +1055,14 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
 /* The name column is narrower and the supporting column wider than before:
    the supporting line was breaking into three and four short lines while the
    name column sat half empty. */
-@media (min-width: 860px) { .tx { grid-template-columns: minmax(0,.85fr) minmax(0,2.1fr) auto; } }
+/* The price track is a fraction, never auto. Each .tx is its own grid, so an
+   auto track sized to that row/s own price: "Price at consult" measures 146px
+   against 45px for "$150", which pulled the other two columns in by up to 29px
+   and left every description starting at a different x. A fixed fraction makes
+   all rows resolve to identical tracks. The 160px floor keeps the widest
+   price ("Price at consult") on one line down at the 860px breakpoint, where
+   .42fr alone would only give it 88px. */
+@media (min-width: 860px) { .tx { grid-template-columns: minmax(0,.85fr) minmax(0,2.1fr) minmax(160px,.42fr); } }
 .tx__name { font-family: var(--display); font-weight: 500; font-size: clamp(1.1875rem, 1rem + .8vw, 1.625rem); line-height: 1.2; }
 .tx__desc { color: var(--mocha); font-size: var(--fs-small); max-width: 76ch; }
 /* A short client-written line that opens a description. Set on its own line

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://beautyandwellnessaddictny.com/sitemap.xml
+Sitemap: https://beauty-wellness-addict.vercel.app/sitemap.xml
