@@ -469,7 +469,6 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
 .inv .eyebrow, .inv .small, .inv .micro, .inv .figure__cap { color: var(--taupe); }
 .inv .svc__meta, .inv .it { color: var(--gold); }
 .inv .arrow-link svg { color: var(--gold); }
-.close .it, .cta-band .it { color: var(--gold); }
 .inv .lead, .inv .body, .inv .svc__desc { color: var(--sand); }
 .inv .rule-top, .inv .svc, .inv .svc-list > .svc:first-child { border-color: var(--line-inv); }
 .inv .figure { background: #241D1A; }
@@ -655,8 +654,6 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
 }
 
 /* ---------- Closing CTA ---------- */
-.close { background: var(--espresso); color: var(--sand); text-align: center; }
-.close .btn { margin-top: var(--sp-3); }
 
 /* ---------- Footer ---------- */
 .footer { background: var(--espresso); color: var(--sand); padding-top: var(--sp-4); padding-bottom: var(--sp-2); }
