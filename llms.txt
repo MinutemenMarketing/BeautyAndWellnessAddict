@@ -17,10 +17,10 @@
 
 ## Pages
 
-- [Home](https://beautyandwellnessaddictny.com/): Overview of the practice, the providers, and the treatment categories offered.
-- [Services & Pricing](https://beautyandwellnessaddictny.com/services.html): Full treatment menu with current pricing for every service.
-- [About](https://beautyandwellnessaddictny.com/about.html): Backgrounds of Dr. Sheila Omrani and Lisa Farazmand, RN, and the practice philosophy.
-- [Contact & Booking](https://beautyandwellnessaddictny.com/contact.html): Location, phone, social channels, online booking, and contact form.
+- [Home](https://beautyandwellnessny.com/): Overview of the practice, the providers, and the treatment categories offered.
+- [Services & Pricing](https://beautyandwellnessny.com/services.html): Full treatment menu with current pricing for every service.
+- [About](https://beautyandwellnessny.com/about.html): Backgrounds of Dr. Sheila Omrani and Lisa Farazmand, RN, and the practice philosophy.
+- [Contact & Booking](https://beautyandwellnessny.com/contact.html): Location, phone, social channels, online booking, and contact form.
 
 ## Treatment categories
 
