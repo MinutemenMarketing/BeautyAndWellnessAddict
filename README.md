@@ -221,22 +221,29 @@ embedded, so nothing here breaks if Square changes its UI.
 
 ## The inquiry form
 
-`contact.html` posts to FormSubmit, currently to `nmmedina08@icloud.com`.
+`contact.html` posts to **Web3Forms**, `https://api.web3forms.com/submit`, using the client's
+access key `c21184c5-364b-4901-9c44-b89a4e9007bc`. Delivery goes to whichever address that key
+is registered against in the Web3Forms account, which is set there rather than in this repo.
 
-**FormSubmit activates per domain as well as per address.** The first submission from a new
-domain triggers a one-time activation email that has to be clicked before anything is delivered.
+The access key is a public, client-side identifier by design and is meant to sit in the markup.
+It is not a secret and needs no build step or environment variable.
 
-- [ ] Send one test inquiry from the live site
-- [ ] Open the FormSubmit email and click **Activate Form**
-- [ ] Send a second test to confirm it arrives
-- [ ] Expect this again on a custom domain, and again when the address changes at handover
+Unlike FormSubmit, which this replaced, there is no per-domain activation click. It should
+deliver from the first submission.
 
-On failure the form logs FormSubmit's own message to the console, which separates a pending
-activation from a real outage. Visitors see a fallback pointing them to the phone number.
+- [ ] Send one test inquiry from the live site and confirm it arrives
+- [ ] Confirm the destination address on the Web3Forms dashboard is the one the client wants
+
+Spam control is Web3Forms' own `botcheck` honeypot: a hidden checkbox that must stay named
+`botcheck`, and any submission with it checked is discarded.
+
+The handler parses the JSON body rather than trusting the status code, because Web3Forms
+answers 200 with `success:false` for a rejected submission. On failure it logs the API's own
+message to the console and visitors see a fallback pointing them to the phone number.
 
 ## Before launch
 
-1. Replace `beauty-wellness-addict.vercel.app` in the canonical/OG tags, `sitemap.xml` and `robots.txt` with the real domain.
+1. Confirm `beautyandwellnessny.com` is attached to the Vercel project. The canonical/OG tags, `sitemap.xml`, `robots.txt` and `llms.txt` already point there, but the project currently serves only `beauty-wellness-addict.vercel.app`.
 2. Confirm the three UNRESOLVED prices above, and whether the two LED treatments are still offered.
 3. Confirm opening hours and a public email address, then add both to `contact.html`.
 4. Serve images with long cache headers **only** if filenames are content-hashed; otherwise keep `max-age` short so price and photo updates appear immediately.

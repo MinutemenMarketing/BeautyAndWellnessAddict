@@ -204,11 +204,15 @@ w.addEventListener("error",function(e){if(e.target&&e.target.tagName==="SCRIPT")
               <h2 class="h2">Send a message</h2>
             </div>
 
-        <form class="form" data-form action="https://formsubmit.co/nmmedina08@icloud.com" method="POST" novalidate>
-          <input type="hidden" name="_subject" value="Website inquiry — Beauty &amp; Wellness addict NY">
-          <input type="hidden" name="_captcha" value="false">
-          <input type="hidden" name="_template" value="table">
-          <input type="text" name="_honey" tabindex="-1" autocomplete="off" class="visually-hidden" aria-hidden="true">
+        <form class="form" data-form action="https://api.web3forms.com/submit" method="POST" novalidate>
+          <!-- Web3Forms. The access key is a public client-side identifier by design,
+               not a secret. Delivery goes to the address registered against it. -->
+          <input type="hidden" name="access_key" value="c21184c5-364b-4901-9c44-b89a4e9007bc">
+          <input type="hidden" name="subject" value="Website inquiry — Beauty &amp; Wellness addict NY">
+          <input type="hidden" name="from_name" value="Beauty &amp; Wellness addict NY">
+          <!-- Web3Forms discards anything with this checked. Its own honeypot
+               convention, so keep the name botcheck. -->
+          <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true">
 
           <div class="form__row">
             <div class="field">

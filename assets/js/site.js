@@ -299,9 +299,9 @@
       })
         .then(function (r) { return r.json().catch(function () { return {}; }); })
         .then(function (data) {
-          // FormSubmit answers 200 with success:false while a new domain is still
-          // awaiting its one-time activation click, so the status code alone is
-          // not proof of delivery.
+          // Web3Forms answers 200 with success:false for a rejected submission -
+          // a bad access key, a tripped honeypot, spam filtering - so the status
+          // code alone is not proof of delivery. Parse the body and check.
           var sent = data && (data.success === "true" || data.success === true);
           if (!sent) {
             console.warn("Inquiry not delivered:", (data && data.message) || data);
