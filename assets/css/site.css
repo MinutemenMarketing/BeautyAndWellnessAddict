@@ -1048,7 +1048,10 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
 .tx__name { padding-top: 0; }
 .tx__desc { padding-top: .45em; }
 .tx__price { padding-top: .1em; }
-.tx-list > .tx:first-child { border-top: 1px solid var(--gold-hair); }
+/* :first-of-type, not :first-child - the Skin Rejuvenation list now opens with
+   the microneedling arrival note, so the first treatment is no longer the first
+   child and the hairline that opens the list would otherwise vanish. */
+.tx-list > .tx:first-of-type { border-top: 1px solid var(--gold-hair); }
 /* The name column is narrower and the supporting column wider than before:
    the supporting line was breaking into three and four short lines while the
    name column sat half empty. */
@@ -1087,7 +1090,7 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
 @media (min-width: 860px) { .tx__pkg { white-space: nowrap; } }
 /* Drip addict runs its rules in champagne rather than the default inverted
    hairline, which is what sets the sub-brand apart on the dark ground. */
-.inv .tx, .inv .tx-list > .tx:first-child { border-color: var(--gold-hair); }
+.inv .tx, .inv .tx-list > .tx:first-of-type { border-color: var(--gold-hair); }
 .inv .tx__desc { color: var(--sand); }
 .inv .tx__price { color: var(--gold); }
 .inv .tx__pkg { color: var(--taupe); }
@@ -1110,6 +1113,10 @@ a.svc:hover .svc__name, a.svc:focus-visible .svc__name { transform: translateX(8
    available measure of 1281px at 1440 and 1400px at 1600. At 20px it needs
    1224px and sets on one line from 1440 up, which is what the client asked for.
    Raise this size and that sentence breaks in two again. */
+/* The arrival note reuses .cat__intro exactly; this only closes the gap to the
+   treatments beneath so it reads as belonging to them, not to the category. */
+.cat__intro--note { margin-bottom: var(--sp-1); }
+
 .cat__intro {
   max-width: 100%;
   margin-bottom: var(--sp-3);
@@ -1412,4 +1419,82 @@ a:hover .figure img, .fig-hover:hover img { transform: scale(1.02); }
 .visually-hidden {
   position: absolute; width: 1px; height: 1px; overflow: hidden;
   clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}
+
+/* ---------- Products: the ShopMy window --------------------------------
+   A browser-style frame around a live ShopMy shelf. Existing tokens only,
+   and no new motif: the section opens with .rule-g like every other one.
+
+   The stage has a fixed pixel height so the shelf scrolls inside the frame
+   rather than growing the page. Never a ch unit here - ch resolves against
+   Manrope, not the display face, which is the trap documented above.
+
+   The frame is left scrollable on touch rather than wrapped in
+   -webkit-overflow-scrolling tricks, and the section keeps full section
+   padding above and below so a thumb always has page margin to grab. */
+.shopmy {
+  border: 1px solid var(--gold-hair);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--ivory);
+  box-shadow: 0 18px 48px -28px rgba(43, 35, 32, .30);
+}
+.shopmy__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-1);
+  padding: 10px 14px;
+  background: var(--shell);
+  border-bottom: 1px solid var(--line-soft);
+}
+.shopmy__dots { display: inline-flex; gap: 6px; }
+.shopmy__dots i {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--taupe); opacity: .65;
+}
+.shopmy__url {
+  font-family: var(--text);
+  font-size: .75rem;
+  letter-spacing: .06em;
+  text-transform: lowercase;
+  color: var(--greige);
+}
+.shopmy__stage { position: relative; height: 720px; background: var(--cream); }
+.shopmy__frame {
+  position: relative; z-index: 1;
+  display: block; width: 100%; height: 100%; border: 0;
+}
+/* Cream skeleton behind the frame until it reports a load. */
+.shopmy__skeleton {
+  position: absolute; inset: 0; z-index: 0;
+  background:
+    linear-gradient(100deg, var(--cream) 0%, var(--shell) 50%, var(--cream) 100%);
+  background-size: 220% 100%;
+  animation: shopmy-shimmer 1.6s linear infinite;
+}
+.shopmy.is-loaded .shopmy__skeleton { display: none; }
+@keyframes shopmy-shimmer { to { background-position: -220% 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .shopmy__skeleton { animation: none; }
+}
+/* Fallback card, shown only when the frame never loads. */
+.shopmy__fallback {
+  position: absolute; inset: 0; z-index: 2;
+  display: grid; gap: var(--sp-3);
+  align-content: center; justify-items: center;
+  padding: var(--sp-3);
+  background: var(--cream);
+  text-align: center;
+}
+.shopmy__fallback[hidden] { display: none; }
+.shopmy__fallback img {
+  width: 180px; height: auto; border-radius: 10px;
+}
+.shopmy__fallback-copy { max-width: 46ch; }
+.shopmy__fallback-copy .small { color: var(--mocha); margin: var(--sp-1) 0 var(--sp-2); }
+
+@media (max-width: 859px) {
+  .shopmy__stage { height: 75svh; max-height: 620px; min-height: 420px; }
+  .shopmy__fallback { gap: var(--sp-2); }
+  .shopmy__fallback img { width: 130px; }
 }
