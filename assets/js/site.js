@@ -319,6 +319,61 @@
     });
   }
 
+  /* ---------- the ShopMy window ------------------------------------
+     The frame is third-party and can fail in ways that leave a blank box:
+     a blocked frame, an offline visitor, a tracking blocker. So the
+     skeleton only clears on a real load event, and a 6s timer swaps in the
+     fallback card if that event never arrives. Nothing here is required for
+     the section to make sense - the "Open the full shop" button below the
+     window works with the script dead. */
+  var shop = document.querySelector("[data-shopmy]");
+  if (shop) {
+    var shopFrame = shop.querySelector("[data-shopmy-frame]");
+    var shopFallback = shop.querySelector("[data-shopmy-fallback]");
+    var settled = false;
+    var settle = function (ok) {
+      if (settled) return;
+      settled = true;
+      shop.classList.add("is-loaded");
+      if (!ok && shopFallback) {
+        shopFallback.hidden = false;
+        if (shopFrame) shopFrame.style.display = "none";
+      }
+    };
+    if (shopFrame) {
+      shopFrame.addEventListener("load", function () { settle(true); });
+      shopFrame.addEventListener("error", function () { settle(false); });
+      /* The frame is loading="lazy", so it does not start fetching until it
+         nears the viewport. Arming the timeout at page load therefore fired
+         the fallback on a frame that had never begun - start counting from
+         the moment it actually comes into view instead. */
+      /* Do not trust the load event alone. A lazy frame that is moved or
+         re-parented can finish loading without the listener ever seeing it,
+         which left the skeleton sitting over a perfectly good shelf. So the
+         timeout re-checks the frame itself: contentWindow.length is readable
+         cross-origin and is non-zero once the page inside has really built. */
+      var arm = function () {
+        window.setTimeout(function () {
+          var alive = false;
+          try { alive = !!(shopFrame.contentWindow && shopFrame.contentWindow.length > 0); } catch (e) {}
+          settle(alive);
+        }, 6000);
+      };
+      if ("IntersectionObserver" in window) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) {
+            if (en.isIntersecting) { io.disconnect(); arm(); }
+          });
+        }, { rootMargin: "400px" });
+        io.observe(shop);
+      } else {
+        arm();
+      }
+    } else {
+      settle(false);
+    }
+  }
+
   /* ---------- vitamin accordion -------------------------------------
      One open at a time. The panels are open in CSS by default and only
      become closable once .js-ready lands, so if this script never runs all

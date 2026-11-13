@@ -79,7 +79,7 @@ w.addEventListener("error",function(e){if(e.target&&e.target.tagName==="SCRIPT")
             "@type": "Offer",
             "itemOffered": {
               "@type": "Service",
-              "name": "Botox"
+              "name": "Botox/Xeomin Treatment"
             },
             "price": "12",
             "priceCurrency": "USD",
@@ -98,7 +98,7 @@ w.addEventListener("error",function(e){if(e.target&&e.target.tagName==="SCRIPT")
             "@type": "Offer",
             "itemOffered": {
               "@type": "Service",
-              "name": "Microneedling"
+              "name": "Microneedling with LIFT Serum"
             },
             "price": "300",
             "priceCurrency": "USD"
@@ -107,7 +107,7 @@ w.addEventListener("error",function(e){if(e.target&&e.target.tagName==="SCRIPT")
             "@type": "Offer",
             "itemOffered": {
               "@type": "Service",
-              "name": "Microneedling + PRP"
+              "name": "Microneedling with PRP"
             },
             "price": "500",
             "priceCurrency": "USD"
@@ -199,7 +199,7 @@ w.addEventListener("error",function(e){if(e.target&&e.target.tagName==="SCRIPT")
       "availableService": [
         {
           "@type": "MedicalTherapy",
-          "name": "Botox"
+          "name": "Botox/Xeomin Treatment"
         },
         {
           "@type": "MedicalTherapy",
@@ -214,7 +214,7 @@ w.addEventListener("error",function(e){if(e.target&&e.target.tagName==="SCRIPT")
     {
       "@type": "MedicalTherapy",
       "@id": "https://beautyandwellnessny.com/services.html#skin",
-      "name": "Skin & rejuvenation",
+      "name": "Skin Rejuvenation",
       "url": "https://beautyandwellnessny.com/services.html#skin",
       "provider": {
         "@id": "https://beautyandwellnessny.com/#practice"
@@ -222,11 +222,19 @@ w.addEventListener("error",function(e){if(e.target&&e.target.tagName==="SCRIPT")
       "availableService": [
         {
           "@type": "MedicalTherapy",
-          "name": "Microneedling"
+          "name": "Microneedling with LIFT Serum"
         },
         {
           "@type": "MedicalTherapy",
-          "name": "Microneedling + PRP"
+          "name": "Microneedling with PRP"
+        },
+        {
+          "@type": "MedicalTherapy",
+          "name": "Microneedling with Rejuran Salmon DNA"
+        },
+        {
+          "@type": "MedicalTherapy",
+          "name": "PRX-T33"
         },
         {
           "@type": "MedicalTherapy",
@@ -402,10 +410,11 @@ w.addEventListener("error",function(e){if(e.target&&e.target.tagName==="SCRIPT")
     <div class="shell">
       <ul class="price-nav__list">
         <li><a href="#aesthetic-medicine">Aesthetic medicine</a></li>
-        <li><a href="#skin">Skin &amp; rejuvenation</a></li>
+        <li><a href="#skin">Skin Rejuvenation</a></li>
         <li><a href="#hair-scalp">Hair &amp; scalp</a></li>
         <li><a href="#wellness">Wellness &amp; longevity</a></li>
         <li><a href="#iv-therapy">IV Therapy</a></li>
+        <li><a href="#products">Products</a></li>
       </ul>
     </div>
   </nav>
@@ -434,7 +443,7 @@ w.addEventListener("error",function(e){if(e.target&&e.target.tagName==="SCRIPT")
 
       <div class="tx-list">
         <div class="tx" data-reveal>
-          <h3 class="tx__name">Botox</h3>
+          <h3 class="tx__name">Botox/Xeomin Treatment</h3>
           <p class="tx__desc"><em class="tx__lead">Subtle. Refined. Naturally you</em>Ideal for: forehead lines, frown lines (&#8220;11s&#8221;), crow&#8217;s feet, and other areas of dynamic expression including lower face and Nefertiti lift.</p>
           <p class="tx__price">$12<span class="tx__pkg">Per unit</span></p>
         </div>
@@ -457,7 +466,7 @@ w.addEventListener("error",function(e){if(e.target&&e.target.tagName==="SCRIPT")
       <div class="grid cat__head">
         <div class="cat__title">
           <span class="rule-g" data-reveal aria-hidden="true"></span>
-          <h2 class="h2" data-reveal>Skin &amp; <span class="it">rejuvenation</span></h2>
+          <h2 class="h2" data-reveal>Skin <span class="it">Rejuvenation</span></h2>
         </div>
       </div>
 
@@ -467,18 +476,32 @@ w.addEventListener("error",function(e){if(e.target&&e.target.tagName==="SCRIPT")
         </div>
       </div>
 
-      <p class="cat__intro" data-reveal>Arrive 45 minutes before a microneedling appointment so the numbing cream has time to work.</p>
-
       <div class="tx-list">
+        <!-- The arrival note belongs to the microneedling treatments only, so it
+             sits inside the list directly above them rather than under the
+             category photograph, where it read as covering PRX-T33 and the peel
+             too. Same wording, same .cat__intro styling; --note only tightens the
+             gap so it reads as a lead-in to the three rows beneath it. -->
+        <p class="cat__intro cat__intro--note" data-reveal>Arrive 45 minutes before a microneedling appointment so the numbing cream has time to work.</p>
         <div class="tx" data-reveal>
-          <h3 class="tx__name">Microneedling</h3>
+          <h3 class="tx__name">Microneedling with LIFT Serum</h3>
           <p class="tx__desc">A natural skin-rejuvenating treatment that uses tiny controlled needles to stimulate your skin&#8217;s own collagen and elastin production, helping improve fine lines, texture, tone, firmness, and the appearance of acne scars. A series of four treatments can increase collagen production by up to 400%, revealing smoother, firmer, healthier-looking skin.</p>
           <p class="tx__price">$300<span class="tx__pkg">4 sessions $1,080</span></p>
         </div>
         <div class="tx" data-reveal>
-          <h3 class="tx__name">Microneedling + PRP</h3>
+          <h3 class="tx__name">Microneedling with PRP</h3>
           <p class="tx__desc">Our &#8220;Liquid Gold&#8221; treatment combines microneedling with your own platelet-rich plasma (PRP), rich in naturally occurring growth factors that support the skin&#8217;s renewal and collagen-building process.</p>
           <p class="tx__price">$500<span class="tx__pkg">4 sessions $1,800</span></p>
+        </div>
+        <div class="tx" data-reveal>
+          <h3 class="tx__name">Microneedling with Rejuran Salmon DNA</h3>
+          <p class="tx__desc"><em class="tx__lead">Salmon DNA rejuvenation</em>Rejuran&#8217;s polynucleotide (PN) technology, delivered through microneedling, to help improve skin quality and hydration and support the skin&#8217;s natural repair process. Softens the look of fine lines, uneven texture and dullness for smoother, more radiant skin.</p>
+          <p class="tx__price">$500<span class="tx__pkg">4 sessions $1,800</span></p>
+        </div>
+        <div class="tx" data-reveal>
+          <h3 class="tx__name">PRX-T33</h3>
+          <p class="tx__desc"><em class="tx__lead">No-peel skin rejuvenation</em>A biorevitalization treatment combining TCA, hydrogen peroxide and kojic acid to stimulate skin renewal and support collagen production, without the peeling of a traditional chemical peel. Helps improve the look of fine lines, uneven tone, enlarged pores and loss of firmness.</p>
+          <p class="tx__price">Price varies</p>
         </div>
         <div class="tx" data-reveal>
           <h3 class="tx__name">Perfect Derma Peel</h3>
@@ -520,7 +543,7 @@ w.addEventListener("error",function(e){if(e.target&&e.target.tagName==="SCRIPT")
         <div class="tx" data-reveal>
           <h3 class="tx__name">Keravive for the Scalp</h3>
           <p class="tx__desc">Keravive for the scalp helps rejuvenate and hydrate the scalp while supporting a healthier environment for the hair follicles. By improving scalp quality and nourishing the skin, it may help support stronger, healthier-looking hair and overall hair vitality.</p>
-          <p class="tx__price">Price at consult</p>
+          <p class="tx__price">$200<span class="tx__pkg">Half scalp &#183; full scalp $300</span></p>
         </div>
       </div>
     </div>
@@ -698,6 +721,53 @@ w.addEventListener("error",function(e){if(e.target&&e.target.tagName==="SCRIPT")
 
       <div class="mt-3" data-reveal>
         <a class="btn btn--inv" href="https://book.squareup.com/appointments/sxo39ov27u4avm/location/LW02SPDAKGV63/services" target="_blank" rel="noopener" aria-label="Book a consultation on Square (opens in a new tab)">Book a consultation</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       Products. Sits between the inverted IV Therapy section and the shell
+       closing band, on cream, so the three bands at the foot of the page
+       stay distinct. No new motif: the champagne rule and data-reveal only.
+       ==================================================================== -->
+  <section class="section bg-cream" id="products">
+    <div class="shell">
+      <div class="grid cat__head">
+        <div class="cat__title">
+          <span class="rule-g" data-reveal aria-hidden="true"></span>
+          <p class="eyebrow mb-2" data-reveal>Shop the edit</p>
+          <h2 class="h2" data-reveal>Dr. Omrani&#8217;s <span class="it">picks</span></h2>
+        </div>
+      </div>
+
+      <p class="cat__intro" data-reveal>Products Dr. Sheila Omrani personally recommends, curated on ShopMy.</p>
+
+      <div class="shopmy" data-shopmy data-reveal>
+        <div class="shopmy__bar" aria-hidden="true">
+          <span class="shopmy__dots"><i></i><i></i><i></i></span>
+          <span class="shopmy__url">shopmy.us</span>
+        </div>
+        <div class="shopmy__stage">
+          <div class="shopmy__skeleton" data-shopmy-skeleton aria-hidden="true"></div>
+          <iframe class="shopmy__frame" data-shopmy-frame
+                  src="https://shopmy.us/shop?Curator_id=563232&amp;tab=latest&amp;Section_id=2044462"
+                  title="Dr. Sheila Omrani&#8217;s recommended products on ShopMy"
+                  loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          <!-- Shown only if the frame never reports a load. Never leave a blank box. -->
+          <div class="shopmy__fallback" data-shopmy-fallback hidden>
+            <img src="assets/img/founders-chair.jpg" alt="Dr. Sheila Omrani and Nurse Lisa Farazmand at their Great Neck practice." width="900" height="932" loading="lazy" decoding="async">
+            <div class="shopmy__fallback-copy">
+              <p class="h3">The shelf lives on ShopMy</p>
+              <p class="small">It will not open inside this page right now. Dr. Omrani&#8217;s full list of recommended products is one tap away.</p>
+              <a class="btn" href="https://shopmy.us/shop?Curator_id=563232&amp;tab=latest&amp;Section_id=2044462" target="_blank" rel="noopener sponsored" aria-label="Open the full shop on ShopMy (opens in a new tab)">Open the full shop</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-3" data-reveal>
+        <a class="btn" href="https://shopmy.us/shop?Curator_id=563232&amp;tab=latest&amp;Section_id=2044462" target="_blank" rel="noopener sponsored" aria-label="Open the full shop on ShopMy (opens in a new tab)">Open the full shop</a>
+        <p class="micro mt-1">Some links may earn a commission.</p>
       </div>
     </div>
   </section>
